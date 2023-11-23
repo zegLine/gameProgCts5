@@ -11,9 +11,6 @@ public class Dot {
     // Dot direction
     public double alfa;
 
-    // The maximum border is considered the current frame (window size)
-    public double maxX = Resources.FRAME_WIDTH;
-    public double maxY = Resources.FRAME_HEIGHT;
 
     // Create new dot with given position
     public Dot(double x_, double y_) {
@@ -32,15 +29,15 @@ public class Dot {
         double newY = y + Math.sin(alfa) * speed * diffSeconds;
 
         // Check for collisions with the screen borders
-        if (newX < 0 || newX > maxX) {
+        if (newX < 0 || newX > Resources.FRAME_WIDTH) {
             // Reverse the horizontal direction
             alfa = Math.PI - alfa;
-            newX = Math.max(0, Math.min(maxX, newX)); // Ensure the dot stays within the screen
+            newX = Math.max(0, Math.min(Resources.FRAME_WIDTH, newX)); // Ensure the dot stays within the screen
         }
-        if (newY < 0 || newY > maxY) {
+        if (newY < 0 || newY > Resources.FRAME_HEIGHT) {
             // Reverse the vertical direction
             alfa = -alfa;
-            newY = Math.max(0, Math.min(maxY, newY)); // Ensure the dot stays within the screen
+            newY = Math.max(0, Math.min(Resources.FRAME_HEIGHT, newY)); // Ensure the dot stays within the screen
         }
 
         x = newX;
