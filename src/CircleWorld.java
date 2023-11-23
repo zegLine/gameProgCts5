@@ -1,10 +1,21 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class CircleWorld
 {
     private GraphicSystem graphicSystem;
-    private Dot dot;
+    private final ArrayList<Dot> dots = new ArrayList<>();
     public void init()
     {
-        dot = new Dot(100,400);
+        Random rand = new Random();
+
+        for (int i = 0; i < 100; i++) {
+            double x_current = rand.nextDouble() * Resources.FRAME_WIDTH;
+            double y_current = rand.nextDouble() * Resources.FRAME_HEIGHT;
+            dots.add(new Dot(x_current, y_current));
+        }
+
     }
     public void run() {
 
@@ -12,13 +23,20 @@ public class CircleWorld
         {
             // calculate elapsed time
             long currentTick = System.currentTimeMillis(); double diffSeconds = (currentTick-lastTick)/1000.0; lastTick = currentTick;
-            dot.move(diffSeconds);
             graphicSystem.clear();
-            graphicSystem.draw(dot);
+
+            drawDots(dots);
+
             graphicSystem.redraw();
         }
 
     }
     public void setGraphicSystem(GraphicSystem p) { graphicSystem = p; }
+
+    private void drawDots(List<Dot> dots) {
+        for (Dot d : dots) {
+            graphicSystem.draw(d);
+        }
+    }
 
 }
