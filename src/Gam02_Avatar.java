@@ -9,15 +9,38 @@ public class Gam02_Avatar extends A_GameObject {
     }
     public void move(double diffSeconds)
     {
-// if no moving shall occur
-        if(!isMoving) return;
-// stop if destination is reached
-        double diffX = Math.abs(x-destX);
-        double diffY = Math.abs(y-destY);
-        if(diffX<2 && diffY<2)
-        { isMoving = false;
+        // If no moving shall occur, return
+        if (!isMoving) return;
+
+        // Calculate the distance to the destination
+        double diffX = destX - x;
+        double diffY = destY - y;
+        double distance = Math.sqrt(diffX * diffX + diffY * diffY);
+
+        // If the distance is very small, stop moving
+        if (distance < 2) {
+            isMoving = false;
             return;
         }
+
+        // Calculate the ratio to move towards the destination
+        double moveRatio = speed * diffSeconds / distance;
+
+        // Update the position
+        x += diffX * moveRatio;
+        y += diffY * moveRatio;
+
+        // Gradually reduce the speed as the avatar approaches its destination
+        double minSpeed = 10;  // Minimum speed at which the avatar can move
+        double maxDeceleration = 500; // Maximum deceleration rate
+        double decelerationRate = Math.min(maxDeceleration, speed / distance);
+
+        if (speed > minSpeed) {
+            speed -= decelerationRate * diffSeconds;
+            speed = Math.max(minSpeed, speed);
+        }
+
+
         super.move(diffSeconds);
     }
     public void setDestination(double dx, double dy)
