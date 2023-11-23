@@ -64,7 +64,7 @@ public class Gam02_Panel extends JPanel implements A_GraphicSystem, A_InputSyste
 
     @Override
     public void command(A_GameObject av, A_UserInput input) {
-        Gam02_Avatar avatar = (Gam02_Avatar)av;
+        Avatar avatar = (Avatar)av;
         avatar.setDestination(input.mousePressedX,input.mousePressedY);
     }
 

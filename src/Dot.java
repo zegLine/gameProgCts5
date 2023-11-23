@@ -1,8 +1,8 @@
 import java.awt.*;
 
-public class Gam03_Dot extends A_GameObject {
+public class Dot extends A_GameObject {
 
-    public Gam03_Dot(double x, double y, double a, double s)
+    public Dot(double x, double y, double a, double s)
     {
         super(x,y,a,s);
         radius = 14;

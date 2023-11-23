@@ -1,10 +1,10 @@
-public class Gam02_Avatar extends A_GameObject {
+public class Avatar extends A_GameObject {
 
     // destination the Avatar shall move to
     private double destX;
     private double destY;
     private boolean isMoving = false;
-    public Gam02_Avatar(double x_, double y_)
+    public Avatar(double x_, double y_)
     {x=x_; y=y_; speed=200;
     }
     public void move(double diffSeconds)
