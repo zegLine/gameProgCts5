@@ -25,6 +25,7 @@ public class CircleWorld
             long currentTick = System.currentTimeMillis(); double diffSeconds = (currentTick-lastTick)/1000.0; lastTick = currentTick;
             graphicSystem.clear();
 
+            moveDots(dots, diffSeconds);
             drawDots(dots);
 
             graphicSystem.redraw();
@@ -36,6 +37,12 @@ public class CircleWorld
     private void drawDots(List<Dot> dots) {
         for (Dot d : dots) {
             graphicSystem.draw(d);
+        }
+    }
+
+    private void moveDots(List<Dot> dots, double diffSeconds) {
+        for (Dot d : dots) {
+            d.move(diffSeconds);
         }
     }
 
