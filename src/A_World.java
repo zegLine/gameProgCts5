@@ -3,18 +3,21 @@ import java.util.ArrayList;
 public abstract class A_World {
 
     private A_GraphicSystem graphicSystem;
-    private A_InputSystem inputSystem;
+    protected A_InputSystem inputSystem;
     private A_PhysicsSystem physicsSystem;
     private A_UserInput userInput;
+
     // contains the games objects
     protected ArrayList<A_GameObject> gameObjects =
             new ArrayList<A_GameObject>();
+
     // demanded from actual implementation
     protected abstract void init();
     protected abstract void processUserInput(A_UserInput input);
 
     public A_World()
-    { physicsSystem = new A_PhysicsSystem(this);
+    {
+        physicsSystem = new A_PhysicsSystem(this);
     }
 
     public void run()

@@ -5,14 +5,10 @@ public abstract class A_GameObject {
     public double x,y;
     public double speed = 0;
     public double alfa = 0;
-
     public Color color;
-
     public int radius = 20;
 
-    public A_GameObject() {
-
-    }
+    public A_GameObject() {}
 
     public A_GameObject(double x, double y, double a, double s) {
         this.x = x;

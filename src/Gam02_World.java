@@ -1,8 +1,11 @@
 public class Gam02_World extends A_World {
 
+
+    Avatar av = new Avatar(400,500);
+
     @Override
     protected void init() {
-        gameObjects.add(new Avatar(400,500));
+        gameObjects.add(av);
         for(int i=0; i<20; i++)
         {
             double x = 1000*Math.random();
@@ -16,7 +19,7 @@ public class Gam02_World extends A_World {
 
     @Override
     protected void processUserInput(A_UserInput input) {
-
+        inputSystem.command(av, input);
     }
 
 
