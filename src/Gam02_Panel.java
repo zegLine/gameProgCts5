@@ -20,8 +20,6 @@ public class Gam02_Panel extends JPanel implements A_GraphicSystem, A_InputSyste
     private Graphics graphics;
 
 
-    private static final Color COLOR_DOT = new Color(96,96,255);
-    private static final int RADIUS_DOT = 20;
 
     public Gam02_Panel()
     {
@@ -40,14 +38,14 @@ public class Gam02_Panel extends JPanel implements A_GraphicSystem, A_InputSyste
 
     @Override
     public void draw(A_GameObject dot) {
-        int x = (int)dot.x-RADIUS_DOT;
-        int y = (int)dot.y-RADIUS_DOT;
-        int r = RADIUS_DOT*2;
+        int x = (int)dot.x-dot.radius;
+        int y = (int)dot.y-dot.radius;
+        int r = dot.radius*2;
 
-        graphics.setColor(COLOR_DOT);
+        graphics.setColor(dot.color);
         graphics.fillOval(x, y, r, r);
         graphics.setColor(Color.BLACK);
-        graphics.drawOval(x,y,r,r);
+        graphics.drawOval(x, y, r, r);
     }
 
     @Override

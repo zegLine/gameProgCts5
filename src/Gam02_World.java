@@ -1,37 +1,23 @@
-public class Gam02_World {
+public class Gam02_World extends A_World {
 
-    private A_GraphicSystem graphicSystem;
-    private A_InputSystem inputSystem;
-    private A_UserInput userInput;
-    private Gam02_Avatar userDot;
-    public void init()
-    { userDot = new Gam02_Avatar(500,400);
-    }
-    public void run()
-    {
-        long lastTick = System.currentTimeMillis();
-
-        while (true)
+    @Override
+    protected void init() {
+        gameObjects.add(new Gam02_Avatar(400,500));
+        for(int i=0; i<20; i++)
         {
-            // calculate elapsed time
-            long currentTick = System.currentTimeMillis();
-            double diffSeconds = (currentTick-lastTick)/1000.0;
-            lastTick = currentTick;
-
-            // parse User Input
-            userInput = inputSystem.getUserInput();
-            if(userInput != null)
-            {
-                inputSystem.command(userDot, userInput);
-            }
-
-            userDot.move(diffSeconds);
-            graphicSystem.clear();
-            graphicSystem.draw(userDot);
-            graphicSystem.redraw();
+            double x = 1000*Math.random();
+            double y = 800*Math.random();
+            double alfa = Math.PI*2*Math.random();
+            double speed = 100+100*Math.random();
+            Gam03_Dot dot = new Gam03_Dot(x,y,alfa,speed);
+            gameObjects.add(dot);
         }
     }
-    public void setGraphicSystem(A_GraphicSystem p) { graphicSystem = p; }
-    public void setInputSystem(A_InputSystem p) { inputSystem = p; }
+
+    @Override
+    protected void processUserInput(A_UserInput input) {
+
+    }
+
 
 }
