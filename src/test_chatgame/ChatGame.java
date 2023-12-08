@@ -15,7 +15,6 @@ public class ChatGame extends JFrame {
     // Create a StringBuilder to store the typed characters
     private StringBuilder inputText = new StringBuilder();
 
-
     public ChatGame() {
         setTitle("ChatGame");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -24,6 +23,7 @@ public class ChatGame extends JFrame {
 
         // Add Commands
         CommandHandler.initCommand("buy", Commands::buy);
+        CommandHandler.initCommand("color", Commands::color);
 
         drawingPanel = new DrawingPanel();
         add(drawingPanel);
@@ -50,6 +50,12 @@ public class ChatGame extends JFrame {
                 }
             }
         });
+
+        // Add avatars
+        World.simpleAvatar = new UserAvatar(Color.GREEN, 10, 10, 50, 50);
+        World.setMula(500); // initial money
+        World.items_available.add(new Item("gun", 30));
+        World.items_available.add(new Item("machete", 10));
 
         // Create a game timer with a 16ms delay (about 60 FPS)
         gameTimer = new Timer(16, new ActionListener() {
@@ -108,9 +114,12 @@ public class ChatGame extends JFrame {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
 
-            g.setColor(Color.GREEN);
-            g.fillRect(10, 10, 50, 50);
+            World.simpleAvatar.draw(g);
+            World.drawItemsEquipped(g);
 
+            g.setColor(Color.lightGray);
+            g.setFont(new Font("Arial", Font.PLAIN, 16));
+            g.drawString("$" + String.valueOf(World.getMula()), getWidth() - 50, 30);
 
             // Draw the typed text in white at the bottom of the screen
             g.setColor(Color.WHITE);
