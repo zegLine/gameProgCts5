@@ -31,10 +31,21 @@ public class ChatGame extends JFrame {
         drawingPanel.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    flushText();
-                } else {
-                    handleInput(e.getKeyChar());
+                char keyChar = e.getKeyChar();
+                int keyCode = e.getKeyCode();
+
+                switch (keyCode) {
+                    case KeyEvent.VK_ENTER:
+                        flushText();
+                        break;
+                    case KeyEvent.VK_BACK_SPACE:
+                        if (inputText.length() >= 1) {
+                            inputText.deleteCharAt(inputText.length() - 1);
+                        }
+                        break;
+                    default:
+                        handleInput(keyChar);
+                        break;
                 }
             }
         });
