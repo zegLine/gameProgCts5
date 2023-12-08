@@ -20,7 +20,7 @@ public class CommandHandler {
         String[] tokens = safeCommand.split(" ");
 
         // Check if there are at least 2 tokens (command and parameters)
-        if (tokens.length < 2) {
+        if (tokens.length < 1) {
             commandError = "cmd not complete";
             System.out.println("Invalid command format.");
             return false;

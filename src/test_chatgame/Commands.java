@@ -27,6 +27,32 @@ public class Commands {
         }
     }
 
+    public static boolean equip(String[] parameters) {
+        if (parameters.length >= 1) {
+            String itemToEquip = parameters[0];
+            System.out.println("Equipping " + itemToEquip);
+
+            for (Item i : World.items_equipped) {
+                if (itemToEquip.equals(i.name)) {
+                    World.equipItem(i);
+                    return true;
+                }
+            }
+
+            CommandHandler.commandError = "equip: item not found";
+            System.out.println("equip: item not found");
+            return false;
+        } else {
+            System.out.println("Usage: equip <item>");
+            return false;
+        }
+    }
+
+    public static boolean unequip(String[] parameters) {
+        World.unEquipItem();
+        return true;
+    }
+
     public static boolean color(String[] parameters) {
         if (parameters.length >= 1) {
             String colorToSet = parameters[0].toLowerCase(); // Convert to lowercase for case-insensitive comparison

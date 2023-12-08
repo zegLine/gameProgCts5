@@ -24,6 +24,8 @@ public class ChatGame extends JFrame {
         // Add Commands
         CommandHandler.initCommand("buy", Commands::buy);
         CommandHandler.initCommand("color", Commands::color);
+        CommandHandler.initCommand("equip", Commands::equip);
+        CommandHandler.initCommand("unequip", Commands::unequip);
 
         drawingPanel = new DrawingPanel();
         add(drawingPanel);
