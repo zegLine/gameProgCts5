@@ -5,6 +5,8 @@ import java.util.Map;
 
 public class CommandHandler {
 
+    public static String commandError = "";
+
     private static Map<String, CommandFunction> commandMap = new HashMap<>();
 
     public static boolean validateCommand(String unsafeCommand) {
@@ -13,14 +15,15 @@ public class CommandHandler {
         return true;
     }
 
-    public static void executeCommand(String safeCommand) {
+    public static boolean executeCommand(String safeCommand) {
         // Separate by spaces
         String[] tokens = safeCommand.split(" ");
 
         // Check if there are at least 2 tokens (command and parameters)
         if (tokens.length < 2) {
+            commandError = "cmd not complete";
             System.out.println("Invalid command format.");
-            return;
+            return false;
         }
 
         // The first word is the command
@@ -36,16 +39,18 @@ public class CommandHandler {
             System.arraycopy(tokens, 1, parameters, 0, tokens.length - 1);
 
             // Execute the function
-            commandFunction.execute(parameters);
+            return commandFunction.execute(parameters);
         } else {
+            commandError = "cmd unknown";
             System.out.println("Unknown command: " + commandName);
+            return false;
         }
     }
 
     // Define a functional interface for command functions
     @FunctionalInterface
     public interface CommandFunction {
-        void execute(String[] parameters);
+        boolean execute(String[] parameters);
     }
 
     public static void initCommand(String name, CommandFunction f) {

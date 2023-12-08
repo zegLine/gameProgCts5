@@ -15,6 +15,7 @@ public class ChatGame extends JFrame {
     // Create a StringBuilder to store the typed characters
     private StringBuilder inputText = new StringBuilder();
 
+
     public ChatGame() {
         setTitle("ChatGame");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,9 +78,16 @@ public class ChatGame extends JFrame {
         // Send the command to the command handler
         if (!CommandHandler.validateCommand(flushedText)) {
             System.out.println("Command has errors");
+            CommandHandler.commandError = "cmd not valid";
             return;
         }
-        CommandHandler.executeCommand(flushedText);
+
+        boolean cmdResult = CommandHandler.executeCommand(flushedText);
+
+        if (cmdResult) {
+            // reset status of command error after one successful command
+            CommandHandler.commandError = "";
+        }
         // Clear the input text when Enter is pressed
         inputText.setLength(0);
     }
@@ -100,11 +108,22 @@ public class ChatGame extends JFrame {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
 
+            g.setColor(Color.GREEN);
+            g.fillRect(10, 10, 50, 50);
+
+
             // Draw the typed text in white at the bottom of the screen
             g.setColor(Color.WHITE);
             g.setFont(new Font("Arial", Font.PLAIN, 16)); // Set the font size and style
             String textToRender = inputText.toString();
             g.drawString(textToRender, 10, getHeight() - 10); // Position it at the bottom
+
+            // Check if the boolean is set to true and draw the question mark
+            if (!CommandHandler.commandError.isEmpty()) {
+                g.setColor(Color.RED);
+                g.setFont(new Font("Arial", Font.BOLD, 24)); // Adjust the font size and style
+                g.drawString("?" + CommandHandler.commandError, 50, 50); // Adjust the position of the question mark
+            }
         }
     }
 }
