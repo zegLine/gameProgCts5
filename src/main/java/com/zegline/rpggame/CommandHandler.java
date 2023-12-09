@@ -1,4 +1,4 @@
-package test_chatgame;
+package main.java.com.zegline.rpggame;
 
 import java.util.HashMap;
 import java.util.Map;

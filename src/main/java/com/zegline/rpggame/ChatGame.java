@@ -1,11 +1,12 @@
-package test_chatgame;
+package main.java.com.zegline.rpggame;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.net.URL;
 
 public class ChatGame extends JFrame {
 
@@ -15,11 +16,22 @@ public class ChatGame extends JFrame {
     // Create a StringBuilder to store the typed characters
     private StringBuilder inputText = new StringBuilder();
 
+    private int cameraX = 0; // Initial camera X position
+    private int cameraY = 0; // Initial camera Y position
+    private int cameraSpeed = 5; // Adjust the camera movement speed as needed
+
+
     public ChatGame() {
         setTitle("ChatGame");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 400);
         setResizable(false);
+
+        // Load map
+        // Get the resource URL for the image
+        ClassLoader classLoader = ChatGame.class.getClassLoader();
+        URL mapurl = classLoader.getResource("level1.map");
+        World.loadMap(mapurl.getPath());
 
         // Add Commands
         CommandHandler.initCommand("buy", Commands::buy);
@@ -38,6 +50,18 @@ public class ChatGame extends JFrame {
                 int keyCode = e.getKeyCode();
 
                 switch (keyCode) {
+                    case KeyEvent.VK_LEFT:
+                        cameraX -= cameraSpeed;
+                        break;
+                    case KeyEvent.VK_RIGHT:
+                        cameraX += cameraSpeed;
+                        break;
+                    case KeyEvent.VK_UP:
+                        cameraY -= cameraSpeed;
+                        break;
+                    case KeyEvent.VK_DOWN:
+                        cameraY += cameraSpeed;
+                        break;
                     case KeyEvent.VK_ENTER:
                         flushText();
                         break;
@@ -116,12 +140,18 @@ public class ChatGame extends JFrame {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
 
-            World.simpleAvatar.draw(g);
+            //World.simpleAvatar.draw(g);
+            World.drawMap(g, cameraX, cameraY, getWidth(), getHeight());
             World.drawItemsEquipped(g);
 
+            // Draw Money
             g.setColor(Color.lightGray);
             g.setFont(new Font("Arial", Font.PLAIN, 16));
             g.drawString("$" + String.valueOf(World.getMula()), getWidth() - 50, 30);
+
+            // Draw X and Y coord of camera
+            g.drawString("x:" + String.valueOf(cameraX), getWidth() - 50, 50);
+            g.drawString("y:" + String.valueOf(cameraY), getWidth() - 50, 65);
 
             // Draw the typed text in white at the bottom of the screen
             g.setColor(Color.WHITE);
