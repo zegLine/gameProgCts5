@@ -33,6 +33,10 @@ public class ChatGame extends JFrame {
         URL mapurl = classLoader.getResource("level1.map");
         World.loadMap(mapurl.getPath());
 
+
+        // Load cached textures
+        World.loadAllTexturesIntoCache();
+
         // Add Commands
         CommandHandler.initCommand("buy", Commands::buy);
         CommandHandler.initCommand("color", Commands::color);

@@ -4,15 +4,55 @@ import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 import java.awt.*;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 public class World {
+
+    static enum Texture {
+        GRASS_TEXTURE("grass.png", 'g'),
+        WATER_TEXTURE("water.png", 'w'),
+        STONE_TEXTURE("stone.png", 's');
+
+        private String filename;
+        private char letter;
+
+        Texture(String fn, char let) {
+            this.filename = fn;
+            this.letter = let;
+        }
+
+        public String getFilename(){
+            return filename;
+        }
+
+        public char getLetter() {
+            return letter;
+        }
+
+    }
+    static Map<Texture, Image> cachedTextures = new HashMap<>();
+
+    private static Image loadTextureImage(Texture t) {
+        ClassLoader classLoader = World.class.getClassLoader();
+        URL imageURL = classLoader.getResource(t.getFilename());
+
+        if (imageURL != null) {
+            return new ImageIcon(imageURL).getImage();
+        } else {
+            // Handle the case where the image resource was not found
+            System.err.println("Image resource not found: " + t.getFilename());
+            return null;
+        }
+    }
+
+    public static void loadAllTexturesIntoCache() {
+        for (Texture t: Texture.values()) {
+            cachedTextures.put(t, loadTextureImage(t));
+        }
+    }
 
     public static List<char[]> loadedMap = new ArrayList<>();
 
@@ -23,6 +63,7 @@ public class World {
             String line;
 
             while ((line = br.readLine()) != null) {
+                line = line.replace(" ", "");
                 // Split the line into characters to populate the map array
                 char[] rowChars = line.toCharArray();
 
@@ -104,34 +145,10 @@ public class World {
 
     // Load and return an image based on the terrain type
     private static Image loadImageForTerrain(char terrain) {
-        String imagePath;
-
-        // Determine the image path based on the terrain type
-        switch (terrain) {
-            case 'g':
-                imagePath = "grass.png"; // Path to ground image
-                break;
-            case 'w':
-                imagePath = "water.png"; // Path to water image
-                break;
-            case 's':
-                imagePath = "stone.png"; // Path to stone image
-                break;
-            default:
-                imagePath = "grass.png"; // Path to default image for unknown terrain
+        for (Texture t : Texture.values()) {
+            if (terrain == t.getLetter()) return cachedTextures.get(t);
         }
-        // Get the resource URL for the image
-        ClassLoader classLoader = World.class.getClassLoader();
-        URL imageURL = classLoader.getResource(imagePath);
-
-        if (imageURL != null) {
-            return new ImageIcon(imageURL).getImage();
-        } else {
-            // Handle the case where the image resource was not found
-            System.err.println("Image resource not found: " + imagePath);
-            return null;
-        }
-
+        return cachedTextures.get(Texture.STONE_TEXTURE);
     }
 
 
