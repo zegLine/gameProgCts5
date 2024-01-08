@@ -133,8 +133,8 @@ public class World {
                 Image tileImage = loadImageForTerrain(terrain);
 
                 // Calculate the position to draw the tile
-                int x = col * tileSize - cameraX;
-                int y = row * tileSize - cameraY;
+                int x = col * tileSize ;
+                int y = row * tileSize ;
 
                 // Draw the tile image
                 g.drawImage(tileImage, x, y, tileSize, tileSize, null);
