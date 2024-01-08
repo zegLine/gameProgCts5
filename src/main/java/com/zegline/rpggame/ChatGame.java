@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.net.URL;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ChatGame extends JFrame {
 
@@ -18,13 +20,17 @@ public class ChatGame extends JFrame {
 
     private int cameraX = 0; // Initial camera X position
     private int cameraY = 0; // Initial camera Y position
-    private int cameraSpeed = 5; // Adjust the camera movement speed as needed
+    private int cameraSpeed = 3; // Adjust the camera movement speed as needed
+
+    boolean[] arrowKeyPressed = {false,false,false,false}; // left, right, up, down
+    private final Set<Integer> pressedKeys = new HashSet<>();
+    private UserAvatar max;
 
 
     public ChatGame() {
         setTitle("ChatGame");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(600, 400);
+        setSize(1920, 1080);
         setResizable(false);
 
         // Load map
@@ -32,7 +38,7 @@ public class ChatGame extends JFrame {
         ClassLoader classLoader = ChatGame.class.getClassLoader();
         URL mapurl = classLoader.getResource("level1.map");
         World.loadMap(mapurl.getPath());
-
+        max = new UserAvatar(Color.PINK, 0, 0,5, 100, 100);
 
         // Load cached textures
         World.loadAllTexturesIntoCache();
@@ -47,24 +53,25 @@ public class ChatGame extends JFrame {
         add(drawingPanel);
 
         drawingPanel.setFocusable(true);
+
+
         drawingPanel.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                char keyChar = e.getKeyChar();
                 int keyCode = e.getKeyCode();
 
                 switch (keyCode) {
                     case KeyEvent.VK_LEFT:
-                        cameraX -= cameraSpeed;
+                        arrowKeyPressed[0] = true;
                         break;
                     case KeyEvent.VK_RIGHT:
-                        cameraX += cameraSpeed;
+                        arrowKeyPressed[1] = true;
                         break;
                     case KeyEvent.VK_UP:
-                        cameraY -= cameraSpeed;
+                        arrowKeyPressed[2] = true;
                         break;
                     case KeyEvent.VK_DOWN:
-                        cameraY += cameraSpeed;
+                        arrowKeyPressed[3] = true;
                         break;
                     case KeyEvent.VK_ENTER:
                         flushText();
@@ -75,29 +82,42 @@ public class ChatGame extends JFrame {
                         }
                         break;
                     default:
+                        char keyChar = e.getKeyChar();
                         handleInput(keyChar);
+                        break;
+                }
+
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                int keyCode = e.getKeyCode();
+                // LOL
+                switch (keyCode) {
+                    case KeyEvent.VK_LEFT:
+                        arrowKeyPressed[0] = false;
+                        break;
+                    case KeyEvent.VK_RIGHT:
+                        arrowKeyPressed[1] = false;
+                        break;
+                    case KeyEvent.VK_UP:
+                        arrowKeyPressed[2] = false;
+                        break;
+                    case KeyEvent.VK_DOWN:
+                        arrowKeyPressed[3] = false;
                         break;
                 }
             }
         });
-
         // Add avatars
-        World.simpleAvatar = new UserAvatar(Color.GREEN, 10, 10, 50, 50);
+       // World.simpleAvatar = new UserAvatar(Color.GREEN, 10, 10, 50, 50);
         World.setMula(500); // initial money
         World.items_available.add(new Item("gun", 30));
         World.items_available.add(new Item("machete", 10));
 
         // Create a game timer with a 16ms delay (about 60 FPS)
-        gameTimer = new Timer(16, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Update game logic here
-
-                // Repaint the drawing panel to update the screen
-                drawingPanel.repaint();
-            }
-        });
-        gameTimer.start();
+        drawingPanel.startGameLoop();
 
         setLocationRelativeTo(null);
     }
@@ -135,19 +155,31 @@ public class ChatGame extends JFrame {
         });
     }
 
+
     private class DrawingPanel extends JPanel {
+
+        private static final int TARGET_FPS = 120; // Target frames per second
+        private static final long TARGET_TIME = 1000000000 / TARGET_FPS; // Target time per frame in nanoseconds
+
         public DrawingPanel() {
             setBackground(Color.BLACK);
         }
 
         @Override
-        protected void paintComponent(Graphics g) {
+        public void paintComponent(Graphics g) {
             super.paintComponent(g);
+            drawGame(g);
+        }
+
+        private void drawGame(Graphics g) {
+
+
+
 
             //World.simpleAvatar.draw(g);
             World.drawMap(g, cameraX, cameraY, getWidth(), getHeight());
             World.drawItemsEquipped(g);
-
+            max.draw(g);
             // Draw Money
             g.setColor(Color.lightGray);
             g.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -170,5 +202,40 @@ public class ChatGame extends JFrame {
                 g.drawString("?" + CommandHandler.commandError, 50, 50); // Adjust the position of the question mark
             }
         }
+
+        public void startGameLoop() {
+            Thread gameLoop = new Thread(() -> {
+                long lastLoopTime = System.nanoTime();
+
+                while (true) {
+                    long now = System.nanoTime();
+                    long updateLength = now - lastLoopTime;
+                    lastLoopTime = now;
+                    double delta = updateLength / ((double) TARGET_TIME);
+
+                    // Call the update and render methods here
+                    update(delta);
+                    repaint(); // This will call paintComponent
+
+                    try {
+                        long sleepTime = (lastLoopTime - System.nanoTime() + TARGET_TIME) / 1000000; // Time to sleep in milliseconds
+                        if (sleepTime > 0) {
+                            Thread.sleep(sleepTime);
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            gameLoop.start();
+        }
+
+        private void update(double delta) {
+            max.handleMovement(arrowKeyPressed);
+        }
     }
+
+    // In your main code or initialization logic
+
+
 }
