@@ -24,7 +24,9 @@ public class ChatGame extends JFrame {
 
     public static boolean[] arrowKeyPressed = {false,false,false,false}; // left, right, up, down
     private final Set<Integer> pressedKeys = new HashSet<>();
-    private UserAvatar max;
+    public static UserAvatar max;
+
+    private BasicEnemy ox;
 
 
     public ChatGame() {
@@ -39,6 +41,7 @@ public class ChatGame extends JFrame {
         URL mapurl = classLoader.getResource("level1.map");
         World.loadMap(mapurl.getPath());
         max = new UserAvatar(Color.PINK, 32, 32,5, 32);
+        ox = new BasicEnemy(500,500,1);
 
         // Load cached textures
         World.loadAllTexturesIntoCache();
@@ -180,6 +183,7 @@ public class ChatGame extends JFrame {
             World.drawMap(g,0, 0, getWidth(), getHeight());
             World.drawItemsEquipped(g);
             max.draw(g);
+            ox.draw(g);
             // Draw Money
             g.setColor(Color.lightGray);
             g.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -232,6 +236,7 @@ public class ChatGame extends JFrame {
 
         private void update(double delta) {
             max.update();
+            ox.update();
         }
     }
 

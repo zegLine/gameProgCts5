@@ -2,28 +2,32 @@ package main.java.com.zegline.rpggame;
 
 import java.awt.*;
 
-public class UserAvatar {
-
+public class BasicEnemy {
     private int speed;
+
+
+
     private Color c;
 
     private int x;
     private int y;
-
-
+    private int damage;
     private int radius;
 
-    public UserAvatar(Color c, int x, int y, int speed, int radius) {
-        this.c = c;
+    public BasicEnemy(int x, int y, int level) {
+        speed = 2 + level;
+        c = Color.RED;
         this.x = x;
         this.y = y;
-        this.speed = speed;
-        this.radius = radius;
+        radius = 28;
+
+        int DAMAGECONST = 2;
+        damage = DAMAGECONST * level;
     }
 
     public void draw(Graphics g) {
         g.setColor(c);
-        g.fillRect(x - radius, y - radius, radius * 2, radius * 2);
+        g.fillRect(x - radius, y - radius, radius*2, radius*2);
     }
 
     // Separate methods for moving the avatar in each direction
@@ -44,18 +48,19 @@ public class UserAvatar {
     }
 
     public void handleMovement(boolean[] arrowKeyPressed) {
-
-        if (arrowKeyPressed[0]) {
+        if(x > ChatGame.max.getX()) {
             moveLeft();
         }
 
-        if (arrowKeyPressed[1]) {
+        if(x < ChatGame.max.getX()) {
             moveRight();
         }
-        if (arrowKeyPressed[2]) {
+
+        if(y > ChatGame.max.getY()) {
             moveUp();
         }
-        if (arrowKeyPressed[3]) {
+
+        if(y < ChatGame.max.getY()) {
             moveDown();
         }
 
@@ -83,12 +88,12 @@ public class UserAvatar {
     }
 
 
-    public int getRadius() {
-        return radius;
+    public int getSpeed() {
+        return speed;
     }
 
-    public void setRadius(int radius) {
-        this.radius = radius;
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 
     public Color getC() {
@@ -114,6 +119,22 @@ public class UserAvatar {
     public void setY(int y) {
         this.y = y;
     }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    public int getRadius() {
+        return radius;
+    }
+
+    public void setRadius(int radius) {
+        this.radius = radius;
+    }
+
+
 }
-
-
