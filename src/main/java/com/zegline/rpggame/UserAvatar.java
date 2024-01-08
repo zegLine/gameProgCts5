@@ -9,21 +9,22 @@ public class UserAvatar {
 
     private int x;
     private int y;
-    private int width;
-    private int height;
 
-    public UserAvatar(Color c, int x, int y, int speed, int width, int height) {
+
+
+    private int radius;
+
+    public UserAvatar(Color c, int x, int y, int speed, int radius) {
         this.c = c;
         this.x = x;
         this.y = y;
         this.speed = speed;
-        this.width = width;
-        this.height = height;
+        this.radius = radius;
     }
 
     public void draw(Graphics g) {
         g.setColor(c);
-        g.fillRect(x, y, width, height);
+        g.fillRect(x - radius, y - radius, radius*2, radius*2);
     }
 
     // Separate methods for moving the avatar in each direction
@@ -41,6 +42,14 @@ public class UserAvatar {
 
     public void moveRight() {
         this.x += speed;  // Move rightwards by incrementing the x-coordinate
+    }
+
+    public int getRadius() {
+        return radius;
+    }
+
+    public void setRadius(int radius) {
+        this.radius = radius;
     }
     public Color getC() {
         return c;
@@ -66,21 +75,6 @@ public class UserAvatar {
         this.y = y;
     }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
 
     public void handleMovement(boolean[] arrowKeyPressed) {
 
@@ -98,5 +92,26 @@ public class UserAvatar {
             moveDown();
         }
 
+    }
+
+    public void update() {
+        this.handleMovement(ChatGame.arrowKeyPressed);
+
+        this.handleCollision();
+    }
+
+    private void handleCollision() {
+        if (x + (2 * radius) > ChatGame.screenWidth) {
+            moveLeft();
+        }
+        if(x - radius < 0){
+            moveRight();
+        }
+        if(y + (2 * radius) > ChatGame.screenHeight) {
+            moveUp();
+        }
+        if(y - radius < 0) {
+            moveDown();
+        }
     }
 }

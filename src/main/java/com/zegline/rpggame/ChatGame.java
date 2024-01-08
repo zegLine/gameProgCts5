@@ -18,11 +18,11 @@ public class ChatGame extends JFrame {
     // Create a StringBuilder to store the typed characters
     private StringBuilder inputText = new StringBuilder();
 
-    private int cameraX = 0; // Initial camera X position
-    private int cameraY = 0; // Initial camera Y position
+    public static int screenHeight = 1080;
+    public static int screenWidth = 1920;
     private int cameraSpeed = 3; // Adjust the camera movement speed as needed
 
-    boolean[] arrowKeyPressed = {false,false,false,false}; // left, right, up, down
+    public static boolean[] arrowKeyPressed = {false,false,false,false}; // left, right, up, down
     private final Set<Integer> pressedKeys = new HashSet<>();
     private UserAvatar max;
 
@@ -30,7 +30,7 @@ public class ChatGame extends JFrame {
     public ChatGame() {
         setTitle("ChatGame");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1920, 1080);
+        setSize(screenWidth, screenHeight);
         setResizable(false);
 
         // Load map
@@ -38,7 +38,7 @@ public class ChatGame extends JFrame {
         ClassLoader classLoader = ChatGame.class.getClassLoader();
         URL mapurl = classLoader.getResource("level1.map");
         World.loadMap(mapurl.getPath());
-        max = new UserAvatar(Color.PINK, 0, 0,5, 100, 100);
+        max = new UserAvatar(Color.PINK, 32, 32,5, 32);
 
         // Load cached textures
         World.loadAllTexturesIntoCache();
@@ -177,7 +177,7 @@ public class ChatGame extends JFrame {
 
 
             //World.simpleAvatar.draw(g);
-            World.drawMap(g, cameraX, cameraY, getWidth(), getHeight());
+            World.drawMap(g,0, 0, getWidth(), getHeight());
             World.drawItemsEquipped(g);
             max.draw(g);
             // Draw Money
@@ -186,8 +186,8 @@ public class ChatGame extends JFrame {
             g.drawString("$" + String.valueOf(World.getMula()), getWidth() - 50, 30);
 
             // Draw X and Y coord of camera
-            g.drawString("x:" + String.valueOf(cameraX), getWidth() - 50, 50);
-            g.drawString("y:" + String.valueOf(cameraY), getWidth() - 50, 65);
+            g.drawString("x:" + String.valueOf(max.getX()), getWidth() - 50, 50);
+            g.drawString("y:" + String.valueOf(max.getY()), getWidth() - 50, 65);
 
             // Draw the typed text in white at the bottom of the screen
             g.setColor(Color.WHITE);
@@ -231,7 +231,7 @@ public class ChatGame extends JFrame {
         }
 
         private void update(double delta) {
-            max.handleMovement(arrowKeyPressed);
+            max.update();
         }
     }
 
