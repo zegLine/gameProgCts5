@@ -11,6 +11,7 @@ public class UserAvatar {
     private int y;
 
 
+
     private int radius;
 
     public UserAvatar(Color c, int x, int y, int speed, int radius) {
@@ -63,8 +64,22 @@ public class UserAvatar {
 
     public void update() {
         this.handleMovement(ChatGame.arrowKeyPressed);
-
         this.handleCollision();
+        this.shoot();
+    }
+
+    private void shoot() {
+        if(ChatGame.mouseClicked == true) {
+            ChatGame.mouseClicked = false;
+
+
+
+            double dx = ChatGame.mouseX - ChatGame.max.getX();
+            double dy = ChatGame.mouseY - ChatGame.max.getY();
+            double angle = Math.atan2(dy, dx); // Angle in radians
+
+            new Bullet(x,y,angle);
+        }
     }
 
     private void handleCollision() {
