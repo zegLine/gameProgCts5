@@ -2,7 +2,7 @@ package main.java.com.zegline.rpggame;
 
 import java.awt.*;
 
-public class BasicEnemy {
+public class BasicEnemy extends BaseEnemy {
     private int speed;
 
 
@@ -13,16 +13,23 @@ public class BasicEnemy {
     private int y;
     private int damage;
     private int radius;
+    private long lastCollisionTime;
+
+    private static final long COOLDOWN_DURATION = 2000;
 
     public BasicEnemy(int x, int y, int level) {
-        speed = 2 + level;
-        c = Color.RED;
+        super(x,y,level);
         this.x = x;
         this.y = y;
+        speed = 2 + level;
+        c = Color.RED;
+
         radius = 28;
 
         int DAMAGECONST = 2;
         damage = DAMAGECONST * level;
+
+        lastCollisionTime = 0;
     }
 
     public void draw(Graphics g) {
@@ -73,17 +80,20 @@ public class BasicEnemy {
     }
 
     private void handleCollision() {
-        if (x + (2 * radius) > ChatGame.screenWidth) {
-            moveLeft();
-        }
-        if(x - radius < 0){
-            moveRight();
-        }
-        if(y + (2 * radius) > ChatGame.screenHeight) {
-            moveUp();
-        }
-        if(y - radius < 0) {
-            moveDown();
+
+        long currentTime = System.currentTimeMillis();
+
+        if (currentTime - lastCollisionTime >= COOLDOWN_DURATION) {
+
+            int dx = this.x - ChatGame.max.getX();
+            int dy = this.y - ChatGame.max.getY();
+            int distance = (int) Math.sqrt(dx * dx + dy * dy);
+
+            // Check if the circles overlap (collision occurs when distance <= sum of radii)
+            if (distance <= (this.radius + ChatGame.max.getRadius())) {
+                System.out.println("hit");
+                lastCollisionTime = currentTime;
+            }
         }
     }
 
