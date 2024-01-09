@@ -3,26 +3,27 @@ package main.java.com.zegline.rpggame;
 import java.awt.*;
 import java.util.ArrayList;
 
-public abstract class BaseEnemy {
-    private int speed;
+public abstract class GameEntity {
+    private double speed;
 
 
 
     private Color c;
 
-    private int x;
-    private int y;
+    private double x;
+    private double y;
     private int damage;
     private int radius;
-    private ArrayList<BaseEnemy> parentList;
+    private ArrayList<GameEntity> parentList;
 
-    public BaseEnemy(int x, int y, int level) {
+    public GameEntity(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    public void setParentList(ArrayList<BaseEnemy> parentList) {
+    public void setParentList(ArrayList<GameEntity> parentList) {
         this.parentList = parentList;
+        parentList.add(this);
     }
 
     public void removeFromList() {
@@ -35,11 +36,11 @@ public abstract class BaseEnemy {
 
     public abstract void update();
 
-    public int getSpeed() {
+    public double getSpeed() {
         return speed;
     }
 
-    public void setSpeed(int speed) {
+    public void setSpeed(double speed) {
         this.speed = speed;
     }
 
@@ -51,19 +52,19 @@ public abstract class BaseEnemy {
         this.c = c;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(double x) {
         this.x = x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(double y) {
         this.y = y;
     }
 
@@ -84,4 +85,7 @@ public abstract class BaseEnemy {
     }
 
 
+    protected void death() {
+        removeFromList();
+    }
 }
