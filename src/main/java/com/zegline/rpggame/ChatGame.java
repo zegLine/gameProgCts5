@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -26,9 +28,14 @@ public class ChatGame extends JFrame {
     private final Set<Integer> pressedKeys = new HashSet<>();
     public static UserAvatar max;
 
-    private BasicEnemy ox;
+    public static double mouseX;
 
-    public static ArrayList<BaseEnemy> enemyList = new ArrayList<>();
+    public static double mouseY;
+
+    public static ArrayList<GameEntity> enemyList = new ArrayList<>();
+
+    public static ArrayList<GameEntity> bulletList = new ArrayList<>();
+    public static boolean mouseClicked;
 
 
     public ChatGame() {
@@ -43,9 +50,11 @@ public class ChatGame extends JFrame {
         URL mapurl = classLoader.getResource("level1.map");
         World.loadMap(mapurl.getPath());
         max = new UserAvatar(Color.PINK, 32, 32,5, 32);
-        ox = new BasicEnemy(500,500,1);
-        enemyList.add(ox);
-        enemyList.add(new BasicEnemy(1500,500,2));
+
+        new BasicEnemy(500,500,1);
+        new BasicEnemy(1500,500,2);
+
+        mouseClicked = false;
 
         // Load cached textures
         World.loadAllTexturesIntoCache();
@@ -61,7 +70,36 @@ public class ChatGame extends JFrame {
 
         drawingPanel.setFocusable(true);
 
+        drawingPanel.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
 
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                mouseX = e.getX();
+                mouseY = e.getY();
+
+                mouseClicked = true;
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
         drawingPanel.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -191,10 +229,16 @@ public class ChatGame extends JFrame {
             max.draw(g);
 
             //Draw loop for enemies
-            Iterator<BaseEnemy> iterator = enemyList.iterator();
+            Iterator<GameEntity> iterator = enemyList.iterator();
             while (iterator.hasNext()) {
-                BaseEnemy enemy = iterator.next();
+                GameEntity enemy = iterator.next();
                 enemy.draw(g);
+            }
+
+            Iterator<GameEntity> bulletIterator = bulletList.iterator();
+            while (bulletIterator.hasNext()) {
+                GameEntity bullet = bulletIterator.next();
+                bullet.draw(g);
             }
 
 
@@ -251,16 +295,19 @@ public class ChatGame extends JFrame {
         private void update(double delta) {
             max.update();
 
-            Iterator<BaseEnemy> iterator = enemyList.iterator();
+            Iterator<GameEntity> iterator = enemyList.iterator();
             while (iterator.hasNext()) {
-                BaseEnemy enemy = iterator.next();
+                GameEntity enemy = iterator.next();
                 enemy.update();
+            }
+
+            Iterator<GameEntity> bulletIterator = bulletList.iterator();
+            while (bulletIterator.hasNext()) {
+                GameEntity bullet = bulletIterator.next();
+                bullet.update();
             }
 
         }
     }
-
-    // In your main code or initialization logic
-
 
 }
