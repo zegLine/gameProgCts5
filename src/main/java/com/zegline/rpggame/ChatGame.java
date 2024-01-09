@@ -2,12 +2,12 @@ package main.java.com.zegline.rpggame;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 public class ChatGame extends JFrame {
@@ -28,6 +28,8 @@ public class ChatGame extends JFrame {
 
     private BasicEnemy ox;
 
+    public static ArrayList<BaseEnemy> enemyList = new ArrayList<>();
+
 
     public ChatGame() {
         setTitle("ChatGame");
@@ -42,6 +44,8 @@ public class ChatGame extends JFrame {
         World.loadMap(mapurl.getPath());
         max = new UserAvatar(Color.PINK, 32, 32,5, 32);
         ox = new BasicEnemy(500,500,1);
+        enemyList.add(ox);
+        enemyList.add(new BasicEnemy(1500,500,2));
 
         // Load cached textures
         World.loadAllTexturesIntoCache();
@@ -64,16 +68,16 @@ public class ChatGame extends JFrame {
                 int keyCode = e.getKeyCode();
 
                 switch (keyCode) {
-                    case KeyEvent.VK_LEFT:
+                    case KeyEvent.VK_A:
                         arrowKeyPressed[0] = true;
                         break;
-                    case KeyEvent.VK_RIGHT:
+                    case KeyEvent.VK_D:
                         arrowKeyPressed[1] = true;
                         break;
-                    case KeyEvent.VK_UP:
+                    case KeyEvent.VK_W:
                         arrowKeyPressed[2] = true;
                         break;
-                    case KeyEvent.VK_DOWN:
+                    case KeyEvent.VK_S:
                         arrowKeyPressed[3] = true;
                         break;
                     case KeyEvent.VK_ENTER:
@@ -98,16 +102,16 @@ public class ChatGame extends JFrame {
                 int keyCode = e.getKeyCode();
                 // LOL
                 switch (keyCode) {
-                    case KeyEvent.VK_LEFT:
+                    case KeyEvent.VK_A:
                         arrowKeyPressed[0] = false;
                         break;
-                    case KeyEvent.VK_RIGHT:
+                    case KeyEvent.VK_D:
                         arrowKeyPressed[1] = false;
                         break;
-                    case KeyEvent.VK_UP:
+                    case KeyEvent.VK_W:
                         arrowKeyPressed[2] = false;
                         break;
-                    case KeyEvent.VK_DOWN:
+                    case KeyEvent.VK_S:
                         arrowKeyPressed[3] = false;
                         break;
                 }
@@ -182,8 +186,18 @@ public class ChatGame extends JFrame {
             //World.simpleAvatar.draw(g);
             World.drawMap(g,0, 0, getWidth(), getHeight());
             World.drawItemsEquipped(g);
+
+
             max.draw(g);
-            ox.draw(g);
+
+            //Draw loop for enemies
+            Iterator<BaseEnemy> iterator = enemyList.iterator();
+            while (iterator.hasNext()) {
+                BaseEnemy enemy = iterator.next();
+                enemy.draw(g);
+            }
+
+
             // Draw Money
             g.setColor(Color.lightGray);
             g.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -236,7 +250,13 @@ public class ChatGame extends JFrame {
 
         private void update(double delta) {
             max.update();
-            ox.update();
+
+            Iterator<BaseEnemy> iterator = enemyList.iterator();
+            while (iterator.hasNext()) {
+                BaseEnemy enemy = iterator.next();
+                enemy.update();
+            }
+
         }
     }
 
