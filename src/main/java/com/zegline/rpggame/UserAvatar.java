@@ -71,7 +71,7 @@ public class UserAvatar {
     private void shoot() {
         if(ChatGame.mouseClicked == true) {
             ChatGame.mouseClicked = false;
-
+            System.out.println("shoot");
 
 
             double dx = ChatGame.mouseX - ChatGame.max.getX();

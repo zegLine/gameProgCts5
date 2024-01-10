@@ -6,7 +6,6 @@ public class BasicEnemy extends GameEntity {
     private double speed;
 
 
-
     private Color c;
 
     private double x;
@@ -38,7 +37,7 @@ public class BasicEnemy extends GameEntity {
 
     public void draw(Graphics g) {
         g.setColor(c);
-        g.fillRect((int) (x - radius), (int) (y - radius), radius*2, radius*2);
+        g.fillRect((int) (x - radius), (int) (y - radius), radius * 2, radius * 2);
     }
 
     // Separate methods for moving the avatar in each direction

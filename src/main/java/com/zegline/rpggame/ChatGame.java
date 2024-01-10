@@ -1,16 +1,14 @@
 package main.java.com.zegline.rpggame;
 
 import javax.swing.*;
+import javax.swing.Timer;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 public class ChatGame extends JFrame {
 
@@ -35,6 +33,8 @@ public class ChatGame extends JFrame {
     public static ArrayList<GameEntity> enemyList = new ArrayList<>();
 
     public static ArrayList<GameEntity> bulletList = new ArrayList<>();
+
+    public static Stack<GameEntity> deathList = new Stack<GameEntity>();
     public static boolean mouseClicked;
 
 
@@ -52,7 +52,7 @@ public class ChatGame extends JFrame {
         max = new UserAvatar(Color.PINK, 32, 32,5, 32);
 
         new BasicEnemy(500,500,1);
-        new BasicEnemy(1500,500,2);
+        //new BasicEnemy(1500,500,2);
 
         mouseClicked = false;
 
@@ -305,6 +305,10 @@ public class ChatGame extends JFrame {
             while (bulletIterator.hasNext()) {
                 GameEntity bullet = bulletIterator.next();
                 bullet.update();
+            }
+
+            while(!deathList.isEmpty()) {
+                deathList.pop().removeFromList();
             }
 
         }
