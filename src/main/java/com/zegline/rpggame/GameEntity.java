@@ -86,6 +86,6 @@ public abstract class GameEntity {
 
 
     protected void death() {
-        removeFromList();
+        ChatGame.deathList.push(this);
     }
 }

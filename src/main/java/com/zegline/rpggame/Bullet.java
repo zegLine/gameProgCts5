@@ -73,7 +73,7 @@ public class Bullet extends GameEntity {
     }
 
     private void handleCollision() {
-        if(x > ChatGame.screenWidth || x < 0 || y > ChatGame.screenHeight || y < 0) {
+        if (x > ChatGame.screenWidth || x < 0 || y > ChatGame.screenHeight || y < 0) {
             //System.out.println("bullet dead");
             this.death();
         }
@@ -83,14 +83,15 @@ public class Bullet extends GameEntity {
             GameEntity enemy = iterator.next();
 
 
-        double dx = this.x - ChatGame.max.getX();
-        double dy = this.y - ChatGame.max.getY();
-        int distance = (int) Math.sqrt(dx * dx + dy * dy);
+            double dx = this.x - enemy.getX();
+            double dy = this.y - enemy.getY();
+            int distance = (int) Math.sqrt(dx * dx + dy * dy);
 
-        // Check if the circles overlap (collision occurs when distance <= sum of radii)
-        if (distance <= (this.radius + ChatGame.max.getRadius())) {
-            System.out.println("hit");
-        }
+            // Check if the circles overlap (collision occurs when distance <= sum of radii)
+            if (distance <= (this.radius + enemy.getRadius())) {
+                System.out.println("hit");
+                death();
+            }
         }
     }
 
