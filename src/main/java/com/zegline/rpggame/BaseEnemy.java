@@ -1,37 +1,34 @@
 package main.java.com.zegline.rpggame;
 
 import java.awt.*;
-import java.util.Iterator;
+import java.util.ArrayList;
 
-public class Bullet extends GameEntity {
-    private double angle;
-    private double speed;
-
-    private Color c;
-
-    private double x;
-    private double y;
-    private int damage;
-    private int radius;
+public abstract class BaseEnemy extends GameEntity{
+    protected double speed;
 
 
-    private static final int DAMAGECONST = 2;
+    protected Color c;
+
+    protected double x;
+    protected double y;
+    protected int damage;
+    protected int radius;
+    protected long lastCollisionTime;
+
+    protected static long COOLDOWN_DURATION;
 
 
-    public Bullet(int x, int y, double angle) {
-        super(x, y);
+    protected int health;
+
+
+    public BaseEnemy(int x, int y, int level) {
+        super(x,y);
         this.x = x;
         this.y = y;
-        this.angle = angle;
+        lastCollisionTime = 0;
 
-        speed = 20;
-        c = Color.BLACK;
 
-        radius = 5;
-
-        damage = DAMAGECONST;
     }
-
 
     public void draw(Graphics g) {
         g.setColor(c);
@@ -56,12 +53,7 @@ public class Bullet extends GameEntity {
     }
 
     public void handleMovement() {
-        double dx = speed * Math.cos(angle);  // Change in x (horizontal movement)
-        double dy = speed * Math.sin(angle);  // Change in y (vertical movement)
 
-
-        x += dx;
-        y += dy;
 
     }
 
@@ -71,29 +63,26 @@ public class Bullet extends GameEntity {
     }
 
     private void handleCollision() {
-        if (x > ChatGame.screenWidth || x < 0 || y > ChatGame.screenHeight || y < 0) {
-            //System.out.println("bullet dead");
-            this.death();
-        }
 
-        Iterator<GameEntity> iterator = ChatGame.gameEntityList.iterator();
-        while (iterator.hasNext()) {
-            GameEntity entity = iterator.next();
+        long currentTime = System.currentTimeMillis();
 
-            if(!(entity instanceof BaseEnemy)){
-                continue;
-            }
-            BaseEnemy enemy = (BaseEnemy)entity;
-            double dx = this.x - enemy.getX();
-            double dy = this.y - enemy.getY();
+        if (currentTime - lastCollisionTime >= COOLDOWN_DURATION) {
+
+            double dx = this.x - ChatGame.max.getX();
+            double dy = this.y - ChatGame.max.getY();
             int distance = (int) Math.sqrt(dx * dx + dy * dy);
 
             // Check if the circles overlap (collision occurs when distance <= sum of radii)
-            if (distance <= (this.radius + enemy.getRadius())) {
-                System.out.println("hit");
-                enemy.doDamage(damage);
-                death();
+            if (distance <= (this.radius + ChatGame.max.getRadius())) {
+                lastCollisionTime = currentTime;
             }
+        }
+    }
+
+    public void doDamage(int damage) {
+        this.health -= damage;
+        if(health < 0) {
+            death();
         }
     }
 

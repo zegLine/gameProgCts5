@@ -6,8 +6,6 @@ import java.util.ArrayList;
 public abstract class GameEntity {
     private double speed;
 
-
-
     private Color c;
 
     private double x;
@@ -19,6 +17,7 @@ public abstract class GameEntity {
     public GameEntity(int x, int y) {
         this.x = x;
         this.y = y;
+        setParentList(ChatGame.gameEntityList);
     }
 
     public void setParentList(ArrayList<GameEntity> parentList) {
@@ -88,4 +87,5 @@ public abstract class GameEntity {
     protected void death() {
         ChatGame.deathList.push(this);
     }
+
 }

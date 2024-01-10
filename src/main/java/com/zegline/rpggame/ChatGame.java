@@ -30,12 +30,16 @@ public class ChatGame extends JFrame {
 
     public static double mouseY;
 
-    public static ArrayList<GameEntity> enemyList = new ArrayList<>();
+    public static ArrayList<BaseEnemy> enemyList = new ArrayList<>();
 
     public static ArrayList<GameEntity> bulletList = new ArrayList<>();
 
+    public static ArrayList<GameEntity> gameEntityList = new ArrayList<>();
+
     public static Stack<GameEntity> deathList = new Stack<GameEntity>();
     public static boolean mouseClicked;
+
+    public static boolean commandMode = false;
 
 
     public ChatGame() {
@@ -105,6 +109,30 @@ public class ChatGame extends JFrame {
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
 
+                if (keyCode == KeyEvent.VK_CONTROL) {
+                    commandMode = commandMode == true ? false:true ;
+                    return;
+                }
+                if (commandMode) {
+                    switch (keyCode) {
+                        case KeyEvent.VK_ENTER:
+                            flushText();
+                            break;
+                        case KeyEvent.VK_BACK_SPACE:
+                            if (inputText.length() >= 1) {
+                                inputText.deleteCharAt(inputText.length() - 1);
+                            }
+                            break;
+                        default:
+                            if((keyCode >= KeyEvent.VK_A && keyCode <= KeyEvent.VK_Z) || keyCode == KeyEvent.VK_SPACE) {
+                                char keyChar = e.getKeyChar();
+                                handleInput(keyChar);
+                            }
+                            break;
+                    }
+
+                }
+
                 switch (keyCode) {
                     case KeyEvent.VK_A:
                         arrowKeyPressed[0] = true;
@@ -118,23 +146,9 @@ public class ChatGame extends JFrame {
                     case KeyEvent.VK_S:
                         arrowKeyPressed[3] = true;
                         break;
-                    case KeyEvent.VK_ENTER:
-                        flushText();
-                        break;
-                    case KeyEvent.VK_BACK_SPACE:
-                        if (inputText.length() >= 1) {
-                            inputText.deleteCharAt(inputText.length() - 1);
-                        }
-                        break;
-                    default:
-                        char keyChar = e.getKeyChar();
-                        handleInput(keyChar);
-                        break;
+
                 }
-
-
             }
-
             @Override
             public void keyReleased(KeyEvent e) {
                 int keyCode = e.getKeyCode();
@@ -228,18 +242,14 @@ public class ChatGame extends JFrame {
 
             max.draw(g);
 
-            //Draw loop for enemies
-            Iterator<GameEntity> iterator = enemyList.iterator();
+            //Draw loop for GameEntities
+            Iterator<GameEntity> iterator = gameEntityList.iterator();
             while (iterator.hasNext()) {
-                GameEntity enemy = iterator.next();
-                enemy.draw(g);
+                GameEntity entity = iterator.next();
+                entity.draw(g);
             }
 
-            Iterator<GameEntity> bulletIterator = bulletList.iterator();
-            while (bulletIterator.hasNext()) {
-                GameEntity bullet = bulletIterator.next();
-                bullet.draw(g);
-            }
+
 
 
             // Draw Money
@@ -293,20 +303,24 @@ public class ChatGame extends JFrame {
         }
 
         private void update(double delta) {
+            if(commandMode) {
+                return;
+            }
+
             max.update();
 
-            Iterator<GameEntity> iterator = enemyList.iterator();
+            Iterator<GameEntity> iterator = gameEntityList.iterator();
             while (iterator.hasNext()) {
                 GameEntity enemy = iterator.next();
                 enemy.update();
             }
 
-            Iterator<GameEntity> bulletIterator = bulletList.iterator();
-            while (bulletIterator.hasNext()) {
-                GameEntity bullet = bulletIterator.next();
-                bullet.update();
-            }
+            deathLoop();
 
+
+        }
+
+        private void deathLoop() {
             while(!deathList.isEmpty()) {
                 deathList.pop().removeFromList();
             }
