@@ -73,6 +73,7 @@ public class ChatGame extends JFrame {
 
         drawingPanel = new MainGamePanel();
         add(drawingPanel);
+        add(mmp);
         drawingPanel.setFocusable(true);
 
         drawingPanel.addMouseListener(Input.ml);
