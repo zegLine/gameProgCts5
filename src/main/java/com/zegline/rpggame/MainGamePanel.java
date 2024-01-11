@@ -62,7 +62,13 @@ class MainGamePanel extends JPanel {
         g.drawImage(creditsBtn, 200, 600, 300, 100, null);
 
         if (showCredits) {
-            g.drawString("Firas did the game", 500, 300);
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Arial", Font.BOLD, 32));
+            g.drawString("Osama al Kamel", 1400, 300);
+            g.drawString("Joshua Oldridge", 1400, 350);
+            g.drawString("Eugen-George Zdrincu", 1400, 400);
+            g.drawString("Firas Bazerbashi", 1400, 450);
+            g.drawString("Amjed", 1400, 500);
         }
     }
 
