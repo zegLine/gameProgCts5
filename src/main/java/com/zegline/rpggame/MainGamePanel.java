@@ -16,7 +16,8 @@ class MainGamePanel extends JPanel {
     enum GameState {
         MAIN_MENU,
         GAMEPLAY,
-        PAUSE_MENU
+        PAUSE_MENU,
+        SHOP_SCREEN
     }
 
     public static GameState currentGameState;
@@ -49,6 +50,49 @@ class MainGamePanel extends JPanel {
             case PAUSE_MENU:
                 drawPauseMenu(g);
                 break;
+            case SHOP_SCREEN:
+                drawShopScreen(g);
+                break;
+        }
+    }
+
+    private void drawShopScreen(Graphics g) {
+        World.drawItemsEquipped(g);
+
+        ChatGame.max.draw(g);
+
+        drawMula(g);
+
+        drawXYCoords(g);
+
+        drawCommandsText(g);
+    }
+
+    private void drawMula(Graphics g) {
+        // Draw Money
+        g.setColor(Color.lightGray);
+        g.setFont(new Font("Arial", Font.PLAIN, 16));
+        g.drawString("$" + String.valueOf(World.getMula()), getWidth() - 50, 30);
+    }
+
+    private void drawXYCoords(Graphics g) {
+        // Draw X and Y coord of camera
+        g.drawString("x:" + String.valueOf(ChatGame.max.getX()), getWidth() - 50, 50);
+        g.drawString("y:" + String.valueOf(ChatGame.max.getY()), getWidth() - 50, 65);
+    }
+
+    private void drawCommandsText(Graphics g) {
+        // Draw the typed text in white at the bottom of the screen
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Arial", Font.PLAIN, 16)); // Set the font size and style
+        String textToRender = ChatGame.inputText.toString();
+        g.drawString(textToRender, 10, getHeight() - 10); // Position it at the bottom
+
+        // Check if the boolean is set to true and draw the question mark
+        if (!CommandHandler.commandError.isEmpty()) {
+            g.setColor(Color.RED);
+            g.setFont(new Font("Arial", Font.BOLD, 24)); // Adjust the font size and style
+            g.drawString("?" + CommandHandler.commandError, 50, 50); // Adjust the position of the question mark
         }
     }
 
@@ -87,27 +131,11 @@ class MainGamePanel extends JPanel {
         }
 
 
-        // Draw Money
-        g.setColor(Color.lightGray);
-        g.setFont(new Font("Arial", Font.PLAIN, 16));
-        g.drawString("$" + String.valueOf(World.getMula()), getWidth() - 50, 30);
+        drawMula(g);
 
-        // Draw X and Y coord of camera
-        g.drawString("x:" + String.valueOf(ChatGame.max.getX()), getWidth() - 50, 50);
-        g.drawString("y:" + String.valueOf(ChatGame.max.getY()), getWidth() - 50, 65);
+        drawXYCoords(g);
 
-        // Draw the typed text in white at the bottom of the screen
-        g.setColor(Color.WHITE);
-        g.setFont(new Font("Arial", Font.PLAIN, 16)); // Set the font size and style
-        String textToRender = ChatGame.inputText.toString();
-        g.drawString(textToRender, 10, getHeight() - 10); // Position it at the bottom
-
-        // Check if the boolean is set to true and draw the question mark
-        if (!CommandHandler.commandError.isEmpty()) {
-            g.setColor(Color.RED);
-            g.setFont(new Font("Arial", Font.BOLD, 24)); // Adjust the font size and style
-            g.drawString("?" + CommandHandler.commandError, 50, 50); // Adjust the position of the question mark
-        }
+        drawCommandsText(g);
     }
 
     private void drawPauseMenu(Graphics g) {
@@ -156,7 +184,19 @@ class MainGamePanel extends JPanel {
             case PAUSE_MENU:
                 updatePauseMenu(delta);
                 break;
+            case SHOP_SCREEN:
+                updateShopScreen(delta);
+                break;
         }
+    }
+
+    private void updateShopScreen(double delta) {
+
+        if(ChatGame.commandMode) {
+            return;
+        }
+
+        ChatGame.max.update();
     }
 
     private void updateMainMenu(double delta) {

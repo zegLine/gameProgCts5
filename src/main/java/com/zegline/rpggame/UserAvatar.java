@@ -69,6 +69,23 @@ public class UserAvatar {
         this.handleMovement(ChatGame.arrowKeyPressed);
         this.handleCollision();
         this.shoot();
+        this.handleGoShop();
+    }
+
+    private void handleGoShop() {
+        if (MainGamePanel.currentGameState == MainGamePanel.GameState.GAMEPLAY) {
+            if (this.x > 1800 && this.y > 500 && this.y < 700) {
+                MainGamePanel.currentGameState = MainGamePanel.GameState.SHOP_SCREEN;
+                this.x = 100;
+            }
+        }
+
+        if (MainGamePanel.currentGameState == MainGamePanel.GameState.SHOP_SCREEN) {
+            if (this.x < 100 && this.y > 500 && this.y < 700) {
+                MainGamePanel.currentGameState = MainGamePanel.GameState.GAMEPLAY;
+                this.x = 1800;
+            }
+        }
     }
 
     private void shoot() {
