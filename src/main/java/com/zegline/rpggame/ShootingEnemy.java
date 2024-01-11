@@ -2,19 +2,20 @@ package main.java.com.zegline.rpggame;
 
 import java.awt.*;
 
-public class BasicEnemy extends BaseEnemy {
+public class ShootingEnemy extends BaseEnemy {
     private long lastCollisionTime;
 
+    private static final long COOLDOWN_DURATION = 2000;
 
     private static final int DAMAGECONST = 2;
 
 
 
-    public BasicEnemy(int x, int y, int level) {
-        super(x,y,level, new String[]{"flyingeyeenemy/FloatingEyeEnemy.png", "flyingeyeenemy/FloatingEyeEnemyFlipped.png"},2);
+    public ShootingEnemy(int x, int y, int level) {
+        super(x,y,level, new String[]{"skewerstalker/SkeweringStalker.png", },1);
         this.x = x;
         this.y = y;
-        this.speed = 2 + level/3;
+        this.speed = 10 + level/2;
         this.c = Color.RED;
 
         radius = 32;
@@ -29,32 +30,56 @@ public class BasicEnemy extends BaseEnemy {
 
         this.state = 0;
 
-        this.COOLDOWN_DURATION = 2000;
     }
 
 
 
     public void handleMovement() {
-        //angleOfPlayer = angleToPlayer();
-        if(x > ChatGame.max.getX()) {
-            moveLeft();
-            state = 1;
+        angleOfPlayer = angleToPlayer();
+        double dx = this.x - ChatGame.max.getX();
+        double dy = this.y - ChatGame.max.getY();
+        int distance = (int) Math.sqrt(dx * dx + dy * dy);
+        if(distance > 520) {
 
+
+            if (x > ChatGame.max.getX()) {
+                moveLeft();
+
+
+            }
+
+            if (x < ChatGame.max.getX()) {
+                moveRight();
+
+            }
+
+            if (y > ChatGame.max.getY()) {
+                moveUp();
+            }
+
+            if (y < ChatGame.max.getY()) {
+                moveDown();
+            }
+        } else if(distance < 480) {
+            if (x > ChatGame.max.getX()) {
+                moveRight();
+
+
+            }
+
+            if (x < ChatGame.max.getX()) {
+                moveLeft();
+
+            }
+
+            if (y > ChatGame.max.getY()) {
+                moveDown();
+            }
+
+            if (y < ChatGame.max.getY()) {
+                moveUp();
+            }
         }
-
-        if(x < ChatGame.max.getX()) {
-            moveRight();
-            state = 0;
-        }
-
-        if(y > ChatGame.max.getY()) {
-            moveUp();
-        }
-
-        if(y < ChatGame.max.getY()) {
-            moveDown();
-        }
-
     }
 
 

@@ -14,6 +14,7 @@ public class BulletFactory {
         dy = ChatGame.mouseY - ChatGame.max.getY();
         angle = Math.atan2(dy, dx);
 
+
         switch (bt){
             case BASIC -> new BasicBullet(ChatGame.max.getX(),ChatGame.max.getY(),angle);
         }

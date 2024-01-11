@@ -1,5 +1,6 @@
 package main.java.com.zegline.rpggame;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -15,29 +16,42 @@ public abstract class BaseEnemy extends GameEntity{
     protected int radius;
     protected long lastCollisionTime;
 
-    protected static long COOLDOWN_DURATION;
+    protected long COOLDOWN_DURATION;
 
 
     protected int health;
 
     protected int maxHealth;
 
+    Image sprite[];
 
-    public BaseEnemy(int x, int y, int level) {
+    protected int state;
+
+    protected double angleOfPlayer;
+
+    public BaseEnemy(int x, int y, int level, String[] texture,int numOfSprite) {
         super(x,y);
+        angleOfPlayer = 0;
         this.x = x;
         this.y = y;
         lastCollisionTime = 0;
-
-
+        sprite = new Image[numOfSprite];
+        for(int i = 0; i < numOfSprite; i++) {
+            sprite[i] = new ImageIcon(World.class.getClassLoader().getResource("enemies/" + texture[i])).getImage();
+        }
     }
 
-    public void draw(Graphics g) {
+    public void draw(Graphics gbad) {
+        Graphics2D g = (Graphics2D) gbad.create();
         g.setColor(c);
-        g.fillRect((int) (x - radius), (int) (y - radius), radius * 2, radius * 2);
-
         g.setColor(Color.BLUE);
         g.fillRect((int) (x - radius), (int) (y - radius - 2), (int)((radius * 2) - ((1.0-((double)health/(double)maxHealth)) * (radius*2))),  8);
+
+        g.rotate(angleOfPlayer,(int)(this.x),(int)(this.y));
+        g.drawImage(sprite[state], (int) (x - radius), (int) (y - radius),radius * 2, radius * 2,null);
+        //g.fillRect((int) (x - radius), (int) (y - radius), radius * 2, radius * 2);
+
+
     }
 
     // Separate methods for moving the avatar in each direction
@@ -79,6 +93,7 @@ public abstract class BaseEnemy extends GameEntity{
 
             // Check if the circles overlap (collision occurs when distance <= sum of radii)
             if (distance <= (this.radius + ChatGame.max.getRadius())) {
+                ChatGame.max.doDamage(damage);
                 lastCollisionTime = currentTime;
             }
         }

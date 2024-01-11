@@ -31,6 +31,12 @@ public abstract class GameEntity {
         }
     }
 
+    protected double angleToPlayer(){
+        double dx = this.x - ChatGame.max.getX();
+        double dy = this.y - ChatGame.max.getY();
+        return Math.atan2(dy, dx);
+    }
+
     public abstract void draw(Graphics g);
 
     public abstract void update();

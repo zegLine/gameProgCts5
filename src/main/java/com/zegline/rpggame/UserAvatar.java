@@ -1,11 +1,15 @@
 package main.java.com.zegline.rpggame;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
 
 
 public class UserAvatar {
+
+    private Image[] sprites;
+    public int sprite_used;
 
     private int speed;
     private Color c;
@@ -37,21 +41,34 @@ public class UserAvatar {
 
     public static Set<Item> items_available = new HashSet<>();
 
+    private int health;
 
     private int radius;
 
-    public UserAvatar(Color c, int x, int y, int speed, int radius) {
+    public UserAvatar(Color c, int x, int y, int speed, int radius, String[] textures, int nSprites) {
         this.c = c;
         this.x = x;
         this.y = y;
         this.speed = speed;
         this.radius = radius;
         currentBullet = BulletType.BASIC;
+
+        health = 100;
+        sprite_used = 0;
+        sprites = new Image[nSprites];
+
+        for (int i = 0; i < nSprites; i++) {
+            sprites[i] =  new ImageIcon(World.class.getClassLoader().getResource("player/" + textures[i])).getImage();
+        }
     }
 
     public void draw(Graphics g) {
+        //g.setColor(c);
+        //g.fillRect(x - radius, y - radius, radius * 2, radius * 2);
         g.setColor(c);
-        g.fillRect(x - radius, y - radius, radius * 2, radius * 2);
+        g.fillRect(20, 20, health, 20);
+
+        g.drawImage(sprites[sprite_used], x - radius, y - radius, 64, 64, null);
     }
 
     // Separate methods for moving the avatar in each direction
@@ -120,6 +137,17 @@ public class UserAvatar {
             new BulletFactory().shoot(currentBullet);
 
         }
+    }
+
+    public void doDamage(int dmg){
+        health -= dmg;
+        if(health < 0 ){
+            death();
+        }
+    }
+
+    private void death() {
+        System.out.println("death");
     }
 
     private void handleCollision() {

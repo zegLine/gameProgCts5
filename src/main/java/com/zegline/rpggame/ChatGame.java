@@ -49,9 +49,10 @@ public class ChatGame extends JFrame {
         ClassLoader classLoader = ChatGame.class.getClassLoader();
         URL mapurl = classLoader.getResource("level1.map");
         World.loadMap(mapurl.getPath());
-        max = new UserAvatar(Color.PINK, 32, 32,5, 32);
+        max = new UserAvatar(Color.PINK, 32, 32,5, 32, new String[]{"player.png"}, 1);
 
-        new BasicEnemy(500,500,5);
+        new BasicEnemy(500,500,1);
+        new ShootingEnemy(1000,1000,1);
         //new BasicEnemy(1500,500,2);
 
         mouseClicked = false;
