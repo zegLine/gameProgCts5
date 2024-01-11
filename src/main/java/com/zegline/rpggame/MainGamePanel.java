@@ -6,21 +6,67 @@ import java.util.Iterator;
 
 class MainGamePanel extends JPanel {
 
+    Image bg;
+    Image startBtn;
+    Image quitBtn;
+    Image creditsBtn;
+
+    ClassLoader classLoader = World.class.getClassLoader();
+
+    enum GameState {
+        MAIN_MENU,
+        GAMEPLAY,
+        PAUSE_MENU
+    }
+
+    public static GameState currentGameState;
+
+    private boolean showCredits = false;
+
     private static final int TARGET_FPS = 120; // Target frames per second
     private static final long TARGET_TIME = 1000000000 / TARGET_FPS; // Target time per frame in nanoseconds
 
     public MainGamePanel() {
         setBackground(Color.BLACK);
+        currentGameState = GameState.MAIN_MENU;
+
+        bg = new ImageIcon(classLoader.getResource("bg.jpg")).getImage();
+        startBtn = new ImageIcon(classLoader.getResource("btn.png")).getImage();
+        quitBtn = new ImageIcon(classLoader.getResource("btn.png")).getImage();
+        creditsBtn = new ImageIcon(classLoader.getResource("btn.png")).getImage();
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        drawGame(g);
+        switch (currentGameState) {
+            case MAIN_MENU:
+                drawMainMenu(g);
+                break;
+            case GAMEPLAY:
+                drawGameplay(g);
+                break;
+            case PAUSE_MENU:
+                drawPauseMenu(g);
+                break;
+        }
     }
 
-    private void drawGame(Graphics g) {
+    private void drawMainMenu(Graphics g) {
+        setBackground(Color.BLACK);
 
+        g.drawImage(bg, 0, 0, 1920, 1080, null);
+
+        g.drawImage(startBtn, 200, 200, 300, 100, null);
+        g.drawImage(quitBtn, 200, 400, 300, 100, null);
+        g.drawImage(creditsBtn, 200, 600, 300, 100, null);
+
+        if (showCredits) {
+            g.drawString("Firas did the game", 500, 300);
+        }
+    }
+
+    private void drawGameplay(Graphics g) {
         //World.simpleAvatar.draw(g);
         World.drawMap(g,0, 0, getWidth(), getHeight());
         World.drawItemsEquipped(g);
@@ -58,6 +104,13 @@ class MainGamePanel extends JPanel {
         }
     }
 
+    private void drawPauseMenu(Graphics g) {
+        // Draw pause menu graphics here
+        // For example:
+        g.setColor(Color.WHITE);
+        g.drawString("Pause Menu", getWidth() / 2, getHeight() / 2);
+    }
+
     public void startGameLoop() {
         Thread gameLoop = new Thread(() -> {
             long lastLoopTime = System.nanoTime();
@@ -68,8 +121,9 @@ class MainGamePanel extends JPanel {
                 lastLoopTime = now;
                 double delta = updateLength / ((double) TARGET_TIME);
 
-                // Call the update and render methods here
-                update(delta);
+                // Update current game state
+                updateCurrentState(delta);
+
                 repaint(); // This will call paintComponent
 
                 try {
@@ -85,7 +139,44 @@ class MainGamePanel extends JPanel {
         gameLoop.start();
     }
 
-    private void update(double delta) {
+    private void updateCurrentState(double delta) {
+        switch (currentGameState) {
+            case MAIN_MENU:
+                updateMainMenu(delta);
+                break;
+            case GAMEPLAY:
+                updateGameplay(delta);
+                break;
+            case PAUSE_MENU:
+                updatePauseMenu(delta);
+                break;
+        }
+    }
+
+    private void updateMainMenu(double delta) {
+        // Update main menu logic here
+
+        if (ChatGame.mouseClicked) {
+            ChatGame.mouseClicked = false;
+            if (ChatGame.mouseX > 200 && ChatGame.mouseX < 500 && ChatGame.mouseY > 200 && ChatGame.mouseY < 300) {
+                // START BUTTON CLICKED START GAME
+                currentGameState = GameState.GAMEPLAY;
+            }
+
+            if (ChatGame.mouseX > 200 && ChatGame.mouseX < 500 && ChatGame.mouseY > 400 && ChatGame.mouseY < 500) {
+                // CREDITS BUTTON CLICKED SHOW CREDITS
+                showCredits = !showCredits;
+            }
+
+            if (ChatGame.mouseX > 200 && ChatGame.mouseX < 500 && ChatGame.mouseY > 600 && ChatGame.mouseY < 700) {
+                // EXIT BUTTON CLICKED END GAME
+                System.exit(0);
+            }
+        }
+
+    }
+
+    private void updateGameplay(double delta) {
         if(ChatGame.commandMode) {
             return;
         }
@@ -99,8 +190,10 @@ class MainGamePanel extends JPanel {
         }
 
         deathLoop();
+    }
 
-
+    private void updatePauseMenu(double delta) {
+        // Update pause menu logic here
     }
 
     private void deathLoop() {

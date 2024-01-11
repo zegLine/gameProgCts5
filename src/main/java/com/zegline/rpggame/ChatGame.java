@@ -13,14 +13,12 @@ import java.util.*;
 public class ChatGame extends JFrame {
 
     private MainGamePanel drawingPanel;
-    private Timer gameTimer;
 
     // Create a StringBuilder to store the typed characters
     public static StringBuilder inputText = new StringBuilder();
 
     public static int screenHeight = 1080;
     public static int screenWidth = 1920;
-    private int cameraSpeed = 3; // Adjust the camera movement speed as needed
 
     public static boolean[] arrowKeyPressed = {false,false,false,false}; // left, right, up, down
     private final Set<Integer> pressedKeys = new HashSet<>();
@@ -30,18 +28,12 @@ public class ChatGame extends JFrame {
 
     public static double mouseY;
 
-    public static ArrayList<BaseEnemy> enemyList = new ArrayList<>();
-
-    public static ArrayList<GameEntity> bulletList = new ArrayList<>();
-
     public static ArrayList<GameEntity> gameEntityList = new ArrayList<>();
 
     public static Stack<GameEntity> deathList = new Stack<GameEntity>();
     public static boolean mouseClicked;
 
     public static boolean commandMode = false;
-
-    public static MainMenuPanel mmp = new MainMenuPanel();
 
 
     public ChatGame() {
@@ -73,7 +65,6 @@ public class ChatGame extends JFrame {
 
         drawingPanel = new MainGamePanel();
         add(drawingPanel);
-        add(mmp);
         drawingPanel.setFocusable(true);
 
         drawingPanel.addMouseListener(Input.ml);

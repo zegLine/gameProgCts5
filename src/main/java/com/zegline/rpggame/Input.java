@@ -1,5 +1,7 @@
 package main.java.com.zegline.rpggame;
 
+import com.sun.tools.javac.Main;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -42,7 +44,16 @@ public class Input {
     public static final KeyAdapter ka = new KeyAdapter() {
         @Override
         public void keyPressed(KeyEvent e) {
+
             int keyCode = e.getKeyCode();
+
+            if (keyCode == KeyEvent.VK_ESCAPE) {
+                if (MainGamePanel.currentGameState == MainGamePanel.GameState.GAMEPLAY)
+                    MainGamePanel.currentGameState = MainGamePanel.GameState.PAUSE_MENU;
+                else {
+                    MainGamePanel.currentGameState = MainGamePanel.GameState.GAMEPLAY;
+                }
+            }
 
             if (keyCode == KeyEvent.VK_CONTROL) {
                 ChatGame.commandMode = ChatGame.commandMode == true ? false:true ;
