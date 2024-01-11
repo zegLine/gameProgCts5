@@ -10,6 +10,8 @@ import java.awt.event.MouseListener;
 import java.net.URL;
 import java.util.*;
 
+import static main.java.com.zegline.rpggame.UserAvatar.items_available;
+
 public class ChatGame extends JFrame {
 
     private MainGamePanel drawingPanel;
@@ -72,9 +74,9 @@ public class ChatGame extends JFrame {
 
         // Add avatars
        // World.simpleAvatar = new UserAvatar(Color.GREEN, 10, 10, 50, 50);
-        World.setMula(500); // initial money
-        World.items_available.add(new Item("gun", 30));
-        World.items_available.add(new Item("machete", 10));
+        UserAvatar.setMula(500); // initial money
+        items_available.add(new Item("gun", 30));
+        items_available.add(new Item("machete", 10));
 
         // Create a game timer with a 16ms delay (about 60 FPS)
         drawingPanel.startGameLoop();

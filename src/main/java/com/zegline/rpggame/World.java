@@ -9,6 +9,8 @@ import java.awt.*;
 import java.net.URL;
 import java.util.List;
 
+import static main.java.com.zegline.rpggame.UserAvatar.items_equipped;
+
 public class World {
 
     static enum Texture {
@@ -80,29 +82,13 @@ public class World {
     }
     public static UserAvatar simpleAvatar;
 
-    private static int mula;
 
-    public static Set<Item> items_equipped = new HashSet<>();
 
-    public static Set<Item> items_available = new HashSet<>();
+
 
     public static Item item_in_hand = null;
 
-    public static boolean enoughMoneyAndBuy(int amount) {
-        if (amount > mula) return false;
 
-        mula -= amount;
-
-        return true;
-    }
-
-    public static int getMula(){
-        return mula;
-    }
-
-    public static void setMula(int amount) {
-        mula = amount;
-    }
 
     private static int initialx = 10;
     private static int initialy = 80;

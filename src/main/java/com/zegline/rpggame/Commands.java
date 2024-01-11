@@ -2,6 +2,9 @@ package main.java.com.zegline.rpggame;
 
 import java.awt.*;
 
+import static main.java.com.zegline.rpggame.UserAvatar.items_available;
+import static main.java.com.zegline.rpggame.UserAvatar.items_equipped;
+
 public class Commands {
 
     public static boolean buy(String[] parameters) {
@@ -9,10 +12,10 @@ public class Commands {
             String itemToBuy = parameters[0];
             System.out.println("Buying " + itemToBuy);
 
-            for (Item i : World.items_available) {
+            for (Item i : items_available) {
                 if (itemToBuy.equals(i.name)) {
-                    if (World.enoughMoneyAndBuy(i.cost)) {
-                        World.items_equipped.add(i);
+                    if (UserAvatar.enoughMoneyAndBuy(i.cost)) {
+                        items_equipped.add(i);
                         return true;
                     }
                 }
@@ -32,7 +35,7 @@ public class Commands {
             String itemToEquip = parameters[0];
             System.out.println("Equipping " + itemToEquip);
 
-            for (Item i : World.items_equipped) {
+            for (Item i : items_equipped) {
                 if (itemToEquip.equals(i.name)) {
                     World.equipItem(i);
                     return true;

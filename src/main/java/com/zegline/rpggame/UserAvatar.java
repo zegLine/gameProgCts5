@@ -1,6 +1,8 @@
 package main.java.com.zegline.rpggame;
 
 import java.awt.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class UserAvatar {
@@ -12,6 +14,28 @@ public class UserAvatar {
     private int y;
 
     private BulletType currentBullet;
+
+    private static int mula;
+
+    public static boolean enoughMoneyAndBuy(int amount) {
+        if (amount > mula) return false;
+
+        mula -= amount;
+
+        return true;
+    }
+
+    public static int getMula(){
+        return mula;
+    }
+
+    public static void setMula(int amount) {
+        mula = amount;
+    }
+
+    public static Set<Item> items_equipped = new HashSet<>();
+
+    public static Set<Item> items_available = new HashSet<>();
 
 
     private int radius;

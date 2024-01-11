@@ -72,7 +72,7 @@ class MainGamePanel extends JPanel {
         // Draw Money
         g.setColor(Color.lightGray);
         g.setFont(new Font("Arial", Font.PLAIN, 16));
-        g.drawString("$" + String.valueOf(World.getMula()), getWidth() - 50, 30);
+        g.drawString("$" + String.valueOf(UserAvatar.getMula()), getWidth() - 50, 30);
     }
 
     private void drawXYCoords(Graphics g) {
