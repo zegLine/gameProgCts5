@@ -49,7 +49,7 @@ public class ChatGame extends JFrame {
         World.loadMap(mapurl.getPath());
         max = new UserAvatar(Color.PINK, 32, 32,5, 32);
 
-        new BasicEnemy(500,500,1);
+        new BasicEnemy(500,500,5);
         //new BasicEnemy(1500,500,2);
 
         mouseClicked = false;

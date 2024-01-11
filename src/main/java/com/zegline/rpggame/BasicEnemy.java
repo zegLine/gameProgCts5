@@ -15,7 +15,7 @@ public class BasicEnemy extends BaseEnemy {
         super(x,y,level);
         this.x = x;
         this.y = y;
-        this.speed = 2 + level;
+        this.speed = 2 + level/3;
         this.c = Color.RED;
 
         radius = 28;
@@ -25,6 +25,8 @@ public class BasicEnemy extends BaseEnemy {
         this.health = 10 + 2 * level;
 
         lastCollisionTime = 0;
+
+        this.maxHealth = this.health;
 
     }
 

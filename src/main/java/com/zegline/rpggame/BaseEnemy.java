@@ -20,6 +20,8 @@ public abstract class BaseEnemy extends GameEntity{
 
     protected int health;
 
+    protected int maxHealth;
+
 
     public BaseEnemy(int x, int y, int level) {
         super(x,y);
@@ -33,6 +35,9 @@ public abstract class BaseEnemy extends GameEntity{
     public void draw(Graphics g) {
         g.setColor(c);
         g.fillRect((int) (x - radius), (int) (y - radius), radius * 2, radius * 2);
+
+        g.setColor(Color.BLUE);
+        g.fillRect((int) (x - radius), (int) (y - radius - 2), (int)((radius * 2) - ((1.0-((double)health/(double)maxHealth)) * (radius*2))),  8);
     }
 
     // Separate methods for moving the avatar in each direction

@@ -2,6 +2,7 @@ package main.java.com.zegline.rpggame;
 
 import java.awt.*;
 
+
 public class UserAvatar {
 
     private int speed;
@@ -10,6 +11,7 @@ public class UserAvatar {
     private int x;
     private int y;
 
+    private BulletType currentBullet;
 
 
     private int radius;
@@ -20,6 +22,7 @@ public class UserAvatar {
         this.y = y;
         this.speed = speed;
         this.radius = radius;
+        currentBullet = BulletType.BASIC;
     }
 
     public void draw(Graphics g) {
@@ -73,12 +76,8 @@ public class UserAvatar {
             ChatGame.mouseClicked = false;
             System.out.println("shoot");
 
+            new BulletFactory().shoot(currentBullet);
 
-            double dx = ChatGame.mouseX - ChatGame.max.getX();
-            double dy = ChatGame.mouseY - ChatGame.max.getY();
-            double angle = Math.atan2(dy, dx); // Angle in radians
-
-            new Bullet(x,y,angle);
         }
     }
 

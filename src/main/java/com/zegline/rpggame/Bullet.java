@@ -3,7 +3,7 @@ package main.java.com.zegline.rpggame;
 import java.awt.*;
 import java.util.Iterator;
 
-public class Bullet extends GameEntity {
+public abstract class Bullet extends GameEntity {
     private double angle;
     private double speed;
 
