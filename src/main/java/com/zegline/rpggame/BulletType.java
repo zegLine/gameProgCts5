@@ -4,6 +4,8 @@ public enum BulletType {
     BASIC,
     SHOTGUN,
     BIGGUN,
-    BURST
+    BURST,
+
+    SHOOTING_ENEMY
 
 }
