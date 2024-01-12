@@ -1,11 +1,12 @@
 package main.java.com.zegline.rpggame;
 
 import java.awt.*;
+import java.security.interfaces.RSAPrivateCrtKey;
 
 public class ShootingEnemy extends BaseEnemy {
-    private long lastCollisionTime;
+    private long lastShotTime;
 
-    private static final long COOLDOWN_DURATION = 2000;
+    private static final long SHOT_COOLDOWN_DURATION = 200;
 
     private static final int DAMAGECONST = 2;
 
@@ -15,7 +16,7 @@ public class ShootingEnemy extends BaseEnemy {
         super(x,y,level, new String[]{"skewerstalker/SkeweringStalker.png", },1);
         this.x = x;
         this.y = y;
-        this.speed = 10 + level/2;
+        this.speed = 2 + level/2;
         this.c = Color.RED;
 
         radius = 32;
@@ -32,7 +33,21 @@ public class ShootingEnemy extends BaseEnemy {
 
     }
 
+    public void update() {
+        this.handleMovement();
+        this.handleCollision();
+        this.shoot();
+    }
 
+    private void shoot() {
+        if(lastShotTime < SHOT_COOLDOWN_DURATION) {
+            System.out.println(lastShotTime);
+            lastShotTime++;
+            return;
+        }
+        lastShotTime = 0;
+        new EnemyBulletFactory(BulletType.SHOOTING_ENEMY,this.x,this.y);
+    }
 
     public void handleMovement() {
         angleOfPlayer = angleToPlayer();
@@ -86,20 +101,19 @@ public class ShootingEnemy extends BaseEnemy {
 
     private void handleCollision() {
 
-        long currentTime = System.currentTimeMillis();
-
-        if (currentTime - lastCollisionTime >= COOLDOWN_DURATION) {
-
-            double dx = this.x - ChatGame.max.getX();
-            double dy = this.y - ChatGame.max.getY();
-            int distance = (int) Math.sqrt(dx * dx + dy * dy);
-
-            // Check if the circles overlap (collision occurs when distance <= sum of radii)
-            if (distance <= (this.radius + ChatGame.max.getRadius())) {
-                System.out.println("hit");
-                lastCollisionTime = currentTime;
+            if (x + (2 * radius) > ChatGame.screenWidth) {
+                moveLeft();
             }
-        }
+            if(x - radius < 0){
+                moveRight();
+            }
+            if(y + (2 * radius) > ChatGame.screenHeight) {
+                moveUp();
+            }
+            if(y - radius < 0) {
+                moveDown();
+            }
+
     }
 
     public void doDamage(int damage) {
