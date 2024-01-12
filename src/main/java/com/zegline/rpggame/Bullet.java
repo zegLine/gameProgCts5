@@ -7,12 +7,12 @@ public abstract class Bullet extends GameEntity {
     private double angle;
     private double speed;
 
-    private Color c;
+    protected Color c;
 
-    private double x;
-    private double y;
-    private int damage;
-    private int radius;
+    protected double x;
+    protected double y;
+    protected int damage;
+    protected int radius;
 
 
     private static final int DAMAGECONST = 2;
