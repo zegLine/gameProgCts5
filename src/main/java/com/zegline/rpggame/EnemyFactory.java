@@ -2,10 +2,10 @@ package main.java.com.zegline.rpggame;
 
 public class EnemyFactory {
 
-    int level;
+    int enemyLevel;
 
 
-    public EnemyFactory(int level,BasicEnemy[] enemySpawnList, boolean hardmode) {
+    public EnemyFactory(int enemyLevel,int currLevel, boolean hardmode,int initCount) {
 
     }
 }
