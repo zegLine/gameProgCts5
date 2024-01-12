@@ -235,7 +235,15 @@ class MainGamePanel extends JPanel {
             enemy.update();
         }
 
+        shootPlayerLoop();
+        
         deathLoop();
+    }
+
+    private void shootPlayerLoop() {
+        while(!ChatGame.bulletCreateList.isEmpty()){
+            ChatGame.bulletCreateList.pop().shootPlayer();
+        }
     }
 
     private void updatePauseMenu(double delta) {
