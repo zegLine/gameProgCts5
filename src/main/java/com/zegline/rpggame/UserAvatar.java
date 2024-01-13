@@ -1,5 +1,8 @@
 package main.java.com.zegline.rpggame;
 
+import main.java.com.zegline.rpggame.GameEntity.Bullets.BulletFactory;
+import main.java.com.zegline.rpggame.GameEntity.Bullets.BulletType;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashSet;
@@ -58,17 +61,18 @@ public class UserAvatar {
         sprites = new Image[nSprites];
 
         for (int i = 0; i < nSprites; i++) {
-            sprites[i] =  new ImageIcon(World.class.getClassLoader().getResource("player/" + textures[i])).getImage();
+            sprites[i] =  new ImageIcon(World.class.getClassLoader().getResource("player/" + textures[i]+".png")).getImage();
         }
     }
 
     public void draw(Graphics g) {
         //g.setColor(c);
         //g.fillRect(x - radius, y - radius, radius * 2, radius * 2);
-        g.setColor(c);
-        g.fillRect(20, 20, health, 20);
+
 
         g.drawImage(sprites[sprite_used], x - radius, y - radius, 64, 64, null);
+        g.setColor(c);
+        g.fillRect(20, 20, health, 20);
     }
 
     // Separate methods for moving the avatar in each direction
@@ -110,7 +114,115 @@ public class UserAvatar {
         this.handleMovement(ChatGame.arrowKeyPressed);
         this.handleCollision();
         this.shoot();
+        this.handleAnimation(ChatGame.arrowKeyPressed);
         this.handleGoShop();
+
+    }
+
+    enum AnimationState{
+        UP,DOWN,LEFT,RIGHT
+    }
+    AnimationState as = AnimationState.UP;;
+    AnimationState prevAs = AnimationState.RIGHT;
+
+    int animationCounter = 0;
+    private void handleAnimation(boolean[] arrowKeyPressed) {
+
+
+
+
+
+        double speedOfAnimation = 6;
+        if(arrowKeyPressed[2] ^ arrowKeyPressed[3]) {
+            if(arrowKeyPressed[2]) {
+                as = AnimationState.UP;
+                if(as != prevAs) {
+                    System.out.println("UP change");
+
+                    prevAs = as;
+                    sprite_used = 4;
+                    animationCounter = 0;
+                } else {
+                    if(animationCounter < 5 * speedOfAnimation) {
+                        animationCounter++;
+                    } else {
+                        animationCounter = 0;
+                        sprite_used = sprite_used >= 7 ? 4 : sprite_used + 1;
+                    }
+                }
+            } else if (arrowKeyPressed[3]) {
+                as = AnimationState.DOWN;
+                if(as != prevAs) {
+                    System.out.println("DOWN change");
+
+                    prevAs = as;
+                    sprite_used = 0;
+                    animationCounter = 0;
+                } else {
+                    if(animationCounter < 5 * speedOfAnimation) {
+                        animationCounter++;
+                    } else {
+                        animationCounter = 0;
+                        sprite_used = sprite_used >= 3 ? 0 : sprite_used + 1;
+
+                    }
+                }
+            }
+
+        } else if (arrowKeyPressed[0] ^ arrowKeyPressed[1]){
+            if(arrowKeyPressed[0]) {
+                as = AnimationState.LEFT;
+                if(as != prevAs) {
+                    System.out.println("LEFT change");
+
+                    prevAs = as;
+                    sprite_used = 12;
+                    animationCounter = 0;
+                } else {
+                    if(animationCounter < 5 * speedOfAnimation) {
+                        animationCounter++;
+                    } else {
+                        animationCounter = 0;
+                        sprite_used = sprite_used >= 15 ? 12 : sprite_used + 1;
+                    }
+                }
+            } else if (arrowKeyPressed[1]) {
+                as = AnimationState.RIGHT;
+                if(as != prevAs) {
+                    System.out.println("RIGHT change");
+
+                    prevAs = as;
+                    sprite_used = 8;
+                    animationCounter = 0;
+                } else {
+                    if(animationCounter < 5 * speedOfAnimation) {
+                        animationCounter++;
+                    } else {
+                        animationCounter = 0;
+                        sprite_used = sprite_used >= 11 ? 8 : sprite_used + 1;
+                    }
+                }
+            }
+        } else {
+            animationCounter = 0;
+            switch (as) {
+                case UP -> {
+                    sprite_used = 4;
+                    break;
+                }
+                case DOWN -> {
+                    sprite_used = 0;
+                    break;
+                }
+                case LEFT -> {
+                    sprite_used = 12;
+                    break;
+                } case RIGHT -> {
+                    sprite_used = 8;
+                    break;
+                }
+            }
+        }
     }
 
     private void handleGoShop() {
