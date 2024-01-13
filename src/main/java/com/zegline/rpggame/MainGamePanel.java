@@ -1,5 +1,7 @@
 package main.java.com.zegline.rpggame;
 
+import main.java.com.zegline.rpggame.GameEntity.GameEntity;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Iterator;
@@ -120,6 +122,8 @@ class MainGamePanel extends JPanel {
         //World.simpleAvatar.draw(g);
         World.drawMap(g,0, 0, getWidth(), getHeight());
         World.drawItemsEquipped(g);
+        g.setColor(Color.BLACK);
+        g.fillRect(0,0,1920,64);
 
         ChatGame.max.draw(g);
 
