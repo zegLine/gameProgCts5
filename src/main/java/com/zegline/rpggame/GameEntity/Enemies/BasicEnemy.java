@@ -1,4 +1,6 @@
-package main.java.com.zegline.rpggame;
+package main.java.com.zegline.rpggame.GameEntity.Enemies;
+
+import main.java.com.zegline.rpggame.ChatGame;
 
 import java.awt.*;
 

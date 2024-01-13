@@ -1,4 +1,4 @@
-package main.java.com.zegline.rpggame;
+package main.java.com.zegline.rpggame.GameEntity.Bullets;
 
 public enum BulletType {
     BASIC,

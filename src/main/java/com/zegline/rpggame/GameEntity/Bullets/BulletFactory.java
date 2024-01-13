@@ -1,4 +1,8 @@
-package main.java.com.zegline.rpggame;
+package main.java.com.zegline.rpggame.GameEntity.Bullets;
+
+import main.java.com.zegline.rpggame.ChatGame;
+import main.java.com.zegline.rpggame.GameEntity.Bullets.BasicBullet;
+import main.java.com.zegline.rpggame.GameEntity.Bullets.BulletType;
 
 public class BulletFactory {
 

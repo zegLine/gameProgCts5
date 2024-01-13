@@ -1,12 +1,11 @@
 package main.java.com.zegline.rpggame;
 
+import main.java.com.zegline.rpggame.GameEntity.Bullets.EnemyBulletFactory;
+import main.java.com.zegline.rpggame.GameEntity.GameEntity;
+import main.java.com.zegline.rpggame.GameEntity.Enemies.ShootingEnemy;
+
 import javax.swing.*;
-import javax.swing.Timer;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.net.URL;
 import java.util.*;
 
@@ -51,10 +50,10 @@ public class ChatGame extends JFrame {
         ClassLoader classLoader = ChatGame.class.getClassLoader();
         URL mapurl = classLoader.getResource("level1.map");
         World.loadMap(mapurl.getPath());
-        max = new UserAvatar(Color.PINK, 32, 32,5, 32, new String[]{"player.png"}, 1);
+        max = new UserAvatar(Color.PINK, 32, 32,3, 32, new String[]{"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"}, 16);
 
         //new BasicEnemy(500,500,1);
-        new ShootingEnemy(1000,1000,1);
+        new ShootingEnemy(1000,1800,1);
         //new BasicEnemy(1500,500,2);
 
         mouseClicked = false;

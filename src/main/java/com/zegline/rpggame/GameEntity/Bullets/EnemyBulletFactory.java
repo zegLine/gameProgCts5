@@ -1,4 +1,6 @@
-package main.java.com.zegline.rpggame;
+package main.java.com.zegline.rpggame.GameEntity.Bullets;
+
+import main.java.com.zegline.rpggame.ChatGame;
 
 public class EnemyBulletFactory {
     private double x;

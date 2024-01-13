@@ -1,4 +1,6 @@
-package main.java.com.zegline.rpggame;
+package main.java.com.zegline.rpggame.GameEntity;
+
+import main.java.com.zegline.rpggame.ChatGame;
 
 import java.awt.*;
 import java.util.ArrayList;

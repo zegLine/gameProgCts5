@@ -1,4 +1,7 @@
-package main.java.com.zegline.rpggame;
+package main.java.com.zegline.rpggame.GameEntity.Enemies;
+
+import main.java.com.zegline.rpggame.ChatGame;
+import main.java.com.zegline.rpggame.GameEntity.Bullets.Bullet;
 
 public class EnemyBaseBullet extends Bullet {
     public EnemyBaseBullet(int x, int y, double angle) {

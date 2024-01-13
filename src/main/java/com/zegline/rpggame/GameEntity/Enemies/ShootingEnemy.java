@@ -1,12 +1,15 @@
-package main.java.com.zegline.rpggame;
+package main.java.com.zegline.rpggame.GameEntity.Enemies;
+
+import main.java.com.zegline.rpggame.GameEntity.Bullets.BulletType;
+import main.java.com.zegline.rpggame.ChatGame;
+import main.java.com.zegline.rpggame.GameEntity.Bullets.EnemyBulletFactory;
 
 import java.awt.*;
-import java.security.interfaces.RSAPrivateCrtKey;
 
 public class ShootingEnemy extends BaseEnemy {
     private long lastShotTime;
 
-    private static final long SHOT_COOLDOWN_DURATION = 200;
+    private static long shotCooldown;
 
     private static final int DAMAGECONST = 2;
 
@@ -25,6 +28,8 @@ public class ShootingEnemy extends BaseEnemy {
 
         this.health = 10 + 2 * level;
 
+        shotCooldown = 200 - (10L * level);
+
         lastCollisionTime = 0;
 
         this.maxHealth = this.health;
@@ -40,8 +45,7 @@ public class ShootingEnemy extends BaseEnemy {
     }
 
     private void shoot() {
-        if(lastShotTime < SHOT_COOLDOWN_DURATION) {
-            System.out.println(lastShotTime);
+        if(lastShotTime < shotCooldown) {
             lastShotTime++;
             return;
         }
@@ -50,7 +54,7 @@ public class ShootingEnemy extends BaseEnemy {
     }
 
     public void handleMovement() {
-        angleOfPlayer = angleToPlayer();
+        //angleOfPlayer = angleToPlayer();
         double dx = this.x - ChatGame.max.getX();
         double dy = this.y - ChatGame.max.getY();
         int distance = (int) Math.sqrt(dx * dx + dy * dy);
