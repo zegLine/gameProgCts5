@@ -18,8 +18,8 @@ public class ChatGame extends JFrame {
     // Create a StringBuilder to store the typed characters
     public static StringBuilder inputText = new StringBuilder();
 
-    public static int screenHeight = 1080;
-    public static int screenWidth = 1920;
+    public static int screenHeight = 960 + 38;
+    public static int screenWidth = 1280 + 18;
 
     public static boolean[] arrowKeyPressed = {false,false,false,false}; // left, right, up, down
     private final Set<Integer> pressedKeys = new HashSet<>();
@@ -50,7 +50,7 @@ public class ChatGame extends JFrame {
         ClassLoader classLoader = ChatGame.class.getClassLoader();
         URL mapurl = classLoader.getResource("level1.map");
         World.loadMap(mapurl.getPath());
-        max = new UserAvatar(Color.PINK, 32, 32,3, 32, new String[]{"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"}, 16);
+        max = new UserAvatar(Color.PINK, 64, screenHeight-140,3, 32, new String[]{"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"}, 16);
 
         //new BasicEnemy(500,500,1);
         new ShootingEnemy(1000,1800,1);
