@@ -107,6 +107,14 @@ public class World {
     }
 
     public static void drawMap(Graphics g, int cameraX, int cameraY, int viewportWidth, int viewportHeight) {
+
+        if(true) {
+            Image backgroundImg =  new ImageIcon(World.class.getClassLoader().getResource("MainMap.png")).getImage();
+            g.drawImage(backgroundImg,0,0,1280,960,null);
+            return;
+        }
+
+
         int tileSize = 64; // Size of each tile
 
         for (int row = 0; row < loadedMap.size(); row++) {
