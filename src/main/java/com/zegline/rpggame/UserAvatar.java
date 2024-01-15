@@ -122,8 +122,8 @@ public class UserAvatar {
     enum AnimationState{
         UP,DOWN,LEFT,RIGHT
     }
-    AnimationState as = AnimationState.UP;;
-    AnimationState prevAs = AnimationState.RIGHT;
+    AnimationState as = AnimationState.RIGHT;;
+    AnimationState prevAs = AnimationState.UP;
 
     int animationCounter = 0;
     private void handleAnimation(boolean[] arrowKeyPressed) {
@@ -207,18 +207,18 @@ public class UserAvatar {
             animationCounter = 0;
             switch (as) {
                 case UP -> {
-                    sprite_used = 4;
+                    sprite_used = 5;
                     break;
                 }
                 case DOWN -> {
-                    sprite_used = 0;
+                    sprite_used = 1;
                     break;
                 }
                 case LEFT -> {
-                    sprite_used = 12;
+                    sprite_used = 13;
                     break;
                 } case RIGHT -> {
-                    sprite_used = 8;
+                    sprite_used = 9;
                     break;
                 }
             }

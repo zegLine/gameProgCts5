@@ -123,7 +123,7 @@ class MainGamePanel extends JPanel {
         World.drawMap(g,0, 0, getWidth(), getHeight());
         World.drawItemsEquipped(g);
         g.setColor(Color.BLACK);
-        g.fillRect(0,0,1920,64);
+        //g.fillRect(0,0,300,64);
 
         ChatGame.max.draw(g);
 
