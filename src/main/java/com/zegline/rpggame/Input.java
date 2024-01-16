@@ -46,6 +46,18 @@ public class Input {
         public void keyPressed(KeyEvent e) {
 
             int keyCode = e.getKeyCode();
+/*
+            if (keyCode == KeyEvent.VK_EQUALS) {
+                System.out.println(123123);
+                ChatGame.scale ++;
+                GameInstance.gameInstance.resizeWin();
+
+            }
+
+            if (keyCode == KeyEvent.VK_MINUS) {
+                ChatGame.scale --;
+                GameInstance.gameInstance.resizeWin();
+            }*/
 
             if (keyCode == KeyEvent.VK_ESCAPE) {
                 if (MainGamePanel.currentGameState == MainGamePanel.GameState.GAMEPLAY)

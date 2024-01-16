@@ -227,16 +227,16 @@ public class UserAvatar {
 
     private void handleGoShop() {
         if (MainGamePanel.currentGameState == MainGamePanel.GameState.GAMEPLAY) {
-            if (this.x > 1800 && this.y > 500 && this.y < 700) {
+            if (this.x > ChatGame.screenWidth - 130 && this.y > ChatGame.screenHeight / 2 - 48 && this.y < ChatGame.screenHeight / 2 + 48) {
                 MainGamePanel.currentGameState = MainGamePanel.GameState.SHOP_SCREEN;
                 this.x = 100;
             }
         }
 
         if (MainGamePanel.currentGameState == MainGamePanel.GameState.SHOP_SCREEN) {
-            if (this.x < 100 && this.y > 500 && this.y < 700) {
+            if (this.x < 100 && this.y > ChatGame.screenHeight / 2 - 48 && this.y < ChatGame.screenHeight / 2 + 48) {
                 MainGamePanel.currentGameState = MainGamePanel.GameState.GAMEPLAY;
-                this.x = 1800;
+                this.x = 1100;
             }
         }
     }

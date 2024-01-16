@@ -9,6 +9,8 @@ import java.awt.*;
 import java.net.URL;
 import java.util.List;
 
+import static main.java.com.zegline.rpggame.ChatGame.screenHeight;
+import static main.java.com.zegline.rpggame.ChatGame.screenWidth;
 import static main.java.com.zegline.rpggame.UserAvatar.items_equipped;
 
 public class World {
@@ -110,7 +112,7 @@ public class World {
 
         if(true) {
             Image backgroundImg =  new ImageIcon(World.class.getClassLoader().getResource("MainMap.png")).getImage();
-            g.drawImage(backgroundImg,0,0,1280,960,null);
+            g.drawImage(backgroundImg,0,0,1230,820,null);
             return;
         }
 

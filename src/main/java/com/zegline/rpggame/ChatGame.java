@@ -18,8 +18,14 @@ public class ChatGame extends JFrame {
     // Create a StringBuilder to store the typed characters
     public static StringBuilder inputText = new StringBuilder();
 
-    public static int screenHeight = 960 + 38;
-    public static int screenWidth = 1280 + 18;
+    public static int baseHeight = 20;
+    public static int baseWidth = 30;
+    public static int scale = 41;
+
+    public static int screenHeight = baseHeight * scale;
+    public static int screenWidth = baseWidth * scale;
+
+
 
     public static boolean[] arrowKeyPressed = {false,false,false,false}; // left, right, up, down
     private final Set<Integer> pressedKeys = new HashSet<>();
@@ -91,12 +97,17 @@ public class ChatGame extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            ChatGame game = new ChatGame();
-            game.setVisible(true);
+            GameInstance.gameInstance = new ChatGame();
+            GameInstance.gameInstance.setVisible(true);
         });
     }
 
+    public void resizeWin() {
 
-
+        screenHeight = baseHeight * scale;
+        screenWidth = baseWidth * scale;
+        System.out.println(scale);
+        setSize(screenWidth, screenHeight);
+    }
 
 }
