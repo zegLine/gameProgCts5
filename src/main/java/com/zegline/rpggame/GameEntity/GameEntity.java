@@ -6,14 +6,14 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public abstract class GameEntity {
-    private double speed;
+    protected double speed;
 
-    private Color c;
+    protected Color c;
 
-    private double x;
-    private double y;
-    private int damage;
-    private int radius;
+    protected double x;
+    protected double y;
+    protected int damage;
+    protected int radius;
     private ArrayList<GameEntity> parentList;
 
     public GameEntity(int x, int y) {

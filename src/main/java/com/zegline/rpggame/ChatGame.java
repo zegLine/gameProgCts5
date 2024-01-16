@@ -3,13 +3,14 @@ package main.java.com.zegline.rpggame;
 import main.java.com.zegline.rpggame.GameEntity.Bullets.EnemyBulletFactory;
 import main.java.com.zegline.rpggame.GameEntity.GameEntity;
 import main.java.com.zegline.rpggame.GameEntity.Enemies.ShootingEnemy;
+import main.java.com.zegline.rpggame.GameEntity.ShopOwner;
 
 import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
 import java.util.*;
+import java.util.List;
 
-import static main.java.com.zegline.rpggame.UserAvatar.items_available;
 
 public class ChatGame extends JFrame {
 
@@ -62,6 +63,11 @@ public class ChatGame extends JFrame {
         new ShootingEnemy(1000,1800,1);
         //new BasicEnemy(1500,500,2);
 
+        List<Item> a = new ArrayList<>();
+        a.add(new Item("gun", 69));
+        a.add(new Item("arfifteen", 500));
+        new ShopOwner(50, 50, 100, "Heyo", a);
+        new ShopOwner(450, 100, 50, "Captain", a);
         mouseClicked = false;
 
         // Load cached textures
@@ -82,9 +88,7 @@ public class ChatGame extends JFrame {
 
         // Add avatars
        // World.simpleAvatar = new UserAvatar(Color.GREEN, 10, 10, 50, 50);
-        UserAvatar.setMula(500); // initial money
-        items_available.add(new Item("gun", 30));
-        items_available.add(new Item("machete", 10));
+        UserAvatar.setMula(100); // initial money
 
         // Create a game timer with a 16ms delay (about 60 FPS)
         drawingPanel.startGameLoop();
