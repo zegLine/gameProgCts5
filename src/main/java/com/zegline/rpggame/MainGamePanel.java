@@ -14,6 +14,8 @@ class MainGamePanel extends JPanel {
     Image quitBtn;
     Image creditsBtn;
 
+    Image hudImg;
+
     ClassLoader classLoader = World.class.getClassLoader();
 
     enum GameState {
@@ -38,6 +40,8 @@ class MainGamePanel extends JPanel {
         startBtn = new ImageIcon(classLoader.getResource("btn.png")).getImage();
         quitBtn = new ImageIcon(classLoader.getResource("btn.png")).getImage();
         creditsBtn = new ImageIcon(classLoader.getResource("btn.png")).getImage();
+
+        hudImg = new ImageIcon(classLoader.getResource("StatusHud.png")).getImage();
     }
 
     @Override
@@ -81,19 +85,23 @@ class MainGamePanel extends JPanel {
         drawXYCoords(g);
 
         drawCommandsText(g);
+
+        drawHud(g);
     }
 
     private void drawMula(Graphics g) {
         // Draw Money
-        g.setColor(Color.lightGray);
-        g.setFont(new Font("Arial", Font.PLAIN, 16));
-        g.drawString("$" + String.valueOf(UserAvatar.getMula()), getWidth() - 50, 30);
+        g.setColor(Color.GREEN);
+        g.setFont(new Font("Arial", Font.PLAIN, 24));
+        g.drawString("$" + String.valueOf(UserAvatar.getMula()), getWidth() - 70, 40);
     }
 
     private void drawXYCoords(Graphics g) {
         // Draw X and Y coord of camera
-        g.drawString("x:" + String.valueOf(ChatGame.max.getX()), getWidth() - 50, 50);
-        g.drawString("y:" + String.valueOf(ChatGame.max.getY()), getWidth() - 50, 65);
+        g.setColor(Color.LIGHT_GRAY);
+        g.setFont(new Font("Arial", Font.PLAIN, 18));
+        g.drawString("x:" + String.valueOf(ChatGame.max.getX()), getWidth() - 50, 65);
+        g.drawString("y:" + String.valueOf(ChatGame.max.getY()), getWidth() - 50, 80);
     }
 
     private void drawCommandsText(Graphics g) {
@@ -154,6 +162,8 @@ class MainGamePanel extends JPanel {
         drawXYCoords(g);
 
         drawCommandsText(g);
+
+        drawHud(g);
     }
 
     private void drawPauseMenu(Graphics g) {
@@ -256,6 +266,8 @@ class MainGamePanel extends JPanel {
         shootPlayerLoop();
         
         deathLoop();
+
+
     }
 
     private void shootPlayerLoop() {
@@ -274,4 +286,12 @@ class MainGamePanel extends JPanel {
         }
 
     }
+
+    private void drawHud(Graphics g) {
+        g.drawImage(hudImg, 10, 10, null);
+
+        g.setColor(Color.RED);
+        g.fillRect(85, 17, ChatGame.max.health, 10);
+    }
+
 }

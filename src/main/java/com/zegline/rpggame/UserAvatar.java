@@ -48,7 +48,7 @@ public class UserAvatar {
 
     public static Set<Item> items_equipped = new HashSet<>();
 
-    private int health;
+    public int health;
 
     private int radius;
 
@@ -75,8 +75,8 @@ public class UserAvatar {
 
 
         g.drawImage(sprites[sprite_used], x - radius, y - radius, 64, 64, null);
-        g.setColor(c);
-        g.fillRect(20, 20, health, 20);
+        //g.setColor(c);
+        //g.fillRect(20, 20, health, 20);
     }
 
     // Separate methods for moving the avatar in each direction
