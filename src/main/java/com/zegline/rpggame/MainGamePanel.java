@@ -59,7 +59,10 @@ class MainGamePanel extends JPanel {
     }
 
     private void drawShopScreen(Graphics g) {
+        World.drawShop(g);
+
         World.drawItemsEquipped(g);
+
 
         ChatGame.max.draw(g);
 

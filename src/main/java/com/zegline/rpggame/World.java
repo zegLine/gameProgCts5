@@ -15,6 +15,11 @@ import static main.java.com.zegline.rpggame.UserAvatar.items_equipped;
 
 public class World {
 
+    public static void drawShop(Graphics g) {
+        Image backgroundImg =  new ImageIcon(World.class.getClassLoader().getResource("ShopMap.png")).getImage();
+        g.drawImage(backgroundImg,0,0,1230,820,null);
+    }
+
     static enum Texture {
         GRASS_TEXTURE("grass.png", 'g'),
         WATER_TEXTURE("water.png", 'w'),
