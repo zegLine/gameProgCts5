@@ -2,32 +2,42 @@ package main.java.com.zegline.rpggame;
 
 import java.awt.*;
 
-import static main.java.com.zegline.rpggame.UserAvatar.items_available;
 import static main.java.com.zegline.rpggame.UserAvatar.items_equipped;
 
 public class Commands {
 
     public static boolean buy(String[] parameters) {
-        if (parameters.length >= 1) {
-            String itemToBuy = parameters[0];
-            System.out.println("Buying " + itemToBuy);
-
-            for (Item i : items_available) {
-                if (itemToBuy.equals(i.name)) {
-                    if (UserAvatar.enoughMoneyAndBuy(i.cost)) {
-                        items_equipped.add(i);
-                        return true;
-                    }
-                }
-            }
-
-            CommandHandler.commandError = "buy: item not found";
-            System.out.println("buy: item not found");
-            return false;
-        } else {
+        if (parameters.length < 1) {
             System.out.println("Usage: buy <item>");
             return false;
         }
+
+        if (ChatGame.max.currentVendor == null) {
+            CommandHandler.commandError = "go to a shop";
+            System.out.println("not in shop error");
+            return false;
+        }
+
+        String itemToBuy = parameters[0];
+        System.out.println("Buying " + itemToBuy);
+
+        for (Item i : ChatGame.max.currentVendor.items) {
+            if (itemToBuy.equals(i.name)) {
+                if (UserAvatar.enoughMoneyAndBuy(i.cost)) {
+                    items_equipped.add(i);
+                    return true;
+                } else {
+                    CommandHandler.commandError = "not enough mula";
+                    System.out.println("buy: no mula");
+                    return false;
+                }
+            }
+        }
+
+        CommandHandler.commandError = "buy: item not found";
+        System.out.println("buy: item not found");
+        return false;
+
     }
 
     public static boolean equip(String[] parameters) {

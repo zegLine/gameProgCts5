@@ -1,6 +1,7 @@
 package main.java.com.zegline.rpggame;
 
 import main.java.com.zegline.rpggame.GameEntity.GameEntity;
+import main.java.com.zegline.rpggame.GameEntity.ShopOwner;
 
 import javax.swing.*;
 import java.awt.*;
@@ -61,8 +62,17 @@ class MainGamePanel extends JPanel {
     private void drawShopScreen(Graphics g) {
         World.drawShop(g);
 
-        World.drawItemsEquipped(g);
+        //Draw loop for GameEntities
+        Iterator<GameEntity> iterator = ChatGame.gameEntityList.iterator();
+        while (iterator.hasNext()) {
+            GameEntity entity = iterator.next();
+            if (entity instanceof ShopOwner) {
+                entity.draw(g);
+            }
 
+        }
+
+        World.drawItemsEquipped(g);
 
         ChatGame.max.draw(g);
 
@@ -134,6 +144,7 @@ class MainGamePanel extends JPanel {
         Iterator<GameEntity> iterator = ChatGame.gameEntityList.iterator();
         while (iterator.hasNext()) {
             GameEntity entity = iterator.next();
+            if (entity instanceof ShopOwner) continue;
             entity.draw(g);
         }
 

@@ -2,10 +2,14 @@ package main.java.com.zegline.rpggame;
 
 import main.java.com.zegline.rpggame.GameEntity.Bullets.BulletFactory;
 import main.java.com.zegline.rpggame.GameEntity.Bullets.BulletType;
+import main.java.com.zegline.rpggame.GameEntity.Enemies.BaseEnemy;
+import main.java.com.zegline.rpggame.GameEntity.GameEntity;
+import main.java.com.zegline.rpggame.GameEntity.ShopOwner;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 
@@ -24,6 +28,8 @@ public class UserAvatar {
 
     private static int mula;
 
+    public ShopOwner currentVendor = null;
+
     public static boolean enoughMoneyAndBuy(int amount) {
         if (amount > mula) return false;
 
@@ -41,8 +47,6 @@ public class UserAvatar {
     }
 
     public static Set<Item> items_equipped = new HashSet<>();
-
-    public static Set<Item> items_available = new HashSet<>();
 
     private int health;
 
@@ -116,7 +120,9 @@ public class UserAvatar {
         this.shoot();
         this.handleAnimation(ChatGame.arrowKeyPressed);
         this.handleGoShop();
-
+        if (MainGamePanel.currentGameState == MainGamePanel.GameState.SHOP_SCREEN) {
+            handleShopCollision();
+        }
     }
 
     enum AnimationState{
@@ -274,6 +280,37 @@ public class UserAvatar {
         }
         if(y - radius < 0) {
             moveDown();
+        }
+
+
+    }
+
+    public void handleShopCollision() {
+        Iterator<GameEntity> iterator = ChatGame.gameEntityList.iterator();
+        while (iterator.hasNext()) {
+            GameEntity entity = iterator.next();
+
+            if(!(entity instanceof ShopOwner)){
+                continue;
+            }
+            ShopOwner vendor = (ShopOwner)entity;
+            double dx = this.x - vendor.getX();
+            double dy = this.y - vendor.getY();
+            int distance = (int) Math.sqrt(dx * dx + dy * dy);
+
+
+
+            // Check if the circles overlap (collision occurs when distance <= sum of radii)
+            if (distance <= (this.radius + vendor.getRadius())) {
+                System.out.println("in shop");
+                System.out.println(vendor.message);
+                this.currentVendor = vendor;
+                break;
+
+            } else {
+                System.out.println(555);
+                this.currentVendor = null;
+            }
         }
     }
 
