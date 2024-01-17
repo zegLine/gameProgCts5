@@ -5,6 +5,8 @@ import main.java.com.zegline.rpggame.GameEntity.ShopOwner;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Iterator;
 
 class MainGamePanel extends JPanel {
@@ -15,6 +17,10 @@ class MainGamePanel extends JPanel {
     Image creditsBtn;
 
     Image hudImg;
+
+    Image cashImage;
+
+    Font retroFont;
 
     ClassLoader classLoader = World.class.getClassLoader();
 
@@ -42,6 +48,16 @@ class MainGamePanel extends JPanel {
         creditsBtn = new ImageIcon(classLoader.getResource("btn.png")).getImage();
 
         hudImg = new ImageIcon(classLoader.getResource("StatusHud.png")).getImage();
+
+        cashImage = new ImageIcon(classLoader.getResource("hudCoin.png")).getImage();
+
+        try {
+            retroFont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/fonts/ARCADECLASSIC.TTF")).deriveFont(Font.PLAIN, 28);
+        } catch (FontFormatException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -80,21 +96,17 @@ class MainGamePanel extends JPanel {
 
         ChatGame.max.draw(g);
 
-        drawMula(g);
-
         drawXYCoords(g);
 
         drawCommandsText(g);
 
-        drawHud(g);
+        try {
+            drawHud(g);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private void drawMula(Graphics g) {
-        // Draw Money
-        g.setColor(Color.GREEN);
-        g.setFont(new Font("Arial", Font.PLAIN, 24));
-        g.drawString("$" + String.valueOf(UserAvatar.getMula()), getWidth() - 70, 40);
-    }
 
     private void drawXYCoords(Graphics g) {
         // Draw X and Y coord of camera
@@ -157,13 +169,15 @@ class MainGamePanel extends JPanel {
         }
 
 
-        drawMula(g);
-
         drawXYCoords(g);
 
         drawCommandsText(g);
 
-        drawHud(g);
+        try {
+            drawHud(g);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void drawPauseMenu(Graphics g) {
@@ -287,7 +301,18 @@ class MainGamePanel extends JPanel {
 
     }
 
-    private void drawHud(Graphics g) {
+    private void drawHud(Graphics g) throws IOException {
+
+
+
+
+        g.setColor(Color.GREEN);
+        g.setFont(retroFont);
+
+
+        g.drawImage(cashImage, getWidth() - 91, 21, null);
+        g.drawString(String.valueOf(UserAvatar.getMula()), getWidth() - 70, 40);
+
         g.drawImage(hudImg, 10, 10, null);
 
         g.setColor(Color.RED);
