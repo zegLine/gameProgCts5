@@ -14,6 +14,8 @@ import java.util.List;
 
 public class ChatGame extends JFrame {
 
+    public static int currentWave;
+    public static boolean waveOngoing;
     private MainGamePanel drawingPanel;
 
     // Create a StringBuilder to store the typed characters
@@ -62,7 +64,7 @@ public class ChatGame extends JFrame {
         max = new UserAvatar(Color.PINK, 64, screenHeight-140,3, 32, new String[]{"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"}, 16);
 
         //new BasicEnemy(500,500,1);
-        new ShootingEnemy(1000,1800,1);
+        //new ShootingEnemy(1000,1800,1);
         //new BasicEnemy(1500,500,2);
 
         List<Item> a = new ArrayList<>();
@@ -70,6 +72,10 @@ public class ChatGame extends JFrame {
         a.add(new Item("arfifteen", 500));
         new ShopOwner(50, 50, 100, "Heyo", a);
         new ShopOwner(450, 100, 50, "Captain", a);
+
+        currentWave = 0;
+        waveOngoing = false;
+
         mouseClicked = false;
 
         // Load cached textures

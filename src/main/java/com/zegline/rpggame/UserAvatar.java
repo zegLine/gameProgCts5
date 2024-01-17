@@ -30,6 +30,8 @@ public class UserAvatar {
 
     public ShopOwner currentVendor = null;
 
+    public boolean canStartWave = false;
+
     public static boolean enoughMoneyAndBuy(int amount) {
         if (amount > mula) return false;
 
@@ -75,6 +77,12 @@ public class UserAvatar {
 
 
         g.drawImage(sprites[sprite_used], x - radius, y - radius, 64, 64, null);
+
+        if (canStartWave) {
+            g.setFont(MainGamePanel.retroFont);
+            g.setColor(Color.LIGHT_GRAY);
+            g.drawString("Press X to start wave", x + 60, y + 70);
+        }
         //g.setColor(c);
         //g.fillRect(20, 20, health, 20);
     }
@@ -123,6 +131,19 @@ public class UserAvatar {
         if (MainGamePanel.currentGameState == MainGamePanel.GameState.SHOP_SCREEN) {
             handleShopCollision();
         }
+        if (MainGamePanel.currentGameState == MainGamePanel.GameState.GAMEPLAY) {
+            handleWaveStartCollision();
+        }
+    }
+
+    private void handleWaveStartCollision() {
+
+        if (x > 160 && x < 290 && y > 315 && y < 440) {
+            canStartWave = true;
+        } else {
+            canStartWave = false;
+        }
+
     }
 
     enum AnimationState{

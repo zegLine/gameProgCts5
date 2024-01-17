@@ -20,7 +20,7 @@ class MainGamePanel extends JPanel {
 
     Image cashImage;
 
-    Font retroFont;
+    public static Font retroFont;
 
     ClassLoader classLoader = World.class.getClassLoader();
 
@@ -145,7 +145,13 @@ class MainGamePanel extends JPanel {
         g.setColor(Color.BLUE);
         g.setFont(new Font("Arial", Font.PLAIN, 14));
 
-        g.drawString("Debug mode",getWidth() - 150, 250);
+        g.drawString("DBG MODE",getWidth() - 150, 240);
+        g.drawString("MS XY " + ChatGame.mouseX + " " + ChatGame.mouseY,getWidth() - 150, 250);
+        g.drawString("GS " + currentGameState,getWidth() - 150, 270);
+        String waveActive;
+        if (ChatGame.waveOngoing) waveActive = "ACTV"; else waveActive = "INAC";
+        g.drawString("WV " + ChatGame.currentWave + "(" + waveActive + ")",getWidth() - 150, 290);
+        g.drawString("CAN STR WAVE " + ChatGame.max.canStartWave,getWidth() - 150, 310);
 
         // Undo color and font
         g.setColor(prevColor);
