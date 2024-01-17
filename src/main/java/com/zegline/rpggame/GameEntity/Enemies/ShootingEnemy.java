@@ -58,7 +58,9 @@ public class ShootingEnemy extends BaseEnemy {
         double dx = this.x - ChatGame.max.getX();
         double dy = this.y - ChatGame.max.getY();
         int distance = (int) Math.sqrt(dx * dx + dy * dy);
-        if(distance > 520) {
+
+        int distanceFromPlayer = 300;
+        if(distance > distanceFromPlayer+20) {
 
 
             if (x > ChatGame.max.getX()) {
@@ -79,7 +81,7 @@ public class ShootingEnemy extends BaseEnemy {
             if (y < ChatGame.max.getY()) {
                 moveDown();
             }
-        } else if(distance < 480) {
+        } else if(distance < distanceFromPlayer - 20) {
             if (x > ChatGame.max.getX()) {
                 moveRight();
 
