@@ -105,6 +105,8 @@ class MainGamePanel extends JPanel {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        drawDebugInfo(g);
     }
 
 
@@ -129,6 +131,25 @@ class MainGamePanel extends JPanel {
             g.setFont(new Font("Arial", Font.BOLD, 24)); // Adjust the font size and style
             g.drawString("?" + CommandHandler.commandError, 50, 50); // Adjust the position of the question mark
         }
+    }
+
+    private void drawDebugInfo(Graphics g) {
+
+        if (!ChatGame.debugMode) return;
+
+        // Save color and font
+        Color prevColor = g.getColor();
+        Font prevFont = g.getFont();
+
+        // Temp set new debug color and font
+        g.setColor(Color.BLUE);
+        g.setFont(new Font("Arial", Font.PLAIN, 14));
+
+        g.drawString("Debug mode",getWidth() - 150, 250);
+
+        // Undo color and font
+        g.setColor(prevColor);
+        g.setFont(prevFont);
     }
 
     private void drawMainMenu(Graphics g) {
@@ -178,6 +199,8 @@ class MainGamePanel extends JPanel {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        drawDebugInfo(g);
     }
 
     private void drawPauseMenu(Graphics g) {

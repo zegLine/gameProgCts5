@@ -45,6 +45,8 @@ public class ChatGame extends JFrame {
 
     public static boolean commandMode = false;
 
+    public static boolean debugMode = false;
+
 
     public ChatGame() {
         setTitle("ChatGame");
