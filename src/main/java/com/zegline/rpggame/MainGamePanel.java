@@ -207,6 +207,16 @@ class MainGamePanel extends JPanel {
         }
 
         drawDebugInfo(g);
+        drawWaveInfo(g);
+    }
+
+    private void drawWaveInfo(Graphics g) {
+        if (ChatGame.waveOngoing) {
+            g.setFont(retroFont.deriveFont(48.0f));
+            g.setColor(Color.ORANGE);
+            g.drawString("WAVE " + ChatGame.currentWave, 600, 50);
+        }
+
     }
 
     private void drawPauseMenu(Graphics g) {

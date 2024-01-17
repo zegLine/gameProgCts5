@@ -138,7 +138,7 @@ public class UserAvatar {
 
     private void handleWaveStartCollision() {
 
-        if (x > 160 && x < 290 && y > 315 && y < 440) {
+        if (x > 160 && x < 290 && y > 315 && y < 440 && ChatGame.waveOngoing == false) {
             canStartWave = true;
         } else {
             canStartWave = false;
@@ -253,7 +253,7 @@ public class UserAvatar {
     }
 
     private void handleGoShop() {
-        if (MainGamePanel.currentGameState == MainGamePanel.GameState.GAMEPLAY) {
+        if (MainGamePanel.currentGameState == MainGamePanel.GameState.GAMEPLAY && ChatGame.waveOngoing == false) {
             if (this.x > ChatGame.screenWidth - 130 && this.y > ChatGame.screenHeight / 2 - 48 && this.y < ChatGame.screenHeight / 2 + 48) {
                 MainGamePanel.currentGameState = MainGamePanel.GameState.SHOP_SCREEN;
                 this.x = 100;

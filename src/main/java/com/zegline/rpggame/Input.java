@@ -47,6 +47,10 @@ public class Input {
 
             int keyCode = e.getKeyCode();
 
+            if (keyCode == KeyEvent.VK_X && ChatGame.max.canStartWave) {
+                Waves.startWave();
+            }
+
             // Debug mode toggle
             if (keyCode == KeyEvent.VK_DELETE) {
                 ChatGame.debugMode = !ChatGame.debugMode;
