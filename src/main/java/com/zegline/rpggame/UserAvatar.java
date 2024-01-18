@@ -116,28 +116,32 @@ public class UserAvatar {
 
     public void handleMovement(boolean[] arrowKeyPressed) {
 
-        if (ChatGame.shiftPressed && stamina > 0) {
+        boolean moving = false;
+
+
+
+        if (arrowKeyPressed[0]) {
+            moveLeft();moving =true;
+        }
+
+        if (arrowKeyPressed[1]) {
+            moveRight();moving =true;
+        }
+        if (arrowKeyPressed[2]) {
+            moveUp();moving =true;
+        }
+        if (arrowKeyPressed[3]) {
+            moveDown();moving =true;
+        }
+
+        if (ChatGame.shiftPressed && stamina > 0 && moving) {
             runFactor = 1.5;
             if (new Random().nextInt(10) > 8) {
-                stamina -= 3;
+                stamina -= 1;
             }
 
         } else {
             runFactor = 1.0;
-        }
-
-        if (arrowKeyPressed[0]) {
-            moveLeft();
-        }
-
-        if (arrowKeyPressed[1]) {
-            moveRight();
-        }
-        if (arrowKeyPressed[2]) {
-            moveUp();
-        }
-        if (arrowKeyPressed[3]) {
-            moveDown();
         }
 
     }
