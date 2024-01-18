@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.Set;
 
 
@@ -31,6 +32,7 @@ public class UserAvatar {
     public ShopOwner currentVendor = null;
 
     public boolean canStartWave = false;
+    private double runFactor;
 
     public static boolean enoughMoneyAndBuy(int amount) {
         if (amount > mula) return false;
@@ -52,6 +54,10 @@ public class UserAvatar {
 
     public int health;
 
+    public int stamina;
+
+    public int armor;
+
     private int radius;
 
     public UserAvatar(Color c, int x, int y, int speed, int radius, String[] textures, int nSprites) {
@@ -62,7 +68,11 @@ public class UserAvatar {
         this.radius = radius;
         currentBullet = BulletType.BASIC;
 
+        runFactor = 1.0;
+
         health = 100;
+        armor = 20;
+        stamina = 100;
         sprite_used = 0;
         sprites = new Image[nSprites];
 
@@ -89,22 +99,32 @@ public class UserAvatar {
 
     // Separate methods for moving the avatar in each direction
     public void moveUp() {
-        this.y -= speed;  // Move upwards by decrementing the y-coordinate
+        this.y -= speed * runFactor;  // Move upwards by decrementing the y-coordinate
     }
 
     public void moveDown() {
-        this.y += speed;  // Move downwards by incrementing the y-coordinate
+        this.y += speed* runFactor;  // Move downwards by incrementing the y-coordinate
     }
 
     public void moveLeft() {
-        this.x -= speed;  // Move leftwards by decrementing the x-coordinate
+        this.x -= speed* runFactor;  // Move leftwards by decrementing the x-coordinate
     }
 
     public void moveRight() {
-        this.x += speed;  // Move rightwards by incrementing the x-coordinate
+        this.x += speed* runFactor;  // Move rightwards by incrementing the x-coordinate
     }
 
     public void handleMovement(boolean[] arrowKeyPressed) {
+
+        if (ChatGame.shiftPressed && stamina > 0) {
+            runFactor = 1.5;
+            if (new Random().nextInt(10) > 8) {
+                stamina -= 3;
+            }
+
+        } else {
+            runFactor = 1.0;
+        }
 
         if (arrowKeyPressed[0]) {
             moveLeft();
@@ -270,6 +290,7 @@ public class UserAvatar {
 
     private void shoot() {
         if(ChatGame.mouseClicked == true) {
+
             ChatGame.mouseClicked = false;
             System.out.println("shoot");
 
@@ -279,6 +300,11 @@ public class UserAvatar {
     }
 
     public void doDamage(int dmg){
+        if(armor > 0) {
+            armor -= (dmg/2);
+            return;
+        }
+        armor = 0;
         health -= dmg;
         if(health < 0 ){
             death();

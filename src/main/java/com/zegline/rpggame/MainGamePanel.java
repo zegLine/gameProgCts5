@@ -381,6 +381,12 @@ class MainGamePanel extends JPanel {
 
         g.setColor(Color.RED);
         g.fillRect(85, 17, ChatGame.max.health, 10);
+
+        g.setColor(Color.GREEN);
+        g.fillRect(85, 39, ChatGame.max.stamina, 10);
+
+        g.setColor(Color.CYAN);
+        g.fillRect(85, 58, ChatGame.max.armor, 10);
     }
 
 }

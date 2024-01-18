@@ -89,6 +89,9 @@ public class Input {
             }
 
             switch (keyCode) {
+                case KeyEvent.VK_SHIFT:
+                    ChatGame.shiftPressed = true;
+                    break;
                 case KeyEvent.VK_A:
                     ChatGame.arrowKeyPressed[0] = true;
                     break;
@@ -109,6 +112,9 @@ public class Input {
             int keyCode = e.getKeyCode();
             // LOL
             switch (keyCode) {
+                case KeyEvent.VK_SHIFT:
+                    ChatGame.shiftPressed = false;
+                    break;
                 case KeyEvent.VK_A:
                     ChatGame.arrowKeyPressed[0] = false;
                     break;

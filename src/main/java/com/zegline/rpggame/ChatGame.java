@@ -19,6 +19,7 @@ public class ChatGame extends JFrame {
 
     public static int currentWave;
     public static boolean waveOngoing;
+    public static boolean shiftPressed;
     private MainGamePanel drawingPanel;
 
     // Create a StringBuilder to store the typed characters

@@ -19,7 +19,7 @@ public class ShootingEnemy extends BaseEnemy {
         super(x,y,level, new String[]{"skewerstalker/SkeweringStalker.png", },1);
         this.x = x;
         this.y = y;
-        this.speed = 2 + level/2;
+        this.speed = 1 + level/4;
         this.c = Color.RED;
 
         radius = 32;
@@ -28,7 +28,7 @@ public class ShootingEnemy extends BaseEnemy {
 
         this.health = 10 + 2 * level;
 
-        shotCooldown = 200 - (10L * level);
+        shotCooldown = 250 - (10L * level);
 
         lastCollisionTime = 0;
 
