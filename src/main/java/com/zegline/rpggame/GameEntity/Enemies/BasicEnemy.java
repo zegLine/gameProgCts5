@@ -16,7 +16,7 @@ public class BasicEnemy extends BaseEnemy {
         super(x,y,level, new String[]{"flyingeyeenemy/FloatingEyeEnemy.png", "flyingeyeenemy/FloatingEyeEnemyFlipped.png"},2);
         this.x = x;
         this.y = y;
-        this.speed = 2 + level/3;
+        this.speed = 1 + level/5;
         this.c = Color.RED;
 
         radius = 32;
@@ -79,12 +79,6 @@ public class BasicEnemy extends BaseEnemy {
         }
     }
 
-    public void doDamage(int damage) {
-        this.health -= damage;
-        if(health < 0) {
-            death();
-        }
-    }
 
 
 

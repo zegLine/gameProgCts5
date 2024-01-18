@@ -1,6 +1,9 @@
 package main.java.com.zegline.rpggame;
 
 import main.java.com.zegline.rpggame.GameEntity.Bullets.EnemyBulletFactory;
+import main.java.com.zegline.rpggame.GameEntity.Enemies.BaseEnemy;
+import main.java.com.zegline.rpggame.GameEntity.Enemies.BasicEnemy;
+import main.java.com.zegline.rpggame.GameEntity.Enemies.EnemyFactory;
 import main.java.com.zegline.rpggame.GameEntity.GameEntity;
 import main.java.com.zegline.rpggame.GameEntity.Enemies.ShootingEnemy;
 import main.java.com.zegline.rpggame.GameEntity.ShopOwner;
@@ -43,6 +46,9 @@ public class ChatGame extends JFrame {
     public static Stack<GameEntity> deathList = new Stack<GameEntity>();
 
     public static Stack<EnemyBulletFactory> bulletCreateList = new Stack<EnemyBulletFactory>();
+
+    public static EnemyFactory enemyFactory = null;
+
     public static boolean mouseClicked;
 
     public static boolean commandMode = false;
@@ -50,7 +56,11 @@ public class ChatGame extends JFrame {
     public static boolean debugMode = false;
 
 
+
+
     public ChatGame() {
+        BaseEnemy.aliveEnemies = 0;
+
         setTitle("ChatGame");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(screenWidth, screenHeight);
@@ -63,7 +73,7 @@ public class ChatGame extends JFrame {
         World.loadMap(mapurl.getPath());
         max = new UserAvatar(Color.PINK, 64, screenHeight-140,3, 32, new String[]{"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"}, 16);
 
-        //new BasicEnemy(500,500,1);
+
         //new ShootingEnemy(1000,1800,1);
         //new BasicEnemy(1500,500,2);
 
@@ -75,6 +85,7 @@ public class ChatGame extends JFrame {
 
         currentWave = 0;
         waveOngoing = false;
+
 
         mouseClicked = false;
 

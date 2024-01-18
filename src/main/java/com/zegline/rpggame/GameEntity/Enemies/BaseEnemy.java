@@ -34,6 +34,8 @@ public abstract class BaseEnemy extends GameEntity {
 
     protected double angleOfPlayer;
 
+    public static int aliveEnemies;
+
     public BaseEnemy(int x, int y, int level, String[] texture,int numOfSprite) {
         super(x,y);
         angleOfPlayer = 0;
@@ -42,6 +44,7 @@ public abstract class BaseEnemy extends GameEntity {
         this.level = level;
         lastCollisionTime = 0;
         sprite = new Image[numOfSprite];
+        aliveEnemies ++;
         for(int i = 0; i < numOfSprite; i++) {
             sprite[i] = new ImageIcon(World.class.getClassLoader().getResource("enemies/" + texture[i])).getImage();
         }
@@ -110,6 +113,7 @@ public abstract class BaseEnemy extends GameEntity {
     public void doDamage(int damage) {
         this.health -= damage;
         if(health < 0) {
+            aliveEnemies--;
             death();
         }
     }

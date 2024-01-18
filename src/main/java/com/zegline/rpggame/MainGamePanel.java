@@ -1,5 +1,7 @@
 package main.java.com.zegline.rpggame;
 
+import main.java.com.zegline.rpggame.GameEntity.Enemies.BaseEnemy;
+import main.java.com.zegline.rpggame.GameEntity.Enemies.EnemyFactory;
 import main.java.com.zegline.rpggame.GameEntity.GameEntity;
 import main.java.com.zegline.rpggame.GameEntity.ShopOwner;
 
@@ -10,6 +12,8 @@ import java.io.InputStream;
 import java.util.Iterator;
 
 class MainGamePanel extends JPanel {
+
+
 
     Image bg;
     Image startBtn;
@@ -152,6 +156,10 @@ class MainGamePanel extends JPanel {
         if (ChatGame.waveOngoing) waveActive = "ACTV"; else waveActive = "INAC";
         g.drawString("WV " + ChatGame.currentWave + "(" + waveActive + ")",getWidth() - 150, 290);
         g.drawString("CAN STR WAVE " + ChatGame.max.canStartWave,getWidth() - 150, 310);
+        if (ChatGame.enemyFactory != null) {
+            g.drawString("ENM RMN " + ChatGame.enemyFactory.enemiesRemaining,getWidth() - 150, 330);
+            g.drawString("ENM ALV " + BaseEnemy.aliveEnemies ,getWidth() - 150, 350);
+        }
 
         // Undo color and font
         g.setColor(prevColor);
@@ -310,6 +318,9 @@ class MainGamePanel extends JPanel {
 
         ChatGame.max.update();
 
+        if(ChatGame.enemyFactory != null) {
+            ChatGame.enemyFactory.spawnEnemies();
+        }
         Iterator<GameEntity> iterator = ChatGame.gameEntityList.iterator();
         while (iterator.hasNext()) {
             GameEntity enemy = iterator.next();
@@ -319,6 +330,20 @@ class MainGamePanel extends JPanel {
         shootPlayerLoop();
         
         deathLoop();
+
+        checkWaveFinishedLoop();
+
+
+    }
+
+    private void checkWaveFinishedLoop() {
+        if (ChatGame.enemyFactory != null) {
+            System.out.println(BaseEnemy.aliveEnemies);
+            if (ChatGame.enemyFactory.enemiesRemaining == 0 && ChatGame.waveOngoing) {
+
+                Waves.finishWave();
+            }
+        }
 
 
     }
