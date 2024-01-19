@@ -57,11 +57,18 @@ public class Input {
             }
 
             if (keyCode == KeyEvent.VK_ESCAPE) {
-                if (MainGamePanel.currentGameState == MainGamePanel.GameState.GAMEPLAY)
-                    MainGamePanel.currentGameState = MainGamePanel.GameState.PAUSE_MENU;
-                else {
-                    MainGamePanel.currentGameState = MainGamePanel.GameState.GAMEPLAY;
+                switch (MainGamePanel.currentGameState) {
+                    case GAMEPLAY -> {
+                        MainGamePanel.currentGameState = MainGamePanel.GameState.PAUSE_MENU;
+                    }
+                    case PAUSE_MENU -> {
+                        MainGamePanel.currentGameState = MainGamePanel.GameState.GAMEPLAY;
+                    }
+                    case DEATH_SCREEN -> {
+                        MainGamePanel.currentGameState = MainGamePanel.GameState.MAIN_MENU;
+                    }
                 }
+
             }
 
             if (keyCode == KeyEvent.VK_CONTROL) {

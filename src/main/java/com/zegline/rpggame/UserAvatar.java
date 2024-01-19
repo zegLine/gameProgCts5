@@ -343,6 +343,7 @@ public class UserAvatar {
 
     private void death() {
         System.out.println("death");
+        MainGamePanel.currentGameState = MainGamePanel.GameState.DEATH_SCREEN;
     }
 
     private void handleCollision() {

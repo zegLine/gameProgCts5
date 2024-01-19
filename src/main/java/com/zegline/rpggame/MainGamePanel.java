@@ -32,7 +32,8 @@ public class MainGamePanel extends JPanel {
         MAIN_MENU,
         GAMEPLAY,
         PAUSE_MENU,
-        SHOP_SCREEN
+        SHOP_SCREEN,
+        DEATH_SCREEN
     }
 
     public static GameState currentGameState;
@@ -80,7 +81,17 @@ public class MainGamePanel extends JPanel {
             case SHOP_SCREEN:
                 drawShopScreen(g);
                 break;
+            case DEATH_SCREEN:
+                drawDeathScreen(g);
+                break;
         }
+    }
+
+    private void drawDeathScreen(Graphics g) {
+
+        g.setFont(retroFont.deriveFont(64.0f));
+        g.drawString("You died LOL", 500, 500);
+
     }
 
     private void drawShopScreen(Graphics g) {
@@ -288,7 +299,13 @@ public class MainGamePanel extends JPanel {
             case SHOP_SCREEN:
                 updateShopScreen(delta);
                 break;
+            case DEATH_SCREEN:
+                updateDeathScreen(delta);
+                break;
         }
+    }
+
+    private void updateDeathScreen(double delta) {
     }
 
     private void updateShopScreen(double delta) {
