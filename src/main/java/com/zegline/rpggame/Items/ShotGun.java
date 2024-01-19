@@ -12,6 +12,6 @@ public class ShotGun extends BaseGun{
 
 
     public ShotGun(String name, int cost) {
-        super(name, cost, "enhanced_gun.png");
+        super(name, cost, "shotgun.png");
     }
 }

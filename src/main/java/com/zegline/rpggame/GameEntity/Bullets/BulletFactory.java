@@ -33,6 +33,9 @@ public class BulletFactory {
                     new ShotgunBullet(ChatGame.max.getX(), ChatGame.max.getY(), modifiedAngle);
                 }
             }
+            case BURST -> {
+
+            }
         }
     }
 
