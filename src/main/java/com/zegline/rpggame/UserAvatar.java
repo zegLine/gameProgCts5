@@ -2,9 +2,9 @@ package main.java.com.zegline.rpggame;
 
 import main.java.com.zegline.rpggame.GameEntity.Bullets.BulletFactory;
 import main.java.com.zegline.rpggame.GameEntity.Bullets.BulletType;
-import main.java.com.zegline.rpggame.GameEntity.Enemies.BaseEnemy;
 import main.java.com.zegline.rpggame.GameEntity.GameEntity;
 import main.java.com.zegline.rpggame.GameEntity.ShopOwner;
+import main.java.com.zegline.rpggame.Items.Item;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,6 +51,8 @@ public class UserAvatar {
     }
 
     public static Set<Item> items_equipped = new HashSet<>();
+
+    public static Item item_in_hand = null;
 
     public int health;
 
@@ -293,13 +295,15 @@ public class UserAvatar {
     }
 
     private void shoot() {
-        if(ChatGame.mouseClicked == true) {
+        if(ChatGame.mouseClicked) {
 
             ChatGame.mouseClicked = false;
-            System.out.println("shoot");
+            System.out.println("player mouse clicked");
 
-            new BulletFactory().shoot(currentBullet);
-
+            //new BulletFactory().shoot(currentBullet);
+            if (item_in_hand != null) {
+                item_in_hand.act();
+            }
         }
     }
 

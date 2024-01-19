@@ -1,5 +1,7 @@
 package main.java.com.zegline.rpggame;
 
+import main.java.com.zegline.rpggame.Items.Item;
+
 import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -9,8 +11,7 @@ import java.awt.*;
 import java.net.URL;
 import java.util.List;
 
-import static main.java.com.zegline.rpggame.ChatGame.screenHeight;
-import static main.java.com.zegline.rpggame.ChatGame.screenWidth;
+import static main.java.com.zegline.rpggame.UserAvatar.item_in_hand;
 import static main.java.com.zegline.rpggame.UserAvatar.items_equipped;
 
 public class World {
@@ -93,7 +94,7 @@ public class World {
 
 
 
-    public static Item item_in_hand = null;
+
 
 
 

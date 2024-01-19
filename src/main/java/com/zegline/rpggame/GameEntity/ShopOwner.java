@@ -1,7 +1,7 @@
 package main.java.com.zegline.rpggame.GameEntity;
 
 import main.java.com.zegline.rpggame.ChatGame;
-import main.java.com.zegline.rpggame.Item;
+import main.java.com.zegline.rpggame.Items.Item;
 
 import java.awt.*;
 import java.util.List;

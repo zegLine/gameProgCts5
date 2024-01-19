@@ -1,5 +1,7 @@
 package main.java.com.zegline.rpggame;
 
+import main.java.com.zegline.rpggame.Items.Item;
+
 import java.awt.*;
 
 import static main.java.com.zegline.rpggame.UserAvatar.items_equipped;

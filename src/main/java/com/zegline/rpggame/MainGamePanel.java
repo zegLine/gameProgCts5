@@ -204,9 +204,7 @@ class MainGamePanel extends JPanel {
         }
 
 
-        drawXYCoords(g);
 
-        drawCommandsText(g);
 
         try {
             drawHud(g);
@@ -214,8 +212,14 @@ class MainGamePanel extends JPanel {
             throw new RuntimeException(e);
         }
 
+
+
         drawDebugInfo(g);
         drawWaveInfo(g);
+
+        drawXYCoords(g);
+
+        drawCommandsText(g);
     }
 
     private void drawWaveInfo(Graphics g) {
@@ -387,6 +391,15 @@ class MainGamePanel extends JPanel {
 
         g.setColor(Color.CYAN);
         g.fillRect(85, 58, ChatGame.max.armor, 10);
+
+        drawItemInHand(g);
+    }
+
+    private void drawItemInHand(Graphics g) {
+        if (UserAvatar.item_in_hand != null) {
+            UserAvatar.item_in_hand.draw(g);
+        }
+
     }
 
 }
