@@ -349,8 +349,8 @@ public class UserAvatar {
                 continue;
             }
             ShopOwner vendor = (ShopOwner)entity;
-            double dx = this.x - vendor.getX();
-            double dy = this.y - vendor.getY();
+            double dx = this.x - vendor.getX() - (double) vendor.getRadius() /2;
+            double dy = this.y - vendor.getY() - (double) vendor.getRadius() /2;
             int distance = (int) Math.sqrt(dx * dx + dy * dy);
 
 

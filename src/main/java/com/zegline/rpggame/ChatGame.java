@@ -75,17 +75,20 @@ public class ChatGame extends JFrame {
         BasicGun basicGun = new BasicGun("simplegun", 69);
         EnhancedGun enhancedGun = new EnhancedGun("enhancedgun", 120);
         ShotGun shotGun = new ShotGun("shotgun", 150);
-        UserAvatar.items_equipped.add(basicGun);
-        UserAvatar.items_equipped.add(enhancedGun);
-        UserAvatar.items_equipped.add(shotGun);
+        //UserAvatar.items_equipped.add(basicGun);
+        //UserAvatar.items_equipped.add(enhancedGun);
+        //UserAvatar.items_equipped.add(shotGun);
         //new ShootingEnemy(1000,1800,1);
         //new BasicEnemy(1500,500,2);
 
         List<Item> a = new ArrayList<>();
+        a.add(basicGun);
+        a.add(enhancedGun);
+        a.add(shotGun);
         //a.add(new BasicGun("basegun", 69, "basic_gun.png"));
         //a.add(new Item("arfifteen", 500));
-        new ShopOwner(50, 50, 100, "Heyo", a);
-        new ShopOwner(450, 100, 50, "Captain", a);
+        new ShopOwner(110, 90, 100, "Heyo", a, "basic_shopowner.jpg");
+        new ShopOwner(550, 100, 150, "Captain", a, "wanderer.jpg");
 
         currentWave = 0;
         waveOngoing = false;

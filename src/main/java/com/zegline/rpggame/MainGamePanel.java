@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
 
-class MainGamePanel extends JPanel {
+public class MainGamePanel extends JPanel {
 
 
 
@@ -139,7 +139,7 @@ class MainGamePanel extends JPanel {
         if (!CommandHandler.commandError.isEmpty()) {
             g.setColor(Color.RED);
             g.setFont(new Font("Arial", Font.BOLD, 36)); // Adjust the font size and style
-            g.drawString("?" + CommandHandler.commandError, 500, 50); // Adjust the position of the question mark
+            g.drawString("?" + CommandHandler.commandError, 500, 500); // Adjust the position of the question mark
         }
 
 
