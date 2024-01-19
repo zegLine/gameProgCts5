@@ -99,7 +99,7 @@ public class World {
 
 
     private static int initialx = 10;
-    private static int initialy = 80;
+    private static int initialy = 100;
     public static void drawItemsEquipped(Graphics g) {
         if (items_equipped.isEmpty()) return;
         int y = initialy;
@@ -109,8 +109,9 @@ public class World {
             } else {
                 g.setColor(Color.LIGHT_GRAY);
             }
+            g.setFont(MainGamePanel.retroFont.deriveFont(18.0f));
             g.drawString(i.name, initialx, y);
-            y += 10;
+            y += 15;
         }
     }
 

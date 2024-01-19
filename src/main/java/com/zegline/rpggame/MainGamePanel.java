@@ -123,18 +123,26 @@ class MainGamePanel extends JPanel {
     }
 
     private void drawCommandsText(Graphics g) {
-        // Draw the typed text in white at the bottom of the screen
-        g.setColor(Color.WHITE);
-        g.setFont(new Font("Arial", Font.PLAIN, 16)); // Set the font size and style
-        String textToRender = ChatGame.inputText.toString();
-        g.drawString(textToRender, 10, getHeight() - 10); // Position it at the bottom
+        if (ChatGame.commandMode) {
+            g.setColor(Color.BLACK);
+            g.fillRect(0, ChatGame.screenHeight - 80, ChatGame.screenWidth, 80);
+
+            // Draw the typed text in white at the bottom of the screen
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Arial", Font.PLAIN, 16)); // Set the font size and style
+            String textToRender = ChatGame.inputText.toString();
+            g.drawString(textToRender, 10, getHeight() - 10); // Position it at the bottom
+        }
+
 
         // Check if the boolean is set to true and draw the question mark
         if (!CommandHandler.commandError.isEmpty()) {
             g.setColor(Color.RED);
-            g.setFont(new Font("Arial", Font.BOLD, 24)); // Adjust the font size and style
-            g.drawString("?" + CommandHandler.commandError, 50, 50); // Adjust the position of the question mark
+            g.setFont(new Font("Arial", Font.BOLD, 36)); // Adjust the font size and style
+            g.drawString("?" + CommandHandler.commandError, 500, 50); // Adjust the position of the question mark
         }
+
+
     }
 
     private void drawDebugInfo(Graphics g) {
