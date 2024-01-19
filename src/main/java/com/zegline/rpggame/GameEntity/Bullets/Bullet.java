@@ -8,8 +8,8 @@ import java.awt.*;
 import java.util.Iterator;
 
 public abstract class Bullet extends GameEntity {
-    private double angle;
-    private double speed;
+    protected double angle;
+    protected double speed;
 
     protected Color c;
 

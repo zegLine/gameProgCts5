@@ -3,15 +3,15 @@ package main.java.com.zegline.rpggame.Items;
 import main.java.com.zegline.rpggame.GameEntity.Bullets.BulletFactory;
 import main.java.com.zegline.rpggame.GameEntity.Bullets.BulletType;
 
-public class BasicGun extends BaseGun{
+public class ShotGun extends BaseGun{
 
     @Override
     public void shoot(){
-        new BulletFactory().shoot(BulletType.BASIC);
+        new BulletFactory().shoot(BulletType.SHOTGUN);
     }
 
 
-    public BasicGun(String name, int cost) {
-        super(name, cost, "basic_gun.png");
+    public ShotGun(String name, int cost) {
+        super(name, cost, "enhanced_gun.png");
     }
 }

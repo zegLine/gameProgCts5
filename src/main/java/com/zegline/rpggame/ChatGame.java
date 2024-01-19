@@ -5,9 +5,7 @@ import main.java.com.zegline.rpggame.GameEntity.Enemies.BaseEnemy;
 import main.java.com.zegline.rpggame.GameEntity.Enemies.EnemyFactory;
 import main.java.com.zegline.rpggame.GameEntity.GameEntity;
 import main.java.com.zegline.rpggame.GameEntity.ShopOwner;
-import main.java.com.zegline.rpggame.Items.BaseGun;
-import main.java.com.zegline.rpggame.Items.BasicGun;
-import main.java.com.zegline.rpggame.Items.Item;
+import main.java.com.zegline.rpggame.Items.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -74,8 +72,12 @@ public class ChatGame extends JFrame {
         URL mapurl = classLoader.getResource("level1.map");
         World.loadMap(mapurl.getPath());
         max = new UserAvatar(Color.PINK, 64, screenHeight-140,3, 32, new String[]{"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"}, 16);
-        BasicGun basicGun = new BasicGun("simplegun", 69, "basic_gun.png");
+        BasicGun basicGun = new BasicGun("simplegun", 69);
+        EnhancedGun enhancedGun = new EnhancedGun("enhancedgun", 120);
+        ShotGun shotGun = new ShotGun("shotgun", 150);
         UserAvatar.items_equipped.add(basicGun);
+        UserAvatar.items_equipped.add(enhancedGun);
+        UserAvatar.items_equipped.add(shotGun);
         //new ShootingEnemy(1000,1800,1);
         //new BasicEnemy(1500,500,2);
 

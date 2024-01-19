@@ -16,6 +16,8 @@ public class CommandHandler {
     }
 
     public static boolean executeCommand(String safeCommand) {
+        ChatGame.commandMode = false;
+
         // Separate by spaces
         String[] tokens = safeCommand.split(" ");
 
