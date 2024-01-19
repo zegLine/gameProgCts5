@@ -2,6 +2,7 @@ package main.java.com.zegline.rpggame.GameEntity.Enemies;
 
 import main.java.com.zegline.rpggame.ChatGame;
 import main.java.com.zegline.rpggame.GameEntity.GameEntity;
+import main.java.com.zegline.rpggame.UserAvatar;
 import main.java.com.zegline.rpggame.World;
 
 import javax.swing.*;
@@ -115,7 +116,12 @@ public abstract class BaseEnemy extends GameEntity {
         if(health < 0) {
             aliveEnemies--;
             death();
+            addRewardsToPlayer();
         }
+    }
+
+    public void addRewardsToPlayer(){
+
     }
 
 

@@ -1,6 +1,7 @@
 package main.java.com.zegline.rpggame.GameEntity.Enemies;
 
 import main.java.com.zegline.rpggame.ChatGame;
+import main.java.com.zegline.rpggame.UserAvatar;
 
 import java.awt.*;
 
@@ -10,7 +11,10 @@ public class BasicEnemy extends BaseEnemy {
 
     private static final int DAMAGECONST = 2;
 
-
+    @Override
+    public void addRewardsToPlayer(){
+        UserAvatar.setMula(UserAvatar.getMula() + 20);
+    }
 
     public BasicEnemy(int x, int y, int level) {
         super(x,y,level, new String[]{"flyingeyeenemy/FloatingEyeEnemy.png", "flyingeyeenemy/FloatingEyeEnemyFlipped.png"},2);

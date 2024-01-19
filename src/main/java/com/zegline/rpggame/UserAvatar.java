@@ -27,7 +27,7 @@ public class UserAvatar {
 
     private BulletType currentBullet;
 
-    private static int mula;
+    public static int mula;
 
     public ShopOwner currentVendor = null;
 
