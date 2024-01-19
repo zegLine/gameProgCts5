@@ -4,6 +4,7 @@ import main.java.com.zegline.rpggame.GameEntity.Bullets.BulletFactory;
 import main.java.com.zegline.rpggame.GameEntity.Bullets.BulletType;
 import main.java.com.zegline.rpggame.GameEntity.GameEntity;
 import main.java.com.zegline.rpggame.GameEntity.ShopOwner;
+import main.java.com.zegline.rpggame.Items.BaseArmor;
 import main.java.com.zegline.rpggame.Items.Item;
 
 import javax.swing.*;
@@ -54,6 +55,8 @@ public class UserAvatar {
 
     public static Item item_in_hand = null;
 
+    public static BaseArmor armor_equipped = null;
+
     public int health;
 
     public int stamina;
@@ -97,6 +100,12 @@ public class UserAvatar {
         }
         //g.setColor(c);
         //g.fillRect(20, 20, health, 20);
+    }
+
+    public void equipArmor(BaseArmor armor) {
+        armor_equipped = armor;
+        items_equipped.remove(armor);
+        this.armor += armor_equipped.initialArmorBoost;
     }
 
     // Separate methods for moving the avatar in each direction
@@ -308,8 +317,21 @@ public class UserAvatar {
     }
 
     public void doDamage(int dmg){
+
         if(armor > 0) {
-            armor -= (dmg/2);
+            double multiplier = 1.0;
+            if (armor_equipped != null) {
+                // use equipped armor to reduce damage to main armor
+                multiplier = armor_equipped.armorMultiplier;
+                armor_equipped.armorHealth -= 5;
+
+                // destroy armor
+                if (armor_equipped.armorHealth < 0) {
+                    armor_equipped = null;
+                }
+            }
+            armor -= (int) ((dmg/2) * multiplier);
+
             return;
         }
         armor = 0;

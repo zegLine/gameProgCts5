@@ -80,6 +80,7 @@ public class ChatGame extends JFrame {
         //UserAvatar.items_equipped.add(shotGun);
         //new ShootingEnemy(1000,1800,1);
         //new BasicEnemy(1500,500,2);
+        UserAvatar.items_equipped.add(new DiamondArmor("diamondarmor", 100));
 
         List<Item> a = new ArrayList<>();
         a.add(basicGun);

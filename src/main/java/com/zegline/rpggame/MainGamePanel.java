@@ -401,6 +401,15 @@ public class MainGamePanel extends JPanel {
         g.fillRect(85, 58, ChatGame.max.armor, 10);
 
         drawItemInHand(g);
+
+        drawArmor(g);
+    }
+
+    private void drawArmor(Graphics g) {
+
+        if (UserAvatar.armor_equipped != null) {
+            UserAvatar.armor_equipped.draw(g);
+        }
     }
 
     private void drawItemInHand(Graphics g) {

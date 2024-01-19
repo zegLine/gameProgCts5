@@ -1,5 +1,6 @@
 package main.java.com.zegline.rpggame;
 
+import main.java.com.zegline.rpggame.Items.BaseArmor;
 import main.java.com.zegline.rpggame.Items.Item;
 
 import javax.swing.*;
@@ -11,8 +12,7 @@ import java.awt.*;
 import java.net.URL;
 import java.util.List;
 
-import static main.java.com.zegline.rpggame.UserAvatar.item_in_hand;
-import static main.java.com.zegline.rpggame.UserAvatar.items_equipped;
+import static main.java.com.zegline.rpggame.UserAvatar.*;
 
 public class World {
 
@@ -158,6 +158,13 @@ public class World {
     public static void equipItem(Item item) {
         for (Item i : items_equipped) {
             if (i == item) {
+                // If it is armor, we equip it differently
+                if (i instanceof BaseArmor) {
+                    ChatGame.max.equipArmor((BaseArmor) i);
+                    return;
+                }
+
+                // Else we put the item in hand
                 item_in_hand = i;
             }
         }
