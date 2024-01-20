@@ -53,15 +53,17 @@ public class EnemyFactory {
             rY = random.nextInt(boundY+50,boundY+500);
             rY *= random.nextInt(10) > 5 ? -1 : 1;
             counter = 0;
-            int n = random.nextInt() % enemyLevel % 3;
+            int n = random.nextInt() % enemyLevel % 4;
             switch(n){
                 case 0, 1:
                     new BasicEnemy(rX,rY,enemyLevel + random.nextInt() % 3);
                     break;
                 case 2:
-                    new ShootingEnemy(rX,rY, enemyLevel+ random.nextInt() % 3);
+                    new ShootingEnemy(rX,rY, enemyLevel - 2 + random.nextInt() % 3);
                     break;
-
+                case 3:
+                    new ChargingEnemy(rX,rY,enemyLevel - 3 + random.nextInt() % 2);
+                    break;
             }
         }
 

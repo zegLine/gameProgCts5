@@ -59,7 +59,7 @@ public abstract class BaseEnemy extends GameEntity {
         g.drawString(Integer.toString(15),(int)x,(int)y);
 
 
-        g.rotate(angleOfPlayer,(int)(this.x),(int)(this.y));
+        //g.rotate(angleOfPlayer,(int)(this.x),(int)(this.y));
         g.drawImage(sprite[state], (int) (x - radius), (int) (y - radius),radius * 2, radius * 2,null);
         //g.fillRect((int) (x - radius), (int) (y - radius), radius * 2, radius * 2);
 
