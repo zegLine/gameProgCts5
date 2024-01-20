@@ -68,6 +68,31 @@ public class Commands {
         return true;
     }
 
+    public static boolean god(String[] parameters) {
+        if(!ChatGame.debugMode) {
+            return false;
+        }
+        ChatGame.max.health = 999999;
+        return true;
+    }
+
+    public static boolean getAllWeapons(String[] parameters){
+        if(!ChatGame.debugMode) {
+            return false;
+        }
+        for (Item weapon:
+             ChatGame.WeaponsList) {
+            UserAvatar.items_equipped.add(weapon);
+        }
+        return true;
+    }
+    public static boolean getMoney(String[] parameters) {
+        if(!ChatGame.debugMode) {
+            return false;
+        }
+        UserAvatar.setMula(999999);
+        return true;
+    }
     public static boolean setWave(String[] parameters){
         if(!ChatGame.debugMode) {
             return false;
