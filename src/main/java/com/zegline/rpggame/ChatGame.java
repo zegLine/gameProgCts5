@@ -3,6 +3,7 @@ package main.java.com.zegline.rpggame;
 import main.java.com.zegline.rpggame.GameEntity.Bullets.EnemyBulletFactory;
 import main.java.com.zegline.rpggame.GameEntity.Enemies.BaseEnemy;
 import main.java.com.zegline.rpggame.GameEntity.Enemies.BasicEnemy;
+import main.java.com.zegline.rpggame.GameEntity.Enemies.ChargingEnemy;
 import main.java.com.zegline.rpggame.GameEntity.Enemies.EnemyFactory;
 import main.java.com.zegline.rpggame.GameEntity.GameEntity;
 import main.java.com.zegline.rpggame.GameEntity.ShopOwner;
@@ -56,7 +57,7 @@ public class ChatGame extends JFrame {
 
     public static boolean debugMode = false;
 
-
+    public static List<Item> WeaponsList;
 
 
     public ChatGame() {
@@ -76,25 +77,28 @@ public class ChatGame extends JFrame {
         BasicGun basicGun = new BasicGun("simplegun", 69);
         EnhancedGun enhancedGun = new EnhancedGun("enhancedgun", 120);
         ShotGun shotGun = new ShotGun("shotgun", 150);
+        RocketGun rocketGun = new RocketGun("rpg", 100);
         //UserAvatar.items_equipped.add(basicGun);
         //UserAvatar.items_equipped.add(enhancedGun);
         //UserAvatar.items_equipped.add(shotGun);
         //new ShootingEnemy(1000,1800,1);
-        new BasicEnemy(500,500,2);
+        //new BasicEnemy(500,500,2);
+        //new ChargingEnemy(1000,500,1);
 
 
         max.equipArmor(new BasicArmor("basicarmor", 100));
         UserAvatar.items_equipped.add(basicGun);
         UserAvatar.item_in_hand = basicGun;
 
-        List<Item> a = new ArrayList<>();
-        a.add(basicGun);
-        a.add(enhancedGun);
-        a.add(shotGun);
+        WeaponsList = new ArrayList<>();
+        WeaponsList.add(basicGun);
+        WeaponsList.add(enhancedGun);
+        WeaponsList.add(shotGun);
+        WeaponsList.add(rocketGun);
         //a.add(new BasicGun("basegun", 69, "basic_gun.png"));
         //a.add(new Item("arfifteen", 500));
-        new ShopOwner(110, 90, 100, "Heyo", a, "basic_shopowner.jpg");
-        new ShopOwner(550, 100, 150, "Captain", a, "wanderer.jpg");
+        new ShopOwner(110, 90, 100, "Heyo", WeaponsList, "basic_shopowner.jpg");
+        new ShopOwner(550, 100, 150, "Captain", WeaponsList, "wanderer.jpg");
 
         currentWave = 0;
         waveOngoing = false;
@@ -110,7 +114,12 @@ public class ChatGame extends JFrame {
         CommandHandler.initCommand("color", Commands::color);
         CommandHandler.initCommand("equip", Commands::equip);
         CommandHandler.initCommand("unequip", Commands::unequip);
+
+        //cheats
+        CommandHandler.initCommand("iddqd", Commands::god);
         CommandHandler.initCommand("setwave", Commands::setWave);
+        CommandHandler.initCommand("moneypls", Commands::getMoney);
+        CommandHandler.initCommand("idfa", Commands::getAllWeapons);
 
         drawingPanel = new MainGamePanel();
         add(drawingPanel);
