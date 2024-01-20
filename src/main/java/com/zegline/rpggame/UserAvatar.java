@@ -35,6 +35,13 @@ public class UserAvatar {
     public boolean canStartWave = false;
     private double runFactor;
 
+    enum AnimationState{
+        UP,DOWN,LEFT,RIGHT
+    }
+    AnimationState as = AnimationState.RIGHT;;
+    AnimationState prevAs = AnimationState.UP;
+    int animationCounter = 0;
+
     public static boolean enoughMoneyAndBuy(int amount) {
         if (amount > mula) return false;
 
@@ -105,7 +112,7 @@ public class UserAvatar {
     public void equipArmor(BaseArmor armor) {
         armor_equipped = armor;
         items_equipped.remove(armor);
-        this.armor += armor_equipped.initialArmorBoost;
+        this.armor = armor_equipped.armorHealth;
     }
 
     // Separate methods for moving the avatar in each direction
@@ -181,13 +188,6 @@ public class UserAvatar {
 
     }
 
-    enum AnimationState{
-        UP,DOWN,LEFT,RIGHT
-    }
-    AnimationState as = AnimationState.RIGHT;;
-    AnimationState prevAs = AnimationState.UP;
-
-    int animationCounter = 0;
     private void handleAnimation(boolean[] arrowKeyPressed) {
 
 
@@ -199,7 +199,6 @@ public class UserAvatar {
             if(arrowKeyPressed[2]) {
                 as = AnimationState.UP;
                 if(as != prevAs) {
-                    System.out.println("UP change");
 
                     prevAs = as;
                     sprite_used = 4;
@@ -215,7 +214,6 @@ public class UserAvatar {
             } else if (arrowKeyPressed[3]) {
                 as = AnimationState.DOWN;
                 if(as != prevAs) {
-                    System.out.println("DOWN change");
 
                     prevAs = as;
                     sprite_used = 0;
@@ -235,7 +233,6 @@ public class UserAvatar {
             if(arrowKeyPressed[0]) {
                 as = AnimationState.LEFT;
                 if(as != prevAs) {
-                    System.out.println("LEFT change");
 
                     prevAs = as;
                     sprite_used = 12;
@@ -251,7 +248,6 @@ public class UserAvatar {
             } else if (arrowKeyPressed[1]) {
                 as = AnimationState.RIGHT;
                 if(as != prevAs) {
-                    System.out.println("RIGHT change");
 
                     prevAs = as;
                     sprite_used = 8;
@@ -308,7 +304,6 @@ public class UserAvatar {
 
             ChatGame.mouseClicked = false;
             System.out.println("player mouse clicked");
-
             //new BulletFactory().shoot(currentBullet);
             if (item_in_hand != null) {
                 item_in_hand.act();
@@ -318,22 +313,26 @@ public class UserAvatar {
 
     public void doDamage(int dmg){
 
-        if(armor > 0) {
+
             double multiplier = 1.0;
             if (armor_equipped != null) {
                 // use equipped armor to reduce damage to main armor
+
                 multiplier = armor_equipped.armorMultiplier;
-                armor_equipped.armorHealth -= 5;
+
+                armor_equipped.armorHealth -= (int)((dmg/2) * multiplier);
 
                 // destroy armor
                 if (armor_equipped.armorHealth < 0) {
                     armor_equipped = null;
                 }
+                System.out.println("armor damge: " + (int)((dmg/2) * multiplier));
+                armor -= (int) ((dmg/2) * multiplier);
+                return;
             }
-            armor -= (int) ((dmg/2) * multiplier);
 
-            return;
-        }
+
+
         armor = 0;
         health -= dmg;
         if(health < 0 ){

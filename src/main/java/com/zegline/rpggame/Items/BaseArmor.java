@@ -26,6 +26,6 @@ public abstract class BaseArmor extends Item {
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(texture,25 , 600, 32, 32,null);
+        g.drawImage(texture,120 , 70, 32, 32,null);
     }
 }
