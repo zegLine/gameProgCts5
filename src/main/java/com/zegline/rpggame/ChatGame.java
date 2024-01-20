@@ -15,6 +15,9 @@ import java.net.URL;
 import java.util.*;
 import java.util.List;
 
+import static main.java.com.zegline.rpggame.SoundEngine.FIGHT_SONG_QUEUE;
+import static main.java.com.zegline.rpggame.SoundEngine.MAIN_SONG_QUEUE;
+
 
 public class ChatGame extends JFrame {
 
@@ -68,6 +71,9 @@ public class ChatGame extends JFrame {
         setSize(screenWidth, screenHeight);
         setResizable(false);
 
+        SoundEngine.addToQueue("musical/test.wav", MAIN_SONG_QUEUE);
+        SoundEngine.addToQueue("musical/test2.wav", FIGHT_SONG_QUEUE);
+        SoundEngine.play(MAIN_SONG_QUEUE);
         // Load map
         // Get the resource URL for the image
         ClassLoader classLoader = ChatGame.class.getClassLoader();

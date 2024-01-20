@@ -10,12 +10,13 @@ public class Waves {
         ChatGame.waveOngoing = true;
         ChatGame.currentWave++;
         new EnemyFactory(ChatGame.currentWave,false, 10 + ChatGame.currentWave * 2);
-
+        SoundEngine.play(SoundEngine.FIGHT_SONG_QUEUE);
 
     }
 
     public static void finishWave(){
         ChatGame.waveOngoing = false;
+        SoundEngine.play(SoundEngine.MAIN_SONG_QUEUE);
     }
 
 }

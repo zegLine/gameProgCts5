@@ -49,6 +49,7 @@ public class Input {
 
             if (keyCode == KeyEvent.VK_X && ChatGame.max.canStartWave) {
                 Waves.startWave();
+
             }
 
             // Debug mode toggle
@@ -60,9 +61,11 @@ public class Input {
                 switch (MainGamePanel.currentGameState) {
                     case GAMEPLAY -> {
                         MainGamePanel.currentGameState = MainGamePanel.GameState.PAUSE_MENU;
+                        SoundEngine.pause();
                     }
                     case PAUSE_MENU -> {
                         MainGamePanel.currentGameState = MainGamePanel.GameState.GAMEPLAY;
+                        SoundEngine.resume();
                     }
                     case DEATH_SCREEN -> {
                         MainGamePanel.currentGameState = MainGamePanel.GameState.MAIN_MENU;
