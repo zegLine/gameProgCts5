@@ -74,7 +74,7 @@ public abstract class Bullet extends GameEntity {
         this.handleCollision();
     }
 
-    private void handleCollision() {
+    protected void handleCollision() {
         if (x > ChatGame.screenWidth || x < 0 || y > ChatGame.screenHeight || y < 0) {
             //System.out.println("bullet dead");
             this.death();
@@ -97,6 +97,7 @@ public abstract class Bullet extends GameEntity {
                 System.out.println("hit");
                 enemy.doDamage(damage);
                 death();
+                break;
             }
         }
     }

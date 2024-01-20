@@ -36,6 +36,9 @@ public class BulletFactory {
             case BURST -> {
 
             }
+            case ROCKET -> {
+                new RocketBullet(ChatGame.max.getX(), ChatGame.max.getY(), angle);
+            }
         }
     }
 

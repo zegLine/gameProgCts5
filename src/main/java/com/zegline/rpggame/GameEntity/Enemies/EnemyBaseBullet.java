@@ -13,7 +13,7 @@ public class EnemyBaseBullet extends Bullet {
         this.handleCollision();
     }
 
-    private void handleCollision() {
+    protected void handleCollision() {
         if (this.x > ChatGame.screenWidth || this.x < 0 || this.y > ChatGame.screenHeight || this.y < 0) {
             //System.out.println("bullet dead");
             this.death();

@@ -6,6 +6,6 @@ public enum BulletType {
     BIGGUN,
     BURST,
 
-    SHOOTING_ENEMY
+    ROCKET, SHOOTING_ENEMY
 
 }
