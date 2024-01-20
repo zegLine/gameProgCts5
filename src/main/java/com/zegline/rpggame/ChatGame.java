@@ -2,6 +2,7 @@ package main.java.com.zegline.rpggame;
 
 import main.java.com.zegline.rpggame.GameEntity.Bullets.EnemyBulletFactory;
 import main.java.com.zegline.rpggame.GameEntity.Enemies.BaseEnemy;
+import main.java.com.zegline.rpggame.GameEntity.Enemies.BasicEnemy;
 import main.java.com.zegline.rpggame.GameEntity.Enemies.EnemyFactory;
 import main.java.com.zegline.rpggame.GameEntity.GameEntity;
 import main.java.com.zegline.rpggame.GameEntity.ShopOwner;
@@ -79,8 +80,12 @@ public class ChatGame extends JFrame {
         //UserAvatar.items_equipped.add(enhancedGun);
         //UserAvatar.items_equipped.add(shotGun);
         //new ShootingEnemy(1000,1800,1);
-        //new BasicEnemy(1500,500,2);
-        UserAvatar.items_equipped.add(new DiamondArmor("diamondarmor", 100));
+        new BasicEnemy(500,500,2);
+
+
+        max.equipArmor(new BasicArmor("basicarmor", 100));
+        UserAvatar.items_equipped.add(basicGun);
+        UserAvatar.item_in_hand = basicGun;
 
         List<Item> a = new ArrayList<>();
         a.add(basicGun);
@@ -105,6 +110,7 @@ public class ChatGame extends JFrame {
         CommandHandler.initCommand("color", Commands::color);
         CommandHandler.initCommand("equip", Commands::equip);
         CommandHandler.initCommand("unequip", Commands::unequip);
+        CommandHandler.initCommand("setwave", Commands::setWave);
 
         drawingPanel = new MainGamePanel();
         add(drawingPanel);
