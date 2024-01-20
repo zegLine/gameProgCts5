@@ -169,15 +169,24 @@ public class MainGamePanel extends JPanel {
         g.setFont(new Font("Arial", Font.PLAIN, 14));
 
         g.drawString("DBG MODE",getWidth() - 150, 240);
-        g.drawString("MS XY " + ChatGame.mouseX + " " + ChatGame.mouseY,getWidth() - 150, 250);
-        g.drawString("GS " + currentGameState,getWidth() - 150, 270);
+        int initial_y = 250;
+        g.drawString("MS XY " + ChatGame.mouseX + " " + ChatGame.mouseY,getWidth() - 150, initial_y);
+        initial_y += 20;
+        g.drawString("GS " + currentGameState,getWidth() - 150, initial_y);
+        initial_y += 20;
         String waveActive;
         if (ChatGame.waveOngoing) waveActive = "ACTV"; else waveActive = "INAC";
-        g.drawString("WV " + ChatGame.currentWave + "(" + waveActive + ")",getWidth() - 150, 290);
-        g.drawString("CAN STR WAVE " + ChatGame.max.canStartWave,getWidth() - 150, 310);
+        g.drawString("WV " + ChatGame.currentWave + "(" + waveActive + ")",getWidth() - 150, initial_y);
+        initial_y += 20;
+        g.drawString("CAN STR WAVE " + ChatGame.max.canStartWave,getWidth() - 150, initial_y);
+        initial_y += 20;
+        g.drawString("ARMOR Health" + ChatGame.max.armor, getWidth() - 150, initial_y);
+        initial_y += 20;
         if (ChatGame.enemyFactory != null) {
-            g.drawString("ENM RMN " + ChatGame.enemyFactory.enemiesRemaining,getWidth() - 150, 330);
-            g.drawString("ENM ALV " + BaseEnemy.aliveEnemies ,getWidth() - 150, 350);
+            g.drawString("ENM RMN " + ChatGame.enemyFactory.enemiesRemaining,getWidth() - 150, initial_y);
+            initial_y += 20;
+            g.drawString("ENM ALV " + BaseEnemy.aliveEnemies ,getWidth() - 150, initial_y);
+            initial_y += 20;
         }
 
         // Undo color and font
@@ -367,7 +376,7 @@ public class MainGamePanel extends JPanel {
 
     private void checkWaveFinishedLoop() {
         if (ChatGame.enemyFactory != null) {
-            System.out.println(BaseEnemy.aliveEnemies);
+            //System.out.println(BaseEnemy.aliveEnemies);
             if (ChatGame.enemyFactory.enemiesRemaining == 0 && ChatGame.waveOngoing) {
 
                 Waves.finishWave();
