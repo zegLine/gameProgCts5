@@ -68,6 +68,26 @@ public class Commands {
         return true;
     }
 
+    public static boolean setWave(String[] parameters){
+        if(!ChatGame.debugMode) {
+            return false;
+        }
+        System.out.println("pog");
+        if(parameters.length >= 1){
+            int waveToSet = 1;
+            try{
+                waveToSet = Integer.parseInt(parameters[0]);
+            }catch (NumberFormatException e) {
+                // Handle the exception here
+                // For example, you can log the error or take appropriate actions
+                System.out.println("Error: Unable to parse integer from the given parameter");
+                e.printStackTrace(); // This line prints the stack trace for debugging purposes
+            }
+            ChatGame.currentWave = waveToSet;
+        }
+         return true;
+    }
+
     public static boolean color(String[] parameters) {
         if (parameters.length >= 1) {
             String colorToSet = parameters[0].toLowerCase(); // Convert to lowercase for case-insensitive comparison

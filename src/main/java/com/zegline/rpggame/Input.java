@@ -86,7 +86,7 @@ public class Input {
                         }
                         break;
                     default:
-                        if((keyCode >= KeyEvent.VK_A && keyCode <= KeyEvent.VK_Z) || keyCode == KeyEvent.VK_SPACE) {
+                        if((keyCode >= KeyEvent.VK_0 && keyCode <= KeyEvent.VK_Z) || keyCode == KeyEvent.VK_SPACE) {
                             char keyChar = e.getKeyChar();
                             handleInput(keyChar);
                         }
