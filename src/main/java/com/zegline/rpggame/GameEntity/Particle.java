@@ -21,7 +21,7 @@ public class Particle extends GameEntity {
         this.color = color;
         this.sizeSubparticle = sizeSubparticle;
         this.animationTime = animationTime;
-        this.velocidad = 3;
+        this.velocidad = 1;
         this.numParticles = (int) (Math.random() * 10);
         this.alpha = 255; // Fully opaque
 
@@ -29,7 +29,22 @@ public class Particle extends GameEntity {
         startAnimation();
     }
 
-    private void startAnimation() {
+    public Particle(int x, int y, int radius, int sizeSubparticle, Color color, long animationTime, boolean addToList) {
+        super(x,y,addToList);
+        this.radius = radius;
+        this.color = color;
+        this.sizeSubparticle = sizeSubparticle;
+        this.animationTime = animationTime;
+        this.velocidad = 1;
+        this.numParticles = (int) (Math.random() * 10);
+        this.alpha = 255; // Fully opaque
+
+
+        //startAnimation();
+    }
+
+    public void startAnimation() {
+        this.animationTimer = new Timer();
         TimerTask animationTask = new TimerTask() {
             @Override
             public void run() {
@@ -49,7 +64,7 @@ public class Particle extends GameEntity {
                 }
             }
         };
-        animationTimer.scheduleAtFixedRate(drawTask, 0, 50); // Draw every 50 milliseconds
+        animationTimer.scheduleAtFixedRate(drawTask, 0, 10);
     }
 
     @Override
@@ -73,7 +88,7 @@ public class Particle extends GameEntity {
             }
 
             // Decrease alpha to make the particle fade out
-            alpha -= 5;
+            alpha -= 2;
         }
     }
 
@@ -85,7 +100,7 @@ public class Particle extends GameEntity {
             radius += velocidad;
 
             // Decrease alpha to make the particle fade out
-            alpha -= 5;
+            alpha -= 2;
         }
     }
 

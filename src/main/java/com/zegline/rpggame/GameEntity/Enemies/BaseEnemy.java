@@ -125,7 +125,7 @@ public abstract class BaseEnemy extends GameEntity {
 
             death();
 
-            MainGamePanel.entitiesToSpawn.add(new Particle((int)x, (int)y, 10, 20, Color.RED, 2000));
+            MainGamePanel.entitiesToSpawn.add(new Particle((int)x, (int)y, 10, 20, Color.RED, 3000));
 
             addRewardsToPlayer();
         }

@@ -58,7 +58,7 @@ public class Input {
             // Debug mode toggle
             if (keyCode == KeyEvent.VK_DELETE) {
                 ChatGame.debugMode = !ChatGame.debugMode;
-                new ParticleFactory((int) 500, (int) 500, 10, 20,Color.RED, 2000).spawn();
+                new Particle((int) 500, (int) 500, 10, 20,Color.RED, 2000, true);
             }
 
             if (keyCode == KeyEvent.VK_ESCAPE) {

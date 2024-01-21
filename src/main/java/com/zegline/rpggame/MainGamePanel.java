@@ -3,6 +3,7 @@ package main.java.com.zegline.rpggame;
 import main.java.com.zegline.rpggame.GameEntity.Enemies.BaseEnemy;
 import main.java.com.zegline.rpggame.GameEntity.Enemies.EnemyFactory;
 import main.java.com.zegline.rpggame.GameEntity.GameEntity;
+import main.java.com.zegline.rpggame.GameEntity.Particle;
 import main.java.com.zegline.rpggame.GameEntity.ShopOwner;
 
 import javax.swing.*;
@@ -15,7 +16,7 @@ import java.util.List;
 
 public class MainGamePanel extends JPanel {
 
-
+    private final Object gameEntityLOCK = new Object();
 
     Image bg;
     Image startBtn;
@@ -98,7 +99,7 @@ public class MainGamePanel extends JPanel {
 
     }
 
-    private synchronized void drawShopScreen(Graphics g) {
+    private void drawShopScreen(Graphics g) {
         World.drawShop(g);
 
         //Draw loop for GameEntities
@@ -228,12 +229,15 @@ public class MainGamePanel extends JPanel {
         ChatGame.max.draw(g);
 
         //Draw loop for GameEntities
-        Iterator<GameEntity> iterator = ChatGame.gameEntityList.iterator();
-        while (iterator.hasNext()) {
-            GameEntity entity = iterator.next();
-            if (entity instanceof ShopOwner) continue;
-            entity.draw(g);
+        synchronized (gameEntityLOCK) {
+            Iterator<GameEntity> iterator = ChatGame.gameEntityList.iterator();
+            while (iterator.hasNext()) {
+                GameEntity entity = iterator.next();
+                if (entity instanceof ShopOwner) continue;
+                entity.draw(g);
+            }
         }
+
 
 
 
@@ -372,8 +376,16 @@ public class MainGamePanel extends JPanel {
 
         }
 
+        synchronized (gameEntityLOCK) {
+            ChatGame.gameEntityList.addAll(entitiesToSpawn);
+            for (GameEntity e : entitiesToSpawn) {
+                if (e instanceof Particle) {
+                    ((Particle) e).startAnimation();
+                }
+            }
+            entitiesToSpawn = new ArrayList<>();
+        }
 
-        ChatGame.gameEntityList.addAll(entitiesToSpawn);
 
         shootPlayerLoop();
         
