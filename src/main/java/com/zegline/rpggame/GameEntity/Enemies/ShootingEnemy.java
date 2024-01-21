@@ -122,13 +122,6 @@ public class ShootingEnemy extends BaseEnemy {
 
     }
 
-    public void doDamage(int damage) {
-        this.health -= damage;
-        if(health < 0) {
-            death();
-        }
-    }
-
 
 
 }
