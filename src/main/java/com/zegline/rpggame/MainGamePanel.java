@@ -376,6 +376,14 @@ public class MainGamePanel extends JPanel {
 
         }
 
+        // I do NOT want to mess with this code,...
+        // I spent around 2 hours here, I could have done so much more
+        // This code has singlehandedly made me question my life decisions.
+        // At this point, I m not even sure if life is worth living anymore
+        // Bye cruel world,
+        // if you need to modify something here, or god FORBID a bug,
+        // godspeed, warrior, alhamdulilah
+        //
         synchronized (gameEntityLOCK) {
             ChatGame.gameEntityList.addAll(entitiesToSpawn);
             for (GameEntity e : entitiesToSpawn) {
