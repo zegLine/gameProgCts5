@@ -1,7 +1,10 @@
 package main.java.com.zegline.rpggame;
 
 import com.sun.tools.javac.Main;
+import main.java.com.zegline.rpggame.GameEntity.Particle;
+import main.java.com.zegline.rpggame.GameEntity.ParticleFactory;
 
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -55,6 +58,7 @@ public class Input {
             // Debug mode toggle
             if (keyCode == KeyEvent.VK_DELETE) {
                 ChatGame.debugMode = !ChatGame.debugMode;
+                new ParticleFactory((int) 500, (int) 500, 10, 20,Color.RED, 2000).spawn();
             }
 
             if (keyCode == KeyEvent.VK_ESCAPE) {

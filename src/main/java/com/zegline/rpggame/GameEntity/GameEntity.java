@@ -1,9 +1,11 @@
 package main.java.com.zegline.rpggame.GameEntity;
 
 import main.java.com.zegline.rpggame.ChatGame;
+import main.java.com.zegline.rpggame.GameEntity.Enemies.BaseEnemy;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class GameEntity {
     protected double speed;
@@ -14,12 +16,22 @@ public abstract class GameEntity {
     protected double y;
     protected int damage;
     protected int radius;
+
     private ArrayList<GameEntity> parentList;
 
     public GameEntity(int x, int y) {
         this.x = x;
         this.y = y;
         setParentList(ChatGame.gameEntityList);
+    }
+
+    public GameEntity(int x, int y, boolean addToList) {
+        this.x = x;
+        this.y = y;
+        if (addToList) {
+            setParentList(ChatGame.gameEntityList);
+        }
+
     }
 
     public void setParentList(ArrayList<GameEntity> parentList) {

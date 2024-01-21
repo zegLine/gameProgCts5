@@ -2,6 +2,9 @@ package main.java.com.zegline.rpggame.GameEntity.Enemies;
 
 import main.java.com.zegline.rpggame.ChatGame;
 import main.java.com.zegline.rpggame.GameEntity.GameEntity;
+import main.java.com.zegline.rpggame.GameEntity.Particle;
+import main.java.com.zegline.rpggame.GameEntity.ParticleFactory;
+import main.java.com.zegline.rpggame.MainGamePanel;
 import main.java.com.zegline.rpggame.UserAvatar;
 import main.java.com.zegline.rpggame.World;
 
@@ -36,6 +39,7 @@ public abstract class BaseEnemy extends GameEntity {
     protected double angleOfPlayer;
 
     public static int aliveEnemies;
+
 
     public BaseEnemy(int x, int y, int level, String[] texture,int numOfSprite) {
         super(x,y);
@@ -113,11 +117,19 @@ public abstract class BaseEnemy extends GameEntity {
 
     public void doDamage(int damage) {
         this.health -= damage;
+
+
+
         if(health < 0) {
             aliveEnemies--;
+
             death();
+
+            MainGamePanel.entitiesToSpawn.add(new Particle((int)x, (int)y, 10, 20, Color.RED, 2000));
+
             addRewardsToPlayer();
         }
+
     }
 
     public void addRewardsToPlayer(){

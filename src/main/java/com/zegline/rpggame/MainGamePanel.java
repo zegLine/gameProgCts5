@@ -9,7 +9,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class MainGamePanel extends JPanel {
 
@@ -39,6 +41,8 @@ public class MainGamePanel extends JPanel {
     public static GameState currentGameState;
 
     private boolean showCredits = false;
+
+    public static List<GameEntity> entitiesToSpawn = new ArrayList<>();
 
     private static final int TARGET_FPS = 120; // Target frames per second
     private static final long TARGET_TIME = 1000000000 / TARGET_FPS; // Target time per frame in nanoseconds
@@ -94,7 +98,7 @@ public class MainGamePanel extends JPanel {
 
     }
 
-    private void drawShopScreen(Graphics g) {
+    private synchronized void drawShopScreen(Graphics g) {
         World.drawShop(g);
 
         //Draw loop for GameEntities
@@ -359,11 +363,17 @@ public class MainGamePanel extends JPanel {
         if(ChatGame.enemyFactory != null) {
             ChatGame.enemyFactory.spawnEnemies();
         }
+
         Iterator<GameEntity> iterator = ChatGame.gameEntityList.iterator();
         while (iterator.hasNext()) {
             GameEntity enemy = iterator.next();
+
             enemy.update();
+
         }
+
+
+        ChatGame.gameEntityList.addAll(entitiesToSpawn);
 
         shootPlayerLoop();
         

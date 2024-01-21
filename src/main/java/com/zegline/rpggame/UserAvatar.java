@@ -362,7 +362,7 @@ public class UserAvatar {
 
     }
 
-    public void handleShopCollision() {
+    public synchronized void handleShopCollision() {
         Iterator<GameEntity> iterator = ChatGame.gameEntityList.iterator();
         while (iterator.hasNext()) {
             GameEntity entity = iterator.next();
