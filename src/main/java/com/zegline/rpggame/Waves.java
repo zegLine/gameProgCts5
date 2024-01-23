@@ -11,6 +11,7 @@ public class Waves {
         ChatGame.currentWave++;
         new EnemyFactory(ChatGame.currentWave,false, 10 + ChatGame.currentWave * 2);
         SoundEngine.play(SoundEngine.FIGHT_SONG_QUEUE);
+        ChatGame.max.health = 100;
 
     }
 
