@@ -199,23 +199,33 @@ public class MainGamePanel extends JPanel {
         g.setFont(prevFont);
     }
 
+    int startbuty = 250;
+    int startbutx = 315;
+    int addbuty = 165;
+
     private void drawMainMenu(Graphics g) {
         setBackground(Color.BLACK);
 
-        g.drawImage(bg, 0, 0, 1920, 1080, null);
+        g.drawImage(bg, 0, 0, ChatGame.screenWidth, ChatGame.screenHeight, null);
 
-        g.drawImage(startBtn, 200, 200, 300, 100, null);
-        g.drawImage(quitBtn, 200, 400, 300, 100, null);
-        g.drawImage(creditsBtn, 200, 600, 300, 100, null);
+        g.setFont(retroFont.deriveFont(35f));
 
+        g.drawString("START", startbutx, startbuty);
+        g.drawString("CREDITS", startbutx, startbuty + 1 * addbuty);
+        g.drawString("MUSIC OFF", startbutx, startbuty + 2 * addbuty);
+        g.drawString("QUIT", startbutx, startbuty + 3 * addbuty);
+
+        int creditsx = 950;
+        int creditsy = 300;
         if (showCredits) {
             g.setColor(Color.WHITE);
-            g.setFont(new Font("Arial", Font.BOLD, 32));
-            g.drawString("Osama al Kamel", 1400, 300);
-            g.drawString("Joshua Oldridge", 1400, 350);
-            g.drawString("Eugen-George Zdrincu", 1400, 400);
-            g.drawString("Firas Bazerbashi", 1400, 450);
-            g.drawString("Amjed", 1400, 500);
+            g.setFont(retroFont.deriveFont(23f));
+            g.drawString("Made by", creditsx, creditsy - 50);
+            g.drawString("Osama al Kamel", creditsx, creditsy);
+            g.drawString("Joshua Oldridge", creditsx, creditsy + 50);
+            g.drawString("Eugen George Zdrincu", creditsx, creditsy + 100);
+            g.drawString("Firas Bazerbashi", creditsx, creditsy + 150);
+            g.drawString("Amjed", creditsx, creditsy + 200);
         }
     }
 
@@ -339,17 +349,24 @@ public class MainGamePanel extends JPanel {
 
         if (ChatGame.mouseClicked) {
             ChatGame.mouseClicked = false;
-            if (ChatGame.mouseX > 200 && ChatGame.mouseX < 500 && ChatGame.mouseY > 200 && ChatGame.mouseY < 300) {
+            if (!(ChatGame.mouseX > startbutx - 50 && ChatGame.mouseX < startbutx + 32 * 6)) return;
+
+            if (ChatGame.mouseY > startbuty - 64 && ChatGame.mouseY < startbuty + 64) {
                 // START BUTTON CLICKED START GAME
                 currentGameState = GameState.GAMEPLAY;
             }
 
-            if (ChatGame.mouseX > 200 && ChatGame.mouseX < 500 && ChatGame.mouseY > 400 && ChatGame.mouseY < 500) {
+            if (ChatGame.mouseY > startbuty + addbuty * 1 - 64 && ChatGame.mouseY < startbuty + addbuty * 1 + 64) {
                 // CREDITS BUTTON CLICKED SHOW CREDITS
                 showCredits = !showCredits;
             }
 
-            if (ChatGame.mouseX > 200 && ChatGame.mouseX < 500 && ChatGame.mouseY > 600 && ChatGame.mouseY < 700) {
+            if (ChatGame.mouseY > startbuty + addbuty * 2 - 64 && ChatGame.mouseY < startbuty + addbuty * 2 + 64) {
+                // EXIT BUTTON CLICKED MUSIC ON OFF
+                SoundEngine.pause();
+            }
+
+            if (ChatGame.mouseY > startbuty + addbuty * 3 - 64 && ChatGame.mouseY < startbuty + addbuty * 3 + 64) {
                 // EXIT BUTTON CLICKED END GAME
                 System.exit(0);
             }
