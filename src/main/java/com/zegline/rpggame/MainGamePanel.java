@@ -208,18 +208,23 @@ public class MainGamePanel extends JPanel {
 
         g.drawImage(bg, 0, 0, ChatGame.screenWidth, ChatGame.screenHeight, null);
 
-        g.setFont(retroFont.deriveFont(35f));
+        g.setFont(retroFont.deriveFont(70f));
+        g.setColor(Color.PINK);
+        g.drawString("The end of Mike", 165, 80);
 
+        g.setFont(retroFont.deriveFont(35f));
+        g.setColor(Color.DARK_GRAY);
         g.drawString("START", startbutx, startbuty);
         g.drawString("CREDITS", startbutx, startbuty + 1 * addbuty);
         g.drawString("MUSIC OFF", startbutx, startbuty + 2 * addbuty);
         g.drawString("QUIT", startbutx, startbuty + 3 * addbuty);
 
-        int creditsx = 950;
+
+        int creditsx = 880;
         int creditsy = 300;
         if (showCredits) {
             g.setColor(Color.WHITE);
-            g.setFont(retroFont.deriveFont(23f));
+            g.setFont(retroFont.deriveFont(30f));
             g.drawString("Made by", creditsx, creditsy - 50);
             g.drawString("Osama al Kamel", creditsx, creditsy);
             g.drawString("Joshua Oldridge", creditsx, creditsy + 50);
