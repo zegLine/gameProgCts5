@@ -27,7 +27,7 @@ public class ShopOwner extends GameEntity {
     @Override
     public void draw(Graphics g) {
         //g.fillOval((int) x, (int) y, radius, radius);
-        g.drawImage(texture, (int) x + 40, (int) y + 40, 80, 80, null);
+        g.drawImage(texture, (int) x + 40, (int) y + 40, 60, 60, null);
 
         if (ChatGame.max.currentVendor == this) {
             g.setFont(retroFont.deriveFont(24.0f));

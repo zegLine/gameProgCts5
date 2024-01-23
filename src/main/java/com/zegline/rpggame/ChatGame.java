@@ -1,10 +1,7 @@
 package main.java.com.zegline.rpggame;
 
 import main.java.com.zegline.rpggame.GameEntity.Bullets.EnemyBulletFactory;
-import main.java.com.zegline.rpggame.GameEntity.Enemies.BaseEnemy;
-import main.java.com.zegline.rpggame.GameEntity.Enemies.BasicEnemy;
-import main.java.com.zegline.rpggame.GameEntity.Enemies.ChargingEnemy;
-import main.java.com.zegline.rpggame.GameEntity.Enemies.EnemyFactory;
+import main.java.com.zegline.rpggame.GameEntity.Enemies.*;
 import main.java.com.zegline.rpggame.GameEntity.GameEntity;
 import main.java.com.zegline.rpggame.GameEntity.Particle;
 import main.java.com.zegline.rpggame.GameEntity.ShopOwner;
@@ -81,19 +78,34 @@ public class ChatGame extends JFrame {
         URL mapurl = classLoader.getResource("level1.map");
         World.loadMap(mapurl.getPath());
         max = new UserAvatar(Color.PINK, 64, screenHeight-140,3, 32, new String[]{"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"}, 16);
-        BasicGun basicGun = new BasicGun("simplegun", 69);
-        EnhancedGun enhancedGun = new EnhancedGun("enhancedgun", 120);
-        ShotGun shotGun = new ShotGun("shotgun", 150);
-        RocketGun rocketGun = new RocketGun("rpg", 100);
+        BasicGun basicGun = new BasicGun("simplegun", 100);
+        EnhancedGun enhancedGun = new EnhancedGun("enhancedgun", 500);
+        ShotGun shotGun = new ShotGun("shotgun", 700);
+        RocketGun rocketGun = new RocketGun("rpg", 1000);
+
+
+
         //UserAvatar.items_equipped.add(basicGun);
         //UserAvatar.items_equipped.add(enhancedGun);
         //UserAvatar.items_equipped.add(shotGun);
-        //new ShootingEnemy(1000,1800,1);
+        //new ShootingEnemy(1000,800,1);
         //new BasicEnemy(500,500,2);
         //new ChargingEnemy(1000,500,1);
 
 
         max.equipArmor(new BasicArmor("basicarmor", 100));
+
+        BasicArmor weakArmour = new BasicArmor("basicarmor", 100);
+        IronArmor ironArmor = new IronArmor("ironarmor", 400);
+        DiamondArmor strongArmour = new DiamondArmor("diamondarmour", 1000);
+        HellArmor hellArmor = new HellArmor("hellarmor", 2000);
+
+        List<Item> armourList = new ArrayList<>();
+        armourList.add(weakArmour);
+        armourList.add(ironArmor);
+        armourList.add(strongArmour);
+        armourList.add(hellArmor);
+
         UserAvatar.items_equipped.add(basicGun);
         UserAvatar.item_in_hand = basicGun;
 
@@ -104,8 +116,8 @@ public class ChatGame extends JFrame {
         WeaponsList.add(rocketGun);
         //a.add(new BasicGun("basegun", 69, "basic_gun.png"));
         //a.add(new Item("arfifteen", 500));
-        new ShopOwner(110, 90, 100, "Heyo", WeaponsList, "basic_shopowner.jpg");
-        new ShopOwner(550, 100, 150, "Captain", WeaponsList, "wanderer.jpg");
+        new ShopOwner(90, 90, 100, "Ayyo come buy some guns", WeaponsList, "Shop1.png");
+        new ShopOwner(550, 100, 100, "Need any armour (loser)", armourList, "Shop2.png");
 
         currentWave = 0;
         waveOngoing = false;
