@@ -1,12 +1,9 @@
 package main.java.com.zegline.rpggame.GameEntity.Enemies;
 
-import main.java.com.zegline.rpggame.ChatGame;
+import main.java.com.zegline.rpggame.*;
 import main.java.com.zegline.rpggame.GameEntity.GameEntity;
 import main.java.com.zegline.rpggame.GameEntity.Particle;
 import main.java.com.zegline.rpggame.GameEntity.ParticleFactory;
-import main.java.com.zegline.rpggame.MainGamePanel;
-import main.java.com.zegline.rpggame.UserAvatar;
-import main.java.com.zegline.rpggame.World;
 
 import javax.swing.*;
 import java.awt.*;
@@ -124,6 +121,7 @@ public abstract class BaseEnemy extends GameEntity {
             aliveEnemies--;
 
             death();
+            SoundEngine.playOneShotEffect("sfx/die.wav");
 
             MainGamePanel.entitiesToSpawn.add(new Particle((int)x, (int)y, 10, 20, Color.RED, 3000));
 

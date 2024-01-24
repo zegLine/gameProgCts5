@@ -1,5 +1,6 @@
 package main.java.com.zegline.rpggame.Items;
 
+import main.java.com.zegline.rpggame.SoundEngine;
 import main.java.com.zegline.rpggame.World;
 
 import javax.swing.*;
@@ -14,6 +15,7 @@ public abstract class BaseGun extends Item {
     @Override
     public void act(){
         shoot();
+        SoundEngine.playOneShotEffect("sfx/shot.wav");
     }
 
     public BaseGun(String name, int cost, String texture_name) {

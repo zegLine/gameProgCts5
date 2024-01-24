@@ -25,7 +25,7 @@ public class ChargingEnemy extends BaseEnemy {
         super(x,y,level, new String[]{"chargin/mrchargin.png", "chargin/mrcharginflipped.png"},2);
         this.x = x;
         this.y = y;
-        this.speed = 3 + level/5;
+        this.speed = 3 + level/10;
         this.c = Color.RED;
 
         radius = 32;

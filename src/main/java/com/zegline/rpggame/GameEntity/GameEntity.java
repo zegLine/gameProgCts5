@@ -2,6 +2,7 @@ package main.java.com.zegline.rpggame.GameEntity;
 
 import main.java.com.zegline.rpggame.ChatGame;
 import main.java.com.zegline.rpggame.GameEntity.Enemies.BaseEnemy;
+import main.java.com.zegline.rpggame.SoundEngine;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -106,6 +107,7 @@ public abstract class GameEntity {
 
     protected void death() {
         ChatGame.deathList.push(this);
+
     }
 
 }
