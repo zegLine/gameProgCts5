@@ -71,24 +71,6 @@ public class ChatGame extends JFrame {
 
         SoundEngine.addToQueue("musical/test.wav", MAIN_SONG_QUEUE);
         SoundEngine.addToQueue("musical/test2.wav", FIGHT_SONG_QUEUE);
-        SoundEngine.addToQueue("musical/test.wav", MAIN_SONG_QUEUE);
-        SoundEngine.addToQueue("musical/test2.wav", FIGHT_SONG_QUEUE);
-        SoundEngine.addToQueue("musical/test.wav", MAIN_SONG_QUEUE);
-        SoundEngine.addToQueue("musical/test2.wav", FIGHT_SONG_QUEUE);
-        SoundEngine.addToQueue("musical/test.wav", MAIN_SONG_QUEUE);
-        SoundEngine.addToQueue("musical/test2.wav", FIGHT_SONG_QUEUE);
-        SoundEngine.addToQueue("musical/test.wav", MAIN_SONG_QUEUE);
-        SoundEngine.addToQueue("musical/test2.wav", FIGHT_SONG_QUEUE);
-        SoundEngine.addToQueue("musical/test.wav", MAIN_SONG_QUEUE);
-        SoundEngine.addToQueue("musical/test2.wav", FIGHT_SONG_QUEUE);
-        SoundEngine.addToQueue("musical/test.wav", MAIN_SONG_QUEUE);
-        SoundEngine.addToQueue("musical/test2.wav", FIGHT_SONG_QUEUE);
-        SoundEngine.addToQueue("musical/test.wav", MAIN_SONG_QUEUE);
-        SoundEngine.addToQueue("musical/test2.wav", FIGHT_SONG_QUEUE);
-        SoundEngine.addToQueue("musical/test.wav", MAIN_SONG_QUEUE);
-        SoundEngine.addToQueue("musical/test2.wav", FIGHT_SONG_QUEUE);
-        SoundEngine.addToQueue("musical/test.wav", MAIN_SONG_QUEUE);
-        SoundEngine.addToQueue("musical/test2.wav", FIGHT_SONG_QUEUE);
         SoundEngine.play(MAIN_SONG_QUEUE);
         // Load map
         // Get the resource URL for the image
