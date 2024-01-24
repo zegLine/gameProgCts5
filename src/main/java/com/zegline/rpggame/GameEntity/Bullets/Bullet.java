@@ -3,7 +3,9 @@ package main.java.com.zegline.rpggame.GameEntity.Bullets;
 import main.java.com.zegline.rpggame.ChatGame;
 import main.java.com.zegline.rpggame.GameEntity.Enemies.BaseEnemy;
 import main.java.com.zegline.rpggame.GameEntity.GameEntity;
+import main.java.com.zegline.rpggame.World;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.Iterator;
 
@@ -18,11 +20,13 @@ public abstract class Bullet extends GameEntity {
     protected int damage;
     protected int radius;
 
+    Image bulletImg;
+
 
     private static final int DAMAGECONST = 2;
 
 
-    public Bullet(int x, int y, double angle) {
+    public Bullet(int x, int y, double angle, String texture) {
         super(x, y);
         this.x = x;
         this.y = y;
@@ -34,12 +38,15 @@ public abstract class Bullet extends GameEntity {
         radius = 5;
 
         damage = DAMAGECONST;
+
+        bulletImg = new ImageIcon(World.class.getClassLoader().getResource("bullets/" + texture)).getImage();
     }
 
 
     public void draw(Graphics g) {
-        g.setColor(c);
-        g.fillRect((int) (x - radius), (int) (y - radius), radius * 2, radius * 2);
+        //g.setColor(c);
+        //g.fillRect((int) (x - radius), (int) (y - radius), radius * 2, radius * 2);
+        g.drawImage(bulletImg,(int) (x - radius), (int) (y - radius),null);
     }
 
     // Separate methods for moving the avatar in each direction

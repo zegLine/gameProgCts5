@@ -10,7 +10,7 @@ public class RocketBullet extends Bullet {
 
     int damageRadius = 100;
     public RocketBullet(int x, int y, double angle) {
-        super(x, y, angle);
+        super(x, y, angle,"bullet4.png");
         this.speed = 12;
         this.damage = 10;
         this.radius = 12;

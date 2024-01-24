@@ -160,7 +160,7 @@ public class UserAvatar {
 
         } else {
             runFactor = 1.0;
-            if (new Random().nextInt(11) > 9) {
+            if (new Random().nextInt(20) > 18) {
                 stamina = stamina > 99 ? stamina : stamina + 1;
 
             }

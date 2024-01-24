@@ -4,6 +4,6 @@ public class BasicBullet extends Bullet {
 
 
     public BasicBullet(int x, int y, double angle) {
-        super(x, y, angle);
+        super(x, y, angle,"bullet1.png");
     }
 }

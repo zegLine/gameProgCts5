@@ -13,7 +13,7 @@ public class BasicEnemy extends BaseEnemy {
 
     @Override
     public void addRewardsToPlayer(){
-        UserAvatar.setMula(UserAvatar.getMula() + 20);
+        UserAvatar.setMula(UserAvatar.getMula() + (2* level));
     }
 
     public BasicEnemy(int x, int y, int level) {

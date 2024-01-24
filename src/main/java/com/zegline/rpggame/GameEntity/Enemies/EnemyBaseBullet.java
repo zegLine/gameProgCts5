@@ -5,7 +5,7 @@ import main.java.com.zegline.rpggame.GameEntity.Bullets.Bullet;
 
 public class EnemyBaseBullet extends Bullet {
     public EnemyBaseBullet(int x, int y, double angle) {
-        super(x, y, angle);
+        super(x, y, angle,"bullet1.png");
     }
 
     public void update() {

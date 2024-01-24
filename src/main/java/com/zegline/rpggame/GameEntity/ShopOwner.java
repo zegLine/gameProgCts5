@@ -41,7 +41,9 @@ public class ShopOwner extends GameEntity {
             for (Item i : items) {
                 startingY += 15;
                 g.setFont(retroFont.deriveFont(18.0f));
+
                 g.drawString(i.name, (int) x + radius, startingY);
+                g.drawString(String.valueOf(i.cost) ,(int) x + radius + 150, startingY);
             }
 
         }
